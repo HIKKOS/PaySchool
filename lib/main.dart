@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hola_mundo/pages/Home.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const HomePage());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,5 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//Noe
-//agregado este texto
