@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hola_mundo/pages/layout_service.dart';
 
 import '../core/enties/service.dart';
 import '../data/repositories/app_colors.dart';
@@ -10,33 +12,49 @@ class CardItemService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: createTrailinItem(service),
-        title: Text(service.name),
-        subtitle: Text("\$${service.cost}"),
-        trailing: const Icon(Icons.arrow_right_alt),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: createListTileItem(context, service),
       ),
     );
   }
 
   createListTileItem(BuildContext context, Service service) => ListTile(
         leading: createTrailinItem(service),
-        title: Text(service.name),
+        title: Padding(padding:const EdgeInsets.symmetric( vertical: 5),
+            child: Text(service.name),
+         ),
         subtitle: Text("\$${service.cost}"),
-        trailing: const Icon(Icons.arrow_right_alt),
+        trailing: SvgPicture.asset(
+                  'assets/icons/backArrow.svg',
+                  height: 20,
+                  width: 20,
+                ),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LayaoutService(service: service)),
+            ),
+         // 
       );
 
   Container createTrailinItem(Service service) {
     return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
+      width: 80,
+      height: 80,
+      decoration: const BoxDecoration(
         color: AppColors.primary,
         shape: BoxShape.circle,
-        image: DecorationImage(
-            image: NetworkImage(service.urlIcon), fit: BoxFit.contain),
       ),
+      child: imageIcon(service),
+    );
+  }
+
+  FadeInImage imageIcon(Service service) {
+    return FadeInImage.assetNetwork(
+      placeholder: 'assets/images/loading.gif',
+      image: service.urlIcon,
+      fit: BoxFit.contain,
     );
   }
 }

@@ -16,13 +16,19 @@ class ListService extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: services.length,
-      itemBuilder: (BuildContext context, int index) => CardItemService(
-        service: services[index],
+      itemBuilder: (BuildContext context, int index) => Column(
+        children: [
+          CardItemService(
+            service: services[index],
+          ),
+          const SizedBox(height: 15),
+        ],
       ),
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
+        horizontal: 15,
         vertical: 15,
       ),
+
       physics: const BouncingScrollPhysics(),
     );
   }
