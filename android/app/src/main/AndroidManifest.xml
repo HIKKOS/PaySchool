@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hola_mundo">
+    package="com.NGP.PaySchool">
    <application
-        android:label="hola_mundo"
+        android:label="PaySchool"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
