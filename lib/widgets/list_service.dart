@@ -19,7 +19,7 @@ class ListService extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) => Column(
         children: [
           CardItemService(
-            service: services[index],
+            service: services[index], icon: 'assets/icons/backArrow.svg',
           ),
           const SizedBox(height: 15),
         ],

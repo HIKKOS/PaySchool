@@ -7,7 +7,8 @@ import '../data/repositories/app_colors.dart';
 
 class CardItemService extends StatelessWidget {
   final Service service;
-  const CardItemService({super.key, required this.service});
+  final String icon;
+  const CardItemService({super.key, required this.service, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -21,40 +22,46 @@ class CardItemService extends StatelessWidget {
   }
 
   createListTileItem(BuildContext context, Service service) => ListTile(
-        leading: createTrailinItem(service),
-        title: Padding(padding:const EdgeInsets.symmetric( vertical: 5),
-            child: Text(service.name),
-         ),
+        leading: SvgPicture.asset(
+          service.urlIcon,
+          height: 60,
+          width: 60,
+        ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(service.name),
+        ),
         subtitle: Text("\$${service.cost}"),
         trailing: SvgPicture.asset(
-                  'assets/icons/backArrow.svg',
-                  height: 20,
-                  width: 20,
-                ),
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LayaoutService(service: service)),
-            ),
-         // 
+          icon,
+          height: 20,
+          width: 20,
+        ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LayaoutService(service: service)),
+        ),
+        //
       );
 
-  Container createTrailinItem(Service service) {
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: const BoxDecoration(
-        color: AppColors.primary,
-        shape: BoxShape.circle,
-      ),
-      child: imageIcon(service),
-    );
-  }
+  // Container createTrailinItem(Service service) {
+  //   return Container(
+  //     width: 80,
+  //     height: 80,
+  //     decoration: const BoxDecoration(
+  //       color: AppColors.primary,
+  //       shape: BoxShape.circle,
+  //     ),
+  //     child: imageIcon(service),
+  //   );
+  // }
 
-  FadeInImage imageIcon(Service service) {
-    return FadeInImage.assetNetwork(
-      placeholder: 'assets/images/loading.gif',
-      image: service.urlIcon,
-      fit: BoxFit.contain,
-    );
-  }
+  // FadeInImage imageIcon(Service service) {
+  //   return FadeInImage.assetNetwork(
+  //     placeholder: 'assets/images/loading.gif',
+  //     image: service.urlIcon,
+  //     fit: BoxFit.contain,
+  //   );
+  // }
 }

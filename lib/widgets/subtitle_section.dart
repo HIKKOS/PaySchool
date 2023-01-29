@@ -7,9 +7,12 @@ class SubtitleSection extends StatelessWidget {
   const SubtitleSection({
     Key? key,
     required this.subtitle,
+    required this.color, required this.fontsize,
   }) : super(key: key);
 
   final String subtitle;
+  final Color color;
+  final double fontsize;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +21,8 @@ class SubtitleSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
       child: Text(
         '$subtitle',
-        style: const TextStyle(
-            color: AppColors.primary,
-            fontSize: 20,
-          ),
+        style:
+            TextStyle(color: color, fontSize: fontsize, fontWeight: FontWeight.bold),
       ),
     );
   }

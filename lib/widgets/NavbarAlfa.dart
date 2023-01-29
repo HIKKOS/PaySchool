@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hola_mundo/pages/catalog_service.dart';
+import 'package:hola_mundo/pages/pay_hisoty.dart';
 
 class NavbarAlfa extends StatelessWidget {
   const NavbarAlfa({super.key});
@@ -16,7 +18,12 @@ class NavbarAlfa extends StatelessWidget {
           children: [
             IconButton(
               iconSize: 35,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CatalogService()),
+                );
+              },
               icon: SvgPicture.asset(
                 "assets/icons/search.svg",
                 color: Color(0xFF176BFC),
@@ -33,7 +40,12 @@ class NavbarAlfa extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PayHistory()),
+                );
+              },
               iconSize: 35,
               icon: SvgPicture.asset(
                 "assets/icons/history.svg",

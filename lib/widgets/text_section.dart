@@ -3,19 +3,20 @@ import 'package:hola_mundo/data/repositories/app_colors.dart';
 
 class TextSection extends StatelessWidget {
   final String text;
-  const TextSection({super.key, required this.text});
+  final double fontSize;
+  final Color color;
+  const TextSection({super.key, required this.text, required this.fontSize, required this.color});
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            
-           text,
+            text,
             softWrap: true,
-            style: const TextStyle(color: AppColors.greyDark, fontSize: 15),
+            style: TextStyle(color: color, fontSize: fontSize),
           ),
         ));
   }

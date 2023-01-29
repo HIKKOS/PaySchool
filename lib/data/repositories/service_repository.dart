@@ -18,7 +18,7 @@ class ServiceRepository {
         "https://media.istockphoto.com/id/1257065028/es/foto/vista-de-%C3%A1ngulo-bajo-de-los-autobuses-escolares-amarillos-desde-la-parte-trasera-derecha-al.jpg?s=612x612&w=0&k=20&c=xirKO_nsbHHdiO952v3rT3GEtXEHpLzMdTMFKFNjngQ=",
         "https://media.istockphoto.com/id/530766151/es/foto/autob%C3%BAs-de-colegio.jpg?s=612x612&w=0&k=20&c=0uRZsFBY0XmLkTIC3ZqHbtjwBoXXiSQEQfVn0ZDq8q4=",
         ],
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674960038-sNz4QVw9%2Bi2SyBFjJvzvrNF5BLECrO8Ckp%2FrRPudZSg%3D'));
+        urlIcon: 'assets/icons/bus.svg'));
 
     services.add(Service(
         id: 2,
@@ -32,7 +32,7 @@ class ServiceRepository {
         "https://www.elcontribuyente.mx/wp-content/uploads/2020/08/ajustes-de-colegiaturas.jpg", 
         "https://cdn.pixabay.com/photo/2017/10/14/09/56/journal-2850091_640.jpg",
         ],
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674965160-yu%2BRNdjTRK8KO6Iaih%2BLZvEvuroTogvZUWIZYEm5lV8%3D'));
+        urlIcon: 'assets/icons/colegiatura.svg'));
 
 
     return services;

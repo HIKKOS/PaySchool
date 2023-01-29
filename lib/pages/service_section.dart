@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/widgets/text_section.dart';
 import '../core/enties/service.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/image_section.dart';
 import '../widgets/subtitle_section.dart';
 
@@ -33,15 +34,18 @@ class _LayaoutServiceState extends State<LayaoutService> {
             child: Column(
               children: [
                 ImageSection(imageList: widget.service.urlImagenes),
-                SubtitleSection(subtitle: "\$${widget.service.cost}/mes"),
-                TextSection(text: widget.service.description),
-                const SubtitleSection(subtitle: "Prioridad"),
-                TextSection(text: widget.service.priority),
-                ElevatedButton(
-                  onPressed: () => displayDialog(context),
-                  child: const Text("Solicitar"),
+                SubtitleSection(subtitle: "\$${widget.service.cost}/mes", fontsize: 24, color: AppColors.primary,),
+                TextSection(text: widget.service.description, fontSize: 15, color: AppColors.greyDark,),
+                Container(
+                  margin:  const EdgeInsets.only(top: 32.0),
+                  child: CustomButton(
+                      horizontal: 100,
+                      vertical: 14,
+                      text: "Solicitar",
+                      function: () {
+                        displayDialog(context);
+                      }),
                 ),
-
               ],
             ),
           ),
@@ -83,8 +87,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
                     title: Row(
                       children: const [
                         Icon(Icons.paypal),
-                        SizedBox(
-                            width: 10),
+                        SizedBox(width: 10),
                         Text("Paypal")
                       ],
                     ),
@@ -109,3 +112,5 @@ class _LayaoutServiceState extends State<LayaoutService> {
         });
   }
 }
+
+

@@ -29,28 +29,29 @@ class _CatalogServiceState extends State<CatalogService> {
     return MaterialApp(
       title: 'Catalogo',
       home: Scaffold(
+        backgroundColor: AppColors.greyLight,
+        appBar: EasySearchBar(
+          elevation: 0,
           backgroundColor: AppColors.greyLight,
-          appBar: EasySearchBar(
-            elevation: 0,
-            backgroundColor: AppColors.greyLight,
-            title: const Text(
-              'Catalogo de servicios',
-               style: TextStyle(color: AppColors.primary, fontSize: 24)
-            ),
-            onSearch: (value) {
-              setState(() {
-                searchValue = value.toLowerCase();
-                filteredServices = ServiceRepository.getServices()
-                    .where((service) => service.name.toLowerCase().contains(searchValue))
-                    .toList();
-              });
-            },
-          ),
-          body: SafeArea(
-            child: ListService(services: filteredServices),
-          ),
-          bottomNavigationBar: const NavbarAlfa(),
-          ),
+          title: const Text('Catalogo de servicios',
+              style: TextStyle(color: AppColors.primary, fontSize: 24)),
+          onSearch: (value) {
+            setState(() {
+              searchValue = value.toLowerCase();
+              filteredServices = ServiceRepository.getServices()
+                  .where((service) =>
+                      service.name.toLowerCase().contains(searchValue))
+                  .toList();
+            });
+          },
+        ),
+        body: SafeArea(
+          child: ListService(services: filteredServices),
+        ),
+        bottomNavigationBar: const NavbarAlfa(),
+      ),
     );
   }
 }
+
+
