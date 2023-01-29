@@ -35,7 +35,7 @@ class _CatalogServiceState extends State<CatalogService> {
             backgroundColor: AppColors.greyLight,
             title: const Text(
               'Catalogo de servicios',
-              style: TextStyle(color: AppColors.primary),
+               style: TextStyle(color: AppColors.primary, fontSize: 24)
             ),
             onSearch: (value) {
               setState(() {

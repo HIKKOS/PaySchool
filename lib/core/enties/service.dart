@@ -1,3 +1,4 @@
+
 class Service {
   final int id;
   final String name;
@@ -6,7 +7,7 @@ class Service {
   final String priority;
   final DateTime startDate;
   final DateTime cutOffDate;
-  final String urlImagen;
+  final List<String> urlImagenes;
   final String urlIcon;
 
   Service(
@@ -17,6 +18,6 @@ class Service {
       required this.priority,
       required this.startDate,
       required this.cutOffDate,
-      required this.urlImagen,
+      required this.urlImagenes,
       required this.urlIcon});
 }

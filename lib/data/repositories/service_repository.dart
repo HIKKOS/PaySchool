@@ -13,8 +13,12 @@ class ServiceRepository {
         priority: "Cancelable",
         startDate: DateTime.parse("2023-01-01"),
         cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674780469-3JcRzdOB3%2FAyfOowzpV162DpUhPxxHDTPof4hyd9Ct0%3D'));
+        urlImagenes: [
+        "https://cdn.pixabay.com/photo/2020/01/17/20/03/school-bus-4773905_960_720.jpg", 
+        "https://media.istockphoto.com/id/1257065028/es/foto/vista-de-%C3%A1ngulo-bajo-de-los-autobuses-escolares-amarillos-desde-la-parte-trasera-derecha-al.jpg?s=612x612&w=0&k=20&c=xirKO_nsbHHdiO952v3rT3GEtXEHpLzMdTMFKFNjngQ=",
+        "https://media.istockphoto.com/id/530766151/es/foto/autob%C3%BAs-de-colegio.jpg?s=612x612&w=0&k=20&c=0uRZsFBY0XmLkTIC3ZqHbtjwBoXXiSQEQfVn0ZDq8q4=",
+        ],
+        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674960038-sNz4QVw9%2Bi2SyBFjJvzvrNF5BLECrO8Ckp%2FrRPudZSg%3D'));
 
     services.add(Service(
         id: 2,
@@ -24,104 +28,11 @@ class ServiceRepository {
         priority: "No cancelable",
         startDate: DateTime.parse("2022-08-01"),
         cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674789835-uwDFUM8aggsCaaq7og0rsJpTf%2Fqd71OXqlApCuAs21g%3D'));
-
-        
-    services.add(Service(
-        id: 1,
-        name: "T",
-        description: "Transporte escolar para alumnos",
-        cost: 499.00,
-        priority: "Cancelable",
-        startDate: DateTime.parse("2023-01-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674780469-3JcRzdOB3%2FAyfOowzpV162DpUhPxxHDTPof4hyd9Ct0%3D'));
-
-    services.add(Service(
-        id: 2,
-        name: "Colegiatura",
-        description: "Pago mensual de la colegiatura escolar",
-        cost: 499.00,
-        priority: "No cancelable",
-        startDate: DateTime.parse("2022-08-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674789835-uwDFUM8aggsCaaq7og0rsJpTf%2Fqd71OXqlApCuAs21g%3D'));
-
-
-        
-    services.add(Service(
-        id: 1,
-        name: "Transporte",
-        description: "Transporte escolar para alumnos",
-        cost: 499.00,
-        priority: "Cancelable",
-        startDate: DateTime.parse("2023-01-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674780469-3JcRzdOB3%2FAyfOowzpV162DpUhPxxHDTPof4hyd9Ct0%3D'));
-
-    services.add(Service(
-        id: 2,
-        name: "Colegiatura",
-        description: "Pago mensual de la colegiatura escolar",
-        cost: 499.00,
-        priority: "No cancelable",
-        startDate: DateTime.parse("2022-08-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674789835-uwDFUM8aggsCaaq7og0rsJpTf%2Fqd71OXqlApCuAs21g%3D'));
-
-
-        
-    services.add(Service(
-        id: 1,
-        name: "Transporte",
-        description: "Transporte escolar para alumnos",
-        cost: 499.00,
-        priority: "Cancelable",
-        startDate: DateTime.parse("2023-01-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674780469-3JcRzdOB3%2FAyfOowzpV162DpUhPxxHDTPof4hyd9Ct0%3D'));
-
-    services.add(Service(
-        id: 2,
-        name: "Colegiatura",
-        description: "Pago mensual de la colegiatura escolar",
-        cost: 499.00,
-        priority: "No cancelable",
-        startDate: DateTime.parse("2022-08-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674789835-uwDFUM8aggsCaaq7og0rsJpTf%2Fqd71OXqlApCuAs21g%3D'));
-
-
-        
-    services.add(Service(
-        id: 1,
-        name: "Transporte",
-        description: "Transporte escolar para alumnos",
-        cost: 499.00,
-        priority: "Cancelable",
-        startDate: DateTime.parse("2023-01-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835034/128/png?token=1674780469-3JcRzdOB3%2FAyfOowzpV162DpUhPxxHDTPof4hyd9Ct0%3D'));
-
-    services.add(Service(
-        id: 2,
-        name: "Colegiatura",
-        description: "Pago mensual de la colegiatura escolar",
-        cost: 499.00,
-        priority: "No cancelable",
-        startDate: DateTime.parse("2022-08-01"),
-        cutOffDate: DateTime.parse("2023-01-31"),
-        urlImagen: 'https://cdn-icons-png.flaticon.com/512/2618/2618477.png',
-        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674789835-uwDFUM8aggsCaaq7og0rsJpTf%2Fqd71OXqlApCuAs21g%3D'));
-
+        urlImagenes: [
+        "https://www.elcontribuyente.mx/wp-content/uploads/2020/08/ajustes-de-colegiaturas.jpg", 
+        "https://cdn.pixabay.com/photo/2017/10/14/09/56/journal-2850091_640.jpg",
+        ],
+        urlIcon: 'https://cdn.iconfinder.com/stored_data/835131/128/png?token=1674965160-yu%2BRNdjTRK8KO6Iaih%2BLZvEvuroTogvZUWIZYEm5lV8%3D'));
 
 
     return services;

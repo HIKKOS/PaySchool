@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hola_mundo/pages/layout_service.dart';
+import 'package:hola_mundo/pages/service_section.dart';
 
 import '../core/enties/service.dart';
 import '../data/repositories/app_colors.dart';
