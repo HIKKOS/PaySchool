@@ -11,18 +11,11 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       title: 'Home',
       home: Scaffold(
-          backgroundColor: Color(0xFFEDF2F8),
+          backgroundColor: const Color(0xFFEDF2F8),
           appBar: AppBar(
             elevation: 0,
-            backgroundColor: Color(0xFFEDF2F8),
-            title: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                'Hola, Noe Paredes',
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Color(0xFF176BFC), fontSize: 24),
-              ),
-            ),
+            backgroundColor: const Color(0xFFEDF2F8),
+            title: const CustomAppBar(text: 'Hola, Noe Paredes'),
           ),
           body: Container(
             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -58,6 +51,23 @@ class HomePage extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: NavbarAlfa()),
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({Key? key, required this.text}) : super(key: key);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Text(
+        text,
+        textAlign: TextAlign.left,
+        style: const TextStyle(color: Color(0xFF176BFC), fontSize: 24),
+      ),
     );
   }
 }

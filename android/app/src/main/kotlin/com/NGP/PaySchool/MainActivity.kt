@@ -1,4 +1,4 @@
-package com.example.hola_mundo
+package com.NGP.PaySchool
 
 import io.flutter.embedding.android.FlutterActivity
 
