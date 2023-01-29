@@ -8,50 +8,47 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home',
-      home: Scaffold(
+    return Scaffold(
+        backgroundColor: const Color(0xFFEDF2F8),
+        appBar: AppBar(
+          elevation: 0,
           backgroundColor: const Color(0xFFEDF2F8),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: const Color(0xFFEDF2F8),
-            title: const CustomAppBar(text: 'Hola, Noe Paredes'),
-          ),
-          body: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: CardBeneficiario(),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    SizedBox(
-                      width: 15,
+          title: const CustomAppBar(text: 'Hola, Noe Paredes'),
+        ),
+        body: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: CardBeneficiario(),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Servicios por pagar',
+                      style: TextStyle(
+                          color: Color(0xFF616161),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        textAlign: TextAlign.left,
-                        'Servicios por pagar',
-                        style: TextStyle(
-                            color: Color(0xFF616161),
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                ServicioHome(),
-                ServicioHome(),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              CustomCard(),
+              CustomCard(),
+            ],
           ),
-          bottomNavigationBar: NavbarAlfa()),
-    );
+        ),
+        bottomNavigationBar: NavbarAlfa());
   }
 }
 

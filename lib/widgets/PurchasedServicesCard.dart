@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hola_mundo/data/repositories/app_colors.dart';
 
-class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+class PurchasedServicesCard extends StatelessWidget {
+  const PurchasedServicesCard({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,21 +11,18 @@ class CustomCard extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: SvgPicture.asset(
-                  'assets/Icons/bus.svg',
-                  height: 60,
-                  width: 60,
-                ),
+              SvgPicture.asset(
+                'assets/Icons/bus.svg',
+                height: 60,
+                width: 60,
               ),
               Container(
-                  width: 230,
+                  width: 220,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
@@ -44,13 +42,15 @@ class CustomCard extends StatelessWidget {
                       ],
                     ),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: SvgPicture.asset(
-                  'assets/Icons/backArrow.svg',
-                  height: 20,
-                  width: 20,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text('Vence: 27/04',
+                      style: TextStyle(color: AppColors.greyMedium))
+                ],
               ),
             ],
           ),
