@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hola_mundo/pages/perfil_page.dart';
+void main() => runApp(const Principal());
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+ class Principal extends StatelessWidget {
+  const Principal({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+    return const MaterialApp(
+      home: PerfilPage(),
     );
   }
+  
 }
 //Pau branch
 //añadido
