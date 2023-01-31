@@ -32,7 +32,7 @@ Widget build(BuildContext context) {
             color: Colors.grey.shade600,
           ), onPressed: () {  },),
        ),
-       body: Column(
+       body: ListView(
         children: const [
           Align(
             alignment: Alignment.bottomCenter,
@@ -46,10 +46,11 @@ Widget build(BuildContext context) {
             Padding(
                   padding: EdgeInsets.symmetric(vertical: 30),
                   child: Text('Cerrar Sesion',
-                      style: TextStyle(fontSize: 15, color: Color(0xFF176BFC),fontWeight: FontWeight.bold)),
+                      style: TextStyle(fontSize: 15, color: Color(0xFF176BFC),fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                      ),
                 ),
         ],
-        
        ),
        bottomNavigationBar: const NavbarAlfa(),
       );
