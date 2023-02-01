@@ -1,0 +1,15 @@
+
+@media (max-width:768px){
+    #text-admin{
+        display: none;
+     }
+
+     #text-administrar{
+        display: none;
+     }
+  }
+
+.text-admin-hidde {
+    display: none;
+}
+
