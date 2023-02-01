@@ -13,7 +13,9 @@
 </head>
 
 <body>
-    <div id="wrapper">
+
+
+    <div id="wrapper" >
 
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -166,7 +168,7 @@
                                                     <th>Genero</th>
                                                     <th>Grado</th>
                                                     <th>Grupo</th>
-                                                    <th>Id tutor</th>
+                                                    <th>Tutor</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -186,7 +188,7 @@
                                                          <button class="btn btn-info btn-sm">
                                                              <img src="assets/img/icons/IconEdit.svg" alt="">
                                                           </button>
-                                                         <button class="btn btn-danger btn-sm">
+                                                         <button class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#modalEliminar">
                                                             <img src="assets/img/icons/IconDelete.svg" alt="">
                                                          </button>
                                                         
@@ -202,9 +204,24 @@
 
             </div>
         <!-- /.container-fluid -->
-    
+        
 
+            <div class="card col-12   card-empty-state d-none" >
+        
+                <div  class="card-body">
+                    <div class="row">
+                        <img src="assets/img/empty_state.svg" alt="" height="200px" width="200px">
+                    </div>
+                    <div class="row ">
+                        <h5 class="text-center p-4 grey-dark">Sin resultados para lorem</h5>
+                    </div>
+                    <div class="row ">
+                        <h6 class="text-center grey-dark">Intente de nuevo</h6>
+                    </div>
                 </div>
+            </div>
+
+        </div>
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -223,10 +240,49 @@
 
     </div>
 
+  
+  <!-- Modal -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body" >
+            <div class="col-12 text-center p-2">
+                <img src="assets/img/icons/IconWarning.svg" alt="">
+            </div>
+            <h5 class="text-center p-2">Eliminar alumno</h5>
+            <h6 class="text-center p-2"> ¿Está seguro de eliminar este alumno?</h6>
+            <div class="d-flex justify-content-center p-2">
+                <button type="button" class="btn btn-secondary mr-3" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-target="#modalConfirmacion" data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+              </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body" >
+            <div class="col-12 text-center p-2">
+                <img src="assets/img/icons/IconWarning.svg" alt="">
+            </div>
+            <h5 class="text-center p-2">Se ha eliminado el</h5>
+            <h5 class="text-center p-1"> alumno name</h5>
+            <div class="d-flex justify-content-center p-1">
+                <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Aceptar</button>
+              </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+  
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.js"></script>
 
     <script src="assets/js/sb-admin-2.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     
 </body>
 </html>

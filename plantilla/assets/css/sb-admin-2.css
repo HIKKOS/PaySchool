@@ -9837,7 +9837,7 @@ a:focus {
 }
 
 #wrapper #content-wrapper {
-  background-color: #f8f9fc;
+  background-color: #EDF2F8;
   width: 100%;
   overflow-x: hidden;
 }
@@ -11344,4 +11344,15 @@ body.sidebar-toggled footer.sticky-footer {
 
 .backgroundLogin{
   background: #4591D8; 
+}
+
+.card-empty-state{
+  top: 15%;
+  background-color: #EDF2F8;
+  border: none;
+}
+
+.grey-dark
+{
+  color: #616161;
 }
