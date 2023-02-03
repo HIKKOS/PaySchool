@@ -183,7 +183,7 @@
                                                         <button class="btn btn-primary btn-sm">
                                                            <img src="assets/img/icons/IconEye.svg" alt="">
                                                         </button>
-                                                        <button class="btn btn-secondary btn-sm">
+                                                        <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalCancelar">
                                                             <img src="assets/img/icons/IconCancel.svg" alt="">
                                                          </button>
                                                         
@@ -219,6 +219,45 @@
 
             <!-- End of Main Content -->
 
+    </div>
+
+
+     <!-- Modal -->
+     <div class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="modalCancelarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-12 text-center p-2">
+                        <img src="assets/img/icons/IconWarning.svg" alt="">
+                    </div>
+                    <h5 class="text-center p-2">Cancelar servicio</h5>
+                    <h6 class="text-center p-2"> ¿Está seguro de querer cancelar este servicio?</h6>
+                    <div class="d-flex justify-content-center p-2">
+                        <button type="button" class="btn btn-secondary mr-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-bs-target="#modalConfirmacion"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-12 text-center p-2">
+                        <img src="assets/img/icons/IconConfirm.svg" alt="">
+                    </div>
+                    <h5 class="text-center p-2">Se ha cancelado</h5>
+                    <h5 class="text-center p-1">el servicio name</h5>
+                    <div class="d-flex justify-content-center p-1">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="assets/vendor/jquery/jquery.min.js"></script>
