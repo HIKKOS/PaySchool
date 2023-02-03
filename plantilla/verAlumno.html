@@ -86,7 +86,7 @@
             <!-- Main Content -->
 
             <div id="content-wrapper" class="d-flex flex-column">
-
+                
                 <!-- Main Content -->
                 <div id="content">
                 
@@ -132,7 +132,53 @@
                             </li>
                         </ul>
                     </nav>
-
+                
+                    <div class="container-fluid">
+                        <div class="card shadow mb-4 rounded">
+                            <div class="card-header py-3 bg-second-primary">
+                              <h6 class="m-0 font-weight-bold text-white text-center">Beneficiario</h6>
+                            </div>
+                            <div class="card-body">
+                              <div class="row align-items-center">
+                                <div class="col-md-3 text-center">
+                                  <img id="img_tutor" height="80" width="80" class="border rounded-circle mx-auto d-block img-fluid" src="assets/img/icons/IconUser.svg" />
+                                  <h6 class="text-center pt-2">Francisco Gómez</h6>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="text-center">
+                                    <h6 class="font-weight-bold">Género</h6>
+                                    <h6>Masculino</h6>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="text-center">
+                                    <h6 class="font-weight-bold">Grado</h6>
+                                    <h6>5 año</h6>
+                                  </div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="text-center">
+                                    <h6 class="font-weight-bold"> Grupo</h6>
+                                    <h6>A</h6>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="row justify-content-center">
+                                    <div class="col-6">
+                                      <button type="button" class="btn btn-primary btn-user btn-block mt-2">Editar</button>
+                                    </div>
+                                  </div>
+                                  <div class="row justify-content-center">
+                                    <div class="col-6">
+                                      <button type="button" class="btn btn-primary btn-user btn-block mt-2">Ver tutor</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                          
+                    </div>
                     <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- DataTales Example -->
@@ -152,7 +198,7 @@
                                 </div>
 
                                 <div class="col-md-3 text-right">
-                                    <button class="btn btn-success " data-toggle="modal" data-target="#modalData"><i class="fas fa-plus-circle"></i> Asignar servicio</button>
+                                    <button class="btn btn-success " ><i class="fas fa-plus-circle"></i> Asignar servicio</button>
                                 </div>
                             </div>
                             <hr/>
@@ -161,13 +207,12 @@
                                         <table class="table table-bordered table-striped table-hover" id="tbdata" cellspacing="0" style="width:100%" id="tableTutores">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Nombre</th>
-                                                    <th>Genero</th>
-                                                    <th>Grado</th>
-                                                    <th>Grupo</th>
-                                                    <th>Tutor</th>
-                                                    <th>Acciones</th>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Descripcion</th>
+                                                <th>Costo</th>
+                                                <th>Prioridad</th>
+                                                <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -177,17 +222,15 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td></td>
 
                                                     <td>
                                                         <button class="btn btn-primary btn-sm">
                                                            <img src="assets/img/icons/IconEye.svg" alt="">
                                                         </button>
-                                                        <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalCancelar">
+                                                        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancelar">
                                                             <img src="assets/img/icons/IconCancel.svg" alt="">
                                                          </button>
                                                         
-
                                                     </td>
                                                 </tr>
                                                 
@@ -200,9 +243,7 @@
 
             </div>
         <!-- /.container-fluid -->
-    
-
-                </div>
+        </div>
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -264,6 +305,6 @@
     <script src="assets/js/bootstrap.bundle.js"></script>
 
     <script src="assets/js/sb-admin-2.js"></script>
-    
+    <script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>

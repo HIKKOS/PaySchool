@@ -11356,3 +11356,40 @@ body.sidebar-toggled footer.sticky-footer {
 {
   color: #616161;
 }
+
+.btn-add {
+  color: #fff;
+  background-color: #179BD7;
+  border-color: #179BD7;
+}
+
+.btn-add:hover {
+  color: #fff;
+  background-color: #179BD7;
+  border-color: #179BD7;
+}
+
+.btn-add:focus, .btn-add.focus {
+  color: #fff;
+  background-color: #179BD7;
+  border-color: #179BD7;
+  box-shadow: 0 0 0 0.2rem rgba(62, 186, 208, 0.5);
+}
+
+.btn-add.disabled, .btn-add:disabled {
+  color: #fff;
+  background-color: #179BD7;
+  border-color: #179BD7;
+}
+
+.btn-add:not(:disabled):not(.disabled):active, .btn-add:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+  color: #fff;
+  background-color: #179BD7;
+  border-color: #179BD7;
+}
+
+.btn-add:not(:disabled):not(.disabled):active:focus, .btn-add:not(:disabled):not(.disabled).active:focus,
+.show > .btn-add.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(62, 186, 208, 0.5);
+}
