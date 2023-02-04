@@ -11393,3 +11393,22 @@ body.sidebar-toggled footer.sticky-footer {
 .show > .btn-add.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(62, 186, 208, 0.5);
 }
+
+.carousel-control-prev, .carousel-control-next {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel:hover .carousel-control-prev, .carousel:hover .carousel-control-next {
+  opacity: 1;
+}
+
+.h-262 {
+  height: 262px;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 262px;
+}

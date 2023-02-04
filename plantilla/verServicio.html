@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver servicio</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/sb-admin-2.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="assets/img/icons/IconLogo.svg" alt="">
+                </div>
+                <div class="sidebar-brand-text mx-3">PayShool</div>
+            </a>
+
+            <span id="text-admin" class="text-white text-center p-3">
+                Administrador
+            </span>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="index.html">
+                    <img src="assets/img/icons/IconHome.svg" alt="">
+                    <span>Dashboard</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item ">
+                <a class="nav-link" href="tutores.html">
+                    <img src="assets/img/icons/IconTutores.svg" alt="">
+                    <span>Tutores</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="alumnos.html">
+                    <img src="assets/img/icons/IconAlum.svg" alt="">
+                    <span>Alumnos</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="servicios.html">
+                    <img src="assets/img/icons/IconService.svg" alt="">
+                    <span>Servicios</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="perfil.html">
+                    <img src="assets/img/icons/IconConfig.svg" alt="">
+                    <span>Configuración</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="login.html">
+                    <img src="assets/img/icons/IconLogout.svg" alt="">
+                    <span>Cerrar sesión</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center  text-admin d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" onclick="remover()"></button>
+            </div>
+        </ul>
+
+
+        <!-- Main Content -->
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">
+
+                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group text-center" style="width: 720px;"><input
+                                class="bg-light form-control border-0 small" type="text" placeholder="Buscar ">
+                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jonathan Catzin</span>
+                                <img class="img-profile rounded-circle" src="">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="perfil.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Salir
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                            class="active bg-primary text-white" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                            class="bg-primary text-white" aria-label="Slide 2"></button>
+                    </div>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active " data-bs-interval="5000">
+                            <img src="assets/img/transporte.jpg" class="d-block w-100  h-262" alt="..."
+                                ontouchstart="$('#carouselExampleCaptions').carousel('pause');">
+                            <div class="carousel-caption " style="top: 50px">
+                                <div class="d-flex align-items-start text-left position-absolute w-100">
+                                    <h1 class="font-weight-bold">Transporte</h1>
+                                </div>
+
+                            </div>
+                            <div class="carousel-caption d-none d-block justify-content-center">
+                                <div class="text-center">
+
+                                    <button class="btn btn-success "><i class="fas fa-pencil"></i> Cambiar
+                                        datos</button>
+                                    <button class="btn btn-success "><i class="fas fa-plus-circle"></i> Agregar
+                                        imagen</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item " data-bs-interval="5000">
+                            <img src="https://cdn.pixabay.com/photo/2020/01/17/20/03/school-bus-4773905_960_720.jpg"
+                                class="d-block w-100 h-262 " alt="..."
+                                ontouchstart="$('#carouselExampleCaptions').carousel('pause');">
+                            <div class="carousel-caption d-none d-md-block">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- Begin Page Content -->
+
+                <div class="container-fluid">
+                    <div class="row ">
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="card  border-left-primary shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Nombre</h6>
+                                            <h6>Transporte</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card  border-left-primary shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Costo</h6>
+                                            <h6>$499.00</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row py-2">
+                            <div class="col-md-6">
+                                <div class="card  border-left-primary shadow h-auto m-1">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Descripción</h6>
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
+                                                magnam eos, autem quia, itaque aspernatur a aliquam ad quis tenetur
+                                                nihil dolorum corporis, harum animi dicta? Placeat autem in ratione!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+                               
+                                <div class="card  border-left-primary shadow h-auto my-1">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Fecha de corte</h6>
+                                            <h6>28/02/2023</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card  border-left-primary shadow h-auto my-3 ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Prioridad</h6>
+                                            <h6>Cancelable</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; PayShool <span id="year"></span></span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+
+        <!-- End of Main Content -->
+
+    </div>
+
+    <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-12 text-center p-2">
+                        <img src="assets/img/icons/IconWarning.svg" alt="">
+                    </div>
+                    <h5 class="text-center p-2">Agregar servicio</h5>
+                    <h6 class="text-center p-2"> ¿Está seguro de querer agregarlo?</h6>
+                    <div class="d-flex justify-content-center p-2">
+                        <button type="button" class="btn btn-secondary mr-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-bs-target="#modalConfirmacion"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-12 text-center p-2">
+                        <img src="assets/img/icons/IconConfirm.svg" alt="">
+                    </div>
+                    <h5 class="text-center p-2">Se ha agregado</h5>
+                    <h5 class="text-center p-1"> correctamente</h5>
+                    <div class="d-flex justify-content-center p-1">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="assets/js/sb-admin-2.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>
