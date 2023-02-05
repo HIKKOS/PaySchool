@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver tutor</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/sb-admin-2.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="assets/img/icons/IconLogo.svg" alt="">
+                </div>
+                <div class="sidebar-brand-text mx-3">PayShool</div>
+            </a>
+
+            <span id="text-admin" class="text-white text-center p-3">
+                Administrador
+            </span>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="index.html">
+                    <img src="assets/img/icons/IconHome.svg" alt="">
+                    <span>Dashboard</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item ">
+                <a class="nav-link" href="tutores.html">
+                    <img src="assets/img/icons/IconTutores.svg" alt="">
+                    <span>Tutores</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="alumnos.html">
+                    <img src="assets/img/icons/IconAlum.svg" alt="">
+                    <span>Alumnos</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="servicios.html">
+                    <img src="assets/img/icons/IconService.svg" alt="">
+                    <span>Servicios</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="perfil.html">
+                    <img src="assets/img/icons/IconConfig.svg" alt="">
+                    <span>Configuración</span></a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="login.html">
+                    <img src="assets/img/icons/IconLogout.svg" alt="">
+                    <span>Cerrar sesión</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center  text-admin d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" onclick="remover()"></button>
+            </div>
+        </ul>
+
+
+        <!-- Main Content -->
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group text-center" style="width: 720px;"><input
+                                class="bg-light form-control border-0 small" type="text" placeholder="Buscar ">
+                            <button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jonathan Catzin</span>
+                                <img class="img-profile rounded-circle" src="">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="perfil.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Salir
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Begin Page Content -->
+
+                <div class="container-fluid">
+                    <div class="row m-1">
+                        <div class="col-6">
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <div class="col-md-3 text-center">
+                                                <img id="img_tutor" height="80" width="80"
+                                                    class="border rounded-circle mx-auto d-block img-fluid"
+                                                    src="assets/img/icons/IconUser.svg" />
+                                                <h6 class="text-center pt-2 ">Noe Paredes</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Telefono</h6>
+                                            <h6>9993456677</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Dirección</h6>
+                                            <h6>Calle 88 x 99</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto ">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <h6 class="font-weight-bold text-primary">Correo</h6>
+                                            <h6>Noe.Paredes@example.com</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3  d-flex justify-content-center">
+                                <div class="col-4">
+                                    <button class="btn btn-success "><i class="fas fa-pencil"></i> Cambiar
+                                        datos</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto mx-2">
+                                    <div class="card-body">
+                                        <div class="align-items-center d-flex flex-column">
+                                            <div id="carouselExampleCaptions" class="carousel slide">
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <img src="assets/img/icons/IconUser.svg"
+                                                                    class="h-50 w-50 mx-auto d-block" alt="...">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <h6 class="card-title">Jonathan catzin gonzalez</h6>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <a href="verAlumno.html" class="btn btn-primary">ver</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="carousel-item">
+                                                        <div class="card">
+                                                            <div class="card-header">
+                                                                <img src="assets/img/icons/IconUser.svg"
+                                                                    class="h-50 w-50 mx-auto d-block" alt="...">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <h6 class="card-title">Roberto gomez hernandez</h6>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <a href="verAlumno.html" class="btn btn-primary">ver</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <button class="carousel-control-prev cont-2" type="button"
+                                                    data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                                    <span class="bg-dark carousel-control-prev-icon"
+                                                        aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next cont-2" type="button"
+                                                    data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                                    <span class="bg-dark carousel-control-next-icon"
+                                                        aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="card shadow h-auto mx-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> Pagos</h5>
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                                    aria-selected="true">Completados</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#profile" type="button" role="tab"
+                                                    aria-controls="profile" aria-selected="false">Pendientes</button>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                                aria-labelledby="home-tab">
+
+                                                <table class="table table-bordered table-striped table-hover"
+                                                    id="tbdata" cellspacing="0" style="width:100%" id="tableTutores">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Servicio</th>
+                                                            <th>Fecha pago</th>
+                                                            <th>Tutor</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+
+
+                                                            <td>
+                                                                <a href="verAlumno.html"
+                                                                    class="btn btn-primary  btn-sm">
+                                                                    <img src="assets/img/icons/IconEye.svg" alt="">
+                                                                </a>
+
+                                                                <button class="btn btn-danger btn-sm "
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEliminar">
+                                                                    <img src="assets/img/icons/IconDelete.svg" alt="">
+                                                                </button>
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="profile" role="tabpanel"
+                                                aria-labelledby="profile-tab">
+                                                <table class="table table-bordered table-striped table-hover"
+                                                    id="tbdata" cellspacing="0" style="width:100%" id="tableTutores">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Servicio</th>
+                                                            <th>Fecha de corte</th>
+                                                            <th>Tutor</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+
+
+                                                            <td>
+                                                                <a href="verAlumno.html"
+                                                                    class="btn btn-primary  btn-sm">
+                                                                    <img src="assets/img/icons/IconEye.svg" alt="">
+                                                                </a>
+
+                                                                <button class="btn btn-danger btn-sm "
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEliminar">
+                                                                    <img src="assets/img/icons/IconDelete.svg" alt="">
+                                                                </button>
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; PayShool <span id="year"></span></span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+
+        <!-- End of Main Content -->
+
+    </div>
+
+
+
+    <!-- MODAL -->
+
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.js"></script>
+
+    <script src="assets/js/sb-admin-2.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>
