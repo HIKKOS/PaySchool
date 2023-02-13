@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/pages/perfil_page.dart';
+import 'package:hola_mundo/widgets/Nav_bar.dart';
+
 void main() => runApp(const Principal());
 
  class Principal extends StatelessWidget {
@@ -7,8 +8,10 @@ void main() => runApp(const Principal());
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: PerfilPage(),
+    return const   MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: NavBar(),
+
     );
   }
   

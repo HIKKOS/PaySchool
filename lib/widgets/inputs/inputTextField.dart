@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 
 class InputTextField extends StatelessWidget {
@@ -36,7 +35,7 @@ class InputTextField extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: TextFormField(
               decoration: InputDecoration(
                 border: InputBorder.none,
