@@ -6,25 +6,25 @@ class PaymentDetailRepository {
 
     paymentDetails.add(PaymentDetail(
         id: 1,
-        nameService: 'Transporte',
-        costService: 100.00,
+        nameService: 'Colegiatura',
+        costService: 999.99,
         datePayment: DateTime.parse("2023-01-01"),
         nameStudent: 'Francisco ',
-        paymentMethod: '',
-        urlIconPayment: '',
-        urlIconService: 'assets/icons/bus.svg',
-        urlIconStudent: ''));
+        paymentMethod: 'Paypal',
+        urlIconPayment: 'assets/icons/IconPayMethod.svg',
+        urlIconService: 'assets/icons/colegiatura.svg',
+        urlIconStudent: 'assets/icons/IconPerson.svg'));
 
         paymentDetails.add(PaymentDetail(
         id: 1,
         nameService: 'Transporte',
-        costService: 100.00,
+        costService: 499.99,
         datePayment: DateTime.parse("2023-01-01"),
         nameStudent: 'Francisco ',
-        paymentMethod: '',
-        urlIconPayment: '',
+        paymentMethod: 'Paypal',
+        urlIconPayment: 'assets/icons/IconPayMethod.svg',
         urlIconService: 'assets/icons/bus.svg',
-        urlIconStudent: ''));
+        urlIconStudent: 'assets/icons/IconPerson.svg'));
 
     return paymentDetails;
   }

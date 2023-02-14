@@ -30,10 +30,23 @@ class _ImagenSectionState extends State<ImageSection> {
                     .toList(),
                 carouselController: carouselController,
                 options: CarouselOptions(
-                scrollPhysics: const BouncingScrollPhysics(),
-                autoPlay: false,
+                // scrollPhysics: const BouncingScrollPhysics(),
+                // autoPlay: false,
+                // aspectRatio: 1,
+                // viewportFraction: 1,
+                height: 400,
                 aspectRatio: 1,
                 viewportFraction: 1,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 6),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.3,
+                scrollDirection: Axis.horizontal,
                   onPageChanged: (index, reason) {
                     setState(() {
                       currentIndex = index;

@@ -27,11 +27,11 @@ class CardItemService extends StatelessWidget {
           height: 60,
           width: 60,
         ),
-        title: Padding(
+        title: Text(service.name, style: const TextStyle(color: AppColors.greyDark, fontSize: 20)),
+        subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(service.name),
+          child: Text("\$${service.cost}", style: TextStyle(color: AppColors.greyMedium, fontSize: 18),),
         ),
-        subtitle: Text("\$${service.cost}"),
         trailing: SvgPicture.asset(
           icon,
           height: 20,

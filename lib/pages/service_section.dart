@@ -20,6 +20,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.greyLight,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -32,19 +33,31 @@ class _LayaoutServiceState extends State<LayaoutService> {
           SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ImageSection(imageList: widget.service.urlImagenes),
-                SubtitleSection(subtitle: "\$${widget.service.cost}/mes", fontsize: 24, color: AppColors.primary,),
-                TextSection(text: widget.service.description, fontSize: 15, color: AppColors.greyDark,),
-                Container(
-                  margin:  const EdgeInsets.only(top: 32.0),
-                  child: CustomButton(
-                      horizontal: 100,
-                      vertical: 14,
-                      text: "Solicitar",
-                      function: () {
-                        displayDialog(context);
-                      }),
+                SubtitleSection(
+                  subtitle: "\$${widget.service.cost}/mes",
+                  fontsize: 24,
+                  color: AppColors.primary, fontWeight: FontWeight.bold,
+                ),
+                TextSection(
+                  text: widget.service.description,
+                  fontSize: 15,
+                  color: AppColors.greyDark,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 190.0),
+                    child: CustomButton(
+                        horizontal: 100,
+                        vertical: 14,
+                        text: "Solicitar",
+                        function: () {
+                          displayDialog(context);
+                        }),
+                  ),
                 ),
               ],
             ),
@@ -72,9 +85,9 @@ class _LayaoutServiceState extends State<LayaoutService> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.fromLTRB(20, 20, 0, 10),
-                    child: const Text("Pagar con..."),
+                    child:
+                        const Text("Pagar con...", textAlign: TextAlign.left),
                   ),
                   RadioListTile(
                     value: "Paypal",
@@ -112,5 +125,3 @@ class _LayaoutServiceState extends State<LayaoutService> {
         });
   }
 }
-
-

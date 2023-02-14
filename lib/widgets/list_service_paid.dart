@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hola_mundo/pages/pay_detail.dart';
 
 import '../core/enties/payment_detail.dart';
 import '../data/repositories/app_colors.dart';
@@ -15,7 +16,7 @@ class ListViewServicesPaid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: 285,
       height: 90 * paymentDetails.length.toDouble(),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: Colors.white),
@@ -45,13 +46,18 @@ class ListViewServicesPaid extends StatelessWidget {
         ) ,
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(paymentDetail.nameService),
+          child: Text(paymentDetail.nameService, style: const TextStyle(color: AppColors.greyDark, fontSize: 20)),
         ),
-        subtitle: Text('\$${paymentDetail.costService}'),
+        subtitle: Text('\$${paymentDetail.costService}', style: TextStyle(color: AppColors.greyMedium, fontSize: 18) ),
         trailing: SvgPicture.asset(
           'assets/icons/backArrow.svg',
           height: 20,
           width: 20,
+        ),
+         onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LayoutPayDetail(paymentDetail: paymentDetail)),
         ),
       );
 
