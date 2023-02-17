@@ -5,6 +5,7 @@ class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserProfile createState() => _UserProfile();
 }
 
@@ -12,7 +13,7 @@ class _UserProfile extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return CircularProfileAvatar(
-      'https://i.pinimg.com/564x/96/02/87/96028709d09a0c694afbb43b02095838.jpg',
+      'https://i.pinimg.com/736x/7a/04/b1/7a04b127016dc1ab33ee0d415874314e.jpg',
       errorWidget: (context, url, error) => Container(
         child: const Icon(Icons.error),
       ),
