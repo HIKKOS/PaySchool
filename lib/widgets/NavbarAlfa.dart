@@ -1,3 +1,4 @@
+import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/pages/catalog_service.dart';
 // ignore: file_names
 import 'package:flutter/material.dart';
@@ -31,10 +32,10 @@ class _NavBarState extends State<NavBar> {
             selectedIndex: indexScreen,
             onTabChange: (index) => {setState(() => indexScreen = index)},
             gap: 8,
-            backgroundColor: Colors.white60,
+            backgroundColor: AppColors.white,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            activeColor: Colors.blue.shade800,
-            tabBackgroundColor: Colors.blue.shade200,
+            activeColor: AppColors.white,
+            tabBackgroundColor: AppColors.primary,
             tabs: const [
               GButton(
                 icon: Icons.home,

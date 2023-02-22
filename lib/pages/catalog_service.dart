@@ -55,20 +55,20 @@ class _CatalogServiceState extends State<CatalogService> {
         ],
       ),
       body: GestureDetector(
-         onTap: () {
-        FocusScope.of(context).unfocus();
+        onTap: () {
+          FocusScope.of(context).unfocus();
         },
         child: SafeArea(
           child: ListService(services: Services),
         ),
       ),
-      
     );
   }
 
   void setStateFalse() {
     setState(() {
       isSearching = false;
+      Services = ServiceRepository.getServices();
     });
   }
 
@@ -121,7 +121,14 @@ class _CatalogServiceState extends State<CatalogService> {
       ],
     ).then((value) {
       if (value == 'alfabeto') {
-      } else if (value == 'precio') {}
+        setState(() {
+          Services.sort((a, b) => a.name.compareTo(b.name));
+        });
+      } else if (value == 'precio') {
+        setState(() {
+          Services.sort((a, b) => a.cost.compareTo(b.cost));
+        });
+      }
     });
   }
 }
