@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/screens/ScreensCambioCorreo/cambio_correo_page.dart';
+import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
-import 'package:hola_mundo/widgets/Buttons/Editable_customButton.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
 
 class CambioCorreoSecondPage extends StatelessWidget {
@@ -21,8 +21,8 @@ class CambioCorreoSecondPage extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.white,
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const CambioCorreoPage())),
+            onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
+                builder: (context) => const CambioCorreoPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -33,33 +33,31 @@ class CambioCorreoSecondPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:  [
+              children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
-                      label:
-                          'Escribe el codigo de verificacion que recibiste'),
+                      label: 'Escribe el codigo de verificacion que recibiste'),
                 ),
                 const SizedBox(height: 5),
                 const InputTextField(
                   label: 'Código de verificación',
-
                   hint: '1kZuwU',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: CustomButton(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: AlertButton(
                       horizontal: 80,
                       vertical: 20,
-                      label: 'Verificar',
+                      titulo: 'Alerta',
+                      contenido: 'Tu correo se ha cambiado de manera exitosa',
                       function: () {
-                        //Navigator.of(context).push(MaterialPageRoute(
-                            //builder: (context) => const  CambioCorreoSecondPage()));
-                      }),
-                ),
+                        Navigator.pop(context);
+                      },
+                    )),
               ],
             ),
           ),

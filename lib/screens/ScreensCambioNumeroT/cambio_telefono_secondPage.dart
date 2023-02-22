@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/ScreensCambioCorreo/cambioCorreoSecondPage.dart';
-import 'package:hola_mundo/screens/perfil_page.dart';
+import 'package:hola_mundo/screens/ScreensCambioNumeroT/cambio_telefono.dart';
+import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
-import 'package:hola_mundo/widgets/Buttons/customButton.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
 
-class CambioCorreoPage extends StatelessWidget {
-  const CambioCorreoPage({
+class CambioTelefonoSecondPage extends StatelessWidget {
+  const CambioTelefonoSecondPage({
     super.key,
   });
 
@@ -15,7 +14,7 @@ class CambioCorreoPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Cambio Correo',
+            'Cambio Telefono',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 24, color: Colors.blue),
           ),
@@ -23,7 +22,7 @@ class CambioCorreoPage extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const PerfilPage())),
+                MaterialPageRoute(builder: (context) => const CambioTelefonoPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -34,31 +33,33 @@ class CambioCorreoPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:  [
+              children:   [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Escribe el nuevo correo, en el recibiras un codigo de verificacion'),
+                          'Verifica el codigo que se ha mandado a 123 456 7890'),
                 ),
                 const SizedBox(height: 5),
                 const InputTextField(
-                  label: 'Correo Electronico',
-                  hint: 'correo@ejemplo.com',
+                  label: 'Código de verificación',
+
+                  hint: '123456',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: CustomButton(
-                      horizontal: 80,
-                      vertical: 20,
-                      label: 'Enviar',
-                      function: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const  CambioCorreoSecondPage()));
-                      }),
+                  child: AlertButton(
+                    horizontal: 80,
+                    vertical: 20,
+                    titulo: 'Alerta',
+                    contenido: 'El codigo se ha verificado de manera exitosa',
+                     function: (){
+                      Navigator.pop(context);
+                     },
+                    ),
                 ),
               ],
             ),
@@ -66,3 +67,4 @@ class CambioCorreoPage extends StatelessWidget {
         ));
   }
 }
+
