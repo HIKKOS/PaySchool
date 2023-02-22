@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/ScreensMetodoPago/cambio_metodo_pago.dart';
-import 'package:hola_mundo/screens/ScreensCambioPassword/cambio_password.dart';
-import 'package:hola_mundo/screens/ScreensCambioNumeroT/cambio_telefono.dart';
+import 'package:hola_mundo/pages/ScreensMetodoPago/cambio_metodo_pago.dart';
+import 'package:hola_mundo/pages/ScreensCambioPassword/cambio_password.dart';
+import 'package:hola_mundo/pages/ScreensCambioNumeroT/cambio_telefono.dart';
 
-import '../screens/ScreensCambioCorreo/cambio_correo_page.dart';
+import '../pages/ScreensCambioCorreo/cambio_correo_page.dart';
 
 class Options {
   String imageUrl;

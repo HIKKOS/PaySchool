@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/perfil_page.dart';
+import 'package:hola_mundo/pages/ScreensCambioNumeroT/cambio_telefono.dart';
 import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
 
-class CambioPasswordSecondPage extends StatelessWidget {
-  const CambioPasswordSecondPage({
+class CambioTelefonoSecondPage extends StatelessWidget {
+  const CambioTelefonoSecondPage({
     super.key,
   });
 
@@ -14,7 +14,7 @@ class CambioPasswordSecondPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Cambio Contraseña',
+            'Cambio Telefono',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 24, color: Colors.blue),
           ),
@@ -22,7 +22,7 @@ class CambioPasswordSecondPage extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const PerfilPage())),
+                MaterialPageRoute(builder: (context) => const CambioTelefonoPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -33,33 +33,38 @@ class CambioPasswordSecondPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children: [
+              children:   [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: TextoEditable(label: 'Escribe tu nueva contraseña'),
+                  child: TextoEditable(
+                      label:
+                          'Verifica el codigo que se ha mandado a 123 456 7890'),
                 ),
                 const SizedBox(height: 5),
                 const InputTextField(
-                  label: 'Contraseña Nueva',
-                  hint: '',
+                  label: 'Código de verificación',
+
+                  hint: '123456',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: AlertButton(
-                      horizontal: 80,
-                      vertical: 20,
-                      titulo: 'alerta',
-                      contenido: 'Tu contraseña se ha cambiado de manera exitosa',
-                      function: () {
-                        Navigator.pop(context);
-                      },
-                    )),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: AlertButton(
+                    horizontal: 80,
+                    vertical: 20,
+                    titulo: 'Alerta',
+                    contenido: 'El codigo se ha verificado de manera exitosa',
+                     function: (){
+                      Navigator.pop(context);
+                     },
+                    ),
+                ),
               ],
             ),
           ),
         ));
   }
 }
+

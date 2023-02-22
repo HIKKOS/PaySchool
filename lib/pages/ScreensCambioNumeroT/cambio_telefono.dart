@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/ScreensCambioNumeroT/cambio_telefono.dart';
-import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
+import 'package:hola_mundo/pages/ScreensCambioNumeroT/cambio_telefono_secondPage.dart';
+import 'package:hola_mundo/pages/perfil_page.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
+import 'package:hola_mundo/widgets/Buttons/customButton.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
 
-class CambioTelefonoSecondPage extends StatelessWidget {
-  const CambioTelefonoSecondPage({
+class CambioTelefonoPage extends StatelessWidget {
+  const CambioTelefonoPage({
     super.key,
   });
 
@@ -22,7 +23,7 @@ class CambioTelefonoSecondPage extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const CambioTelefonoPage())),
+                MaterialPageRoute(builder: (context) => const PerfilPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -33,33 +34,31 @@ class CambioTelefonoSecondPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:   [
+              children:  [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Verifica el codigo que se ha mandado a 123 456 7890'),
+                          'Escribe el numero de teléfono ahí recibirás un código de verificación'),
                 ),
                 const SizedBox(height: 5),
                 const InputTextField(
-                  label: 'Código de verificación',
-
-                  hint: '123456',
+                  label: 'Cambio Telefono',
+                  hint: '123 456 7890',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: AlertButton(
-                    horizontal: 80,
-                    vertical: 20,
-                    titulo: 'Alerta',
-                    contenido: 'El codigo se ha verificado de manera exitosa',
-                     function: (){
-                      Navigator.pop(context);
-                     },
-                    ),
+                  child: CustomButton(
+                      horizontal: 80,
+                      vertical: 20,
+                      label: 'Enviar',
+                      function: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const  CambioTelefonoSecondPage()));
+                      }),
                 ),
               ],
             ),
@@ -67,4 +66,3 @@ class CambioTelefonoSecondPage extends StatelessWidget {
         ));
   }
 }
-

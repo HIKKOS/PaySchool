@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/ScreensCambioCorreo/cambioCorreoSecondPage.dart';
-import 'package:hola_mundo/screens/perfil_page.dart';
+import 'package:hola_mundo/pages/perfil_page.dart';
+import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
-import 'package:hola_mundo/widgets/Buttons/customButton.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
 
-class CambioCorreoPage extends StatelessWidget {
-  const CambioCorreoPage({
+class CambioPasswordSecondPage extends StatelessWidget {
+  const CambioPasswordSecondPage({
     super.key,
   });
 
@@ -15,7 +14,7 @@ class CambioCorreoPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Cambio Correo',
+            'Cambio Contraseña',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 24, color: Colors.blue),
           ),
@@ -34,32 +33,30 @@ class CambioCorreoPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:  [
+              children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: TextoEditable(
-                      label:
-                          'Escribe el nuevo correo, en el recibiras un codigo de verificacion'),
+                  child: TextoEditable(label: 'Escribe tu nueva contraseña'),
                 ),
                 const SizedBox(height: 5),
                 const InputTextField(
-                  label: 'Correo Electronico',
-                  hint: 'correo@ejemplo.com',
+                  label: 'Contraseña Nueva',
+                  hint: '',
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: CustomButton(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: AlertButton(
                       horizontal: 80,
                       vertical: 20,
-                      label: 'Enviar',
+                      titulo: 'alerta',
+                      contenido: 'Tu contraseña se ha cambiado de manera exitosa',
                       function: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const  CambioCorreoSecondPage()));
-                      }),
-                ),
+                        Navigator.pop(context);
+                      },
+                    )),
               ],
             ),
           ),

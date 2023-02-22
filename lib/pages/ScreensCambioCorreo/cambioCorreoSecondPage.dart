@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/screens/ScreensCambioCorreo/cambio_correo_page.dart';
+import 'package:hola_mundo/pages/ScreensCambioCorreo/cambio_correo_page.dart';
 import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
 import 'package:hola_mundo/widgets/Texts/EditableText.dart';
 import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';

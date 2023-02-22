@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hola_mundo/screens/perfil_page.dart';
+import 'package:hola_mundo/pages/perfil_page.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
