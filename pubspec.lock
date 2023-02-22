@@ -16,6 +16,14 @@ packages:
       sha256: bfe67ef28df125b7dddcea62755991f807aa39a2492a23e1550161692950bbe0
       url: "https://pub.dev"
     source: hosted
+    version: "2.9.0"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.2.1"
     version: "2.10.0"
   boolean_selector:
     dependency: transitive
@@ -49,6 +57,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+    source: hosted
+    version: "2.1.0"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.1"
+    version: "2.1.1"
   characters:
     dependency: transitive
     description:
@@ -142,6 +160,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_bloc:
+    dependency: "direct main"
+    description:
+      name: flutter_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.3.3"
+  flutter_carousel_widget:
+    dependency: "direct main"
+    description:
+      name: flutter_carousel_widget
+      sha256: "432240ab9ecd6d3cffef84de5d4493be6d82cb67dda90ee0cb65a82066e49b8f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -158,6 +191,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0+1"
+      url: "https://pub.dartlang.org"
+      sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -187,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.6"
+
+      sha256: "1c8e3882fa66ee7b74c24320668276ca23affbd58f0b14a24c1e5590f4d07ab0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.6"
   js:
     dependency: transitive
     description:
@@ -235,6 +281,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -307,6 +360,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      url: "https://pub.dartlang.org"
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.dartlang.org"
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   petitparser:
     dependency: transitive
     description:
@@ -347,6 +418,28 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.5"
+      sha256: "49392a45ced973e8d94a85fdb21293fbb40ba805fc49f2965101ae748a3683b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
+  scroll_snap_list:
+    dependency: "direct main"
+    description:
+      name: scroll_snap_list
+      sha256: "8009ad9030f680b93f3107b29b1ea31284d867aa4972868d2970c6d61fe9e59f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -464,6 +557,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+    source: hosted
+    version: "0.4.16"
   vector_math:
     dependency: transitive
     description:
@@ -499,3 +594,21 @@ packages:
 sdks:
   dart: ">=2.19.0-0 <4.0.0"
   flutter: ">=3.7.0-0"
+      sha256: ac0e3f4bf00ba2708c33fbabbbe766300e509f8c82dbd4ab6525039813f7e2fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.1.0"
+sdks:
+  dart: ">=2.18.6 <3.0.0"
+    version: "6.1.0"
+sdks:
+  dart: ">=2.18.5 <3.0.0"
+  flutter: ">=2.11.0-0.1.pre"
+
