@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/pages/Home.dart';
 import 'package:hola_mundo/widgets/CardBeneficiarioServicios.dart';
-import 'package:hola_mundo/widgets/NavbarAlfa.dart';
+
 import '../widgets/PurchasedServicesCard.dart';
 
 class BeneficiarioPage extends StatelessWidget {
@@ -10,6 +10,7 @@ class BeneficiarioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width - 20;
     return Scaffold(
       backgroundColor: const Color(0xFFEDF2F8),
       appBar: AppBar(
@@ -23,33 +24,35 @@ class BeneficiarioPage extends StatelessWidget {
         backgroundColor: const Color(0xFFEDF2F8),
         title: const CustomAppBar(text: 'Beneficiario'),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CardBeneficiarioServicios(),
-          Row(
+      body: Center(
+        child: SizedBox(
+          width: width,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 12, top: 12, left: 10),
-                child: Text(
-                  textAlign: TextAlign.left,
-                  'Servicios contratados',
-                  style: TextStyle(
-                      color: Color(0xFF616161),
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
+              const CardBeneficiarioServicios(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 12, top: 12, left: 10),
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      'Servicios contratados',
+                      style: TextStyle(
+                          color: Color(0xFF616161),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
+              const PurchasedServicesCard(),
             ],
           ),
-          PurchasedServicesCard(),
-          PurchasedServicesCard()
-        ],
+        ),
       ),
-      bottomNavigationBar: NavbarAlfa(),
     );
   }
 }

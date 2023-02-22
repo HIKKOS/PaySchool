@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/pages/Home.dart';
+import 'package:hola_mundo/widgets/BottomNavBar.dart';
 import 'package:hola_mundo/widgets/InputPasswordField.dart';
 import 'package:hola_mundo/widgets/InputTextField.dart';
 
@@ -43,7 +45,8 @@ class LoginPage extends StatelessWidget {
                 horizontal: 100,
                 vertical: 14,
                 function: () {
-                  Navigator.pushNamed(context, 'Home');
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const NavBar()));
                 }),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 50),
