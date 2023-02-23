@@ -2,92 +2,111 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/core/enties/service.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/data/repositories/service_repository.dart';
-import 'package:hola_mundo/widgets/NavbarAlfa.dart';
 import 'package:hola_mundo/widgets/custom_appbar.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/list_service.dart';
 import '../widgets/text_field_search.dart';
 
-class CatalogService extends StatefulWidget {
-  const CatalogService({super.key});
-
-  @override
-  State<CatalogService> createState() => _CatalogServiceState();
-}
-
-class _CatalogServiceState extends State<CatalogService> {
-  String searchValue = '';
-  List<Service> Services = [];
-  bool isSearching = false;
-
-  @override
-  void initState() {
-    super.initState();
-    Services = ServiceRepository.getServices();
-  }
+class CatalogService extends StatelessWidget {
+  const CatalogService({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.greyLight,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
+    return ChangeNotifierProvider(
+      create: (context) => CatalogServiceModel(),
+      child: Scaffold(
         backgroundColor: AppColors.greyLight,
-        title: !isSearching
-            ? const CustomAppBar(text: "Catalogo de servicios")
-            : Container(
-                height: 50,
-                width: double.infinity,
-                alignment: Alignment.centerRight,
-                child: TextFieldSearch(
-                  title: 'Buscar servicio...',
-                  funcion: (value) => setStateSearch(value),
-                ),
-              ),
-        actions: <Widget>[
-          if (!isSearching)
-            CustomIconButton(icon: Icons.search, funcion: setStateTrue),
-          if (isSearching)
-            CustomIconButton(icon: Icons.close, funcion: setStateFalse),
-          if (isSearching)
-            CustomIconButton(icon: Icons.filter_list, funcion: filter)
-        ],
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: SafeArea(
-          child: ListService(services: Services),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: AppColors.greyLight,
+          title: Consumer<CatalogServiceModel>(
+            builder: (context, model, child) {
+              return !model.isSearching
+                  ? const CustomAppBar(text: "Catalogo de servicios")
+                  : Container(
+                      height: 50,
+                      width: double.infinity,
+                      alignment: Alignment.centerRight,
+                      child: TextFieldSearch(
+                        title: 'Buscar servicio...',
+                        funcion: (value) =>
+                            model.setSearchValue(value.toLowerCase()),
+                      ),
+                    );
+            },
+          ),
+          actions: <Widget>[
+            Consumer<CatalogServiceModel>(
+              builder: (context, model, child) {
+                return !model.isSearching
+                    ? CustomIconButton(
+                        icon: Icons.search, funcion: model.setStateTrue)
+                    : CustomIconButton(
+                        icon: Icons.close, funcion: model.setStateFalse);
+              },
+            ),
+            Consumer<CatalogServiceModel>(
+              builder: (context, model, child) {
+                return model.isSearching
+                    ? CustomIconButton(
+                        icon: Icons.filter_list,
+                        funcion: () => model.filter(context))
+                    : SizedBox.shrink();
+              },
+            ),
+          ],
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SafeArea(
+            child: Consumer<CatalogServiceModel>(
+              builder: (context, model, child) {
+                return ListService(services: model.filteredServices);
+              },
+            ),
+          ),
         ),
       ),
     );
   }
+}
+
+class CatalogServiceModel with ChangeNotifier {
+  String _searchValue = '';
+  bool _isSearching = false;
+  List<Service> _services = ServiceRepository.getServices();
+
+  List<Service> get filteredServices {
+    return _services
+        .where((service) =>
+            service.name.toLowerCase().contains(_searchValue.toLowerCase()))
+        .toList();
+  }
+
+  bool get isSearching => _isSearching;
+
+  void setSearchValue(String value) {
+    _searchValue = value;
+    notifyListeners();
+  }
 
   void setStateFalse() {
-    setState(() {
-      isSearching = false;
-      Services = ServiceRepository.getServices();
-    });
+    _isSearching = false;
+    _searchValue = '';
+    _services = ServiceRepository.getServices();
+    notifyListeners();
   }
 
   void setStateTrue() {
-    setState(() {
-      isSearching = true;
-    });
+    _isSearching = true;
+    notifyListeners();
   }
 
-  void setStateSearch(String value) {
-    setState(() {
-      searchValue = value.toLowerCase();
-      Services = ServiceRepository.getServices()
-          .where((service) => service.name.toLowerCase().contains(searchValue))
-          .toList();
-    });
-  }
-
-  void filter() {
+  void filter(BuildContext context) {
     showMenu<String>(
       context: context,
       position: RelativeRect.fromLTRB(
@@ -101,7 +120,7 @@ class _CatalogServiceState extends State<CatalogService> {
           value: 'alfabeto',
           child: Row(
             children: const <Widget>[
-              Icon(Icons.sort_by_alpha),
+              Icon(Icons.sort_by_alpha, color: AppColors.greyDark),
               SizedBox(width: 10),
               Text('Alfabeto'),
             ],
@@ -112,7 +131,7 @@ class _CatalogServiceState extends State<CatalogService> {
           value: 'precio',
           child: Row(
             children: const <Widget>[
-              Icon(Icons.attach_money),
+              Icon(Icons.attach_money, color: AppColors.greyDark),
               SizedBox(width: 10),
               Text('Precio'),
             ],
@@ -121,14 +140,11 @@ class _CatalogServiceState extends State<CatalogService> {
       ],
     ).then((value) {
       if (value == 'alfabeto') {
-        setState(() {
-          Services.sort((a, b) => a.name.compareTo(b.name));
-        });
+        _services.sort((a, b) => a.name.compareTo(b.name));
       } else if (value == 'precio') {
-        setState(() {
-          Services.sort((a, b) => a.cost.compareTo(b.cost));
-        });
+        _services.sort((a, b) => a.cost.compareTo(b.cost));
       }
+      notifyListeners();
     });
   }
 }
