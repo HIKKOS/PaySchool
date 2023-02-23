@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
-import 'package:hola_mundo/pages/dialogs/dialog.dart';
+import 'package:hola_mundo/pages/dialogs/dialogs.dart';
 import 'package:hola_mundo/widgets/text_section.dart';
 import '../core/enties/service.dart';
 import '../widgets/custom_button.dart';
