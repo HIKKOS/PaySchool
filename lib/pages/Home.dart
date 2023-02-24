@@ -25,7 +25,6 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 //!cambiar
-                /*    const CardBeneficiario(), */
                 FlutterCarousel(
                   options: CarouselOptions(
                     height: 200.0,
@@ -66,8 +65,7 @@ class HomePage extends StatelessWidget {
                   height: 400,
                   width: width,
                   child: ListView.builder(
-                    physics: const BouncingScrollPhysics(
-                        decelerationRate: ScrollDecelerationRate.fast),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: 4,
                     itemBuilder: (context, index) {
                       return const CustomCard();
