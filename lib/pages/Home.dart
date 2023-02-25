@@ -1,13 +1,17 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/providers/alumno_provider.dart';
 import 'package:hola_mundo/widgets/Card_Beneficiario.dart';
 import 'package:hola_mundo/widgets/ServicioHome.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  //final tutoresPovider = context.read<TutoresProvider>();
+  //final tutoresPovider = context.read<TutoresProvider>();
+  //final tutoresPovider = context.read<TutoresProvider>();
+  //final tutoresPovider = context.read<TutoresProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +28,30 @@ class HomePage extends StatelessWidget {
             width: width,
             child: Column(
               children: [
-                //!cambiar
-                FlutterCarousel(
-                  options: CarouselOptions(
-                    height: 200.0,
-                    showIndicator: true,
-                    slideIndicator: CircularSlideIndicator(
-                        currentIndicatorColor: AppColors.primary,
-                        indicatorBackgroundColor: AppColors.greyDark),
-                  ),
-                  items: [1, 2].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return const CardBeneficiario();
-                      },
-                    );
-                  }).toList(),
+                Consumer<AlumnoProvider>(
+                  builder: (context, alumnoProv, child) => alumnoProv.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : FlutterCarousel(
+                          options: CarouselOptions(
+                            height: 200.0,
+                            showIndicator: true,
+                            slideIndicator: CircularSlideIndicator(
+                                currentIndicatorColor: AppColors.primary,
+                                indicatorBackgroundColor: AppColors.greyDark),
+                          ),
+                          items: alumnoProv.getAlumnos?.length != 0
+                              ? (alumnoProv.getAlumnos?.map((alumno) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      final nombre =
+                                          '${alumno.nombres} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
+                                      return CardBeneficiario(
+                                        nombre: nombre,
+                                      );
+                                    },
+                                  );
+                                }).toList())
+                              : null),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

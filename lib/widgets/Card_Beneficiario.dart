@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hola_mundo/pages/BeneficiarioPage.dart';
 
 class CardBeneficiario extends StatelessWidget {
-  const CardBeneficiario({super.key});
-
+  const CardBeneficiario({super.key, required this.nombre});
+  final String nombre;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,9 +36,9 @@ class CardBeneficiario extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text('Fransisco Matías Gómez',
+                  child: Text(nombre,
                       style: TextStyle(fontSize: 20, color: Color(0xFF616161))),
                 )
               ],

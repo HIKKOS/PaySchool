@@ -1,15 +1,58 @@
 import 'dart:convert';
-
+import 'package:hola_mundo/pages/Home.dart';
+import 'package:hola_mundo/providers/alumno_provider.dart';
+import 'package:hola_mundo/widgets/BottomNavBar.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:hola_mundo/widgets/CustomButton.dart';
 import 'package:logger/logger.dart';
-
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../DTOs/user_login_DTO.dart';
 import '../data/repositories/app_colors.dart';
 
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
+
 class FormLogin extends StatelessWidget {
   const FormLogin({super.key});
+  void _login(String email, String password, BuildContext context) async {
+    final user = UserLoginDto(correo: email, password: password);
+    final res = await http.post(
+        Uri.parse('http://192.168.8.33:8080/api/login/Tutor'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(user));
+    if (res.statusCode != 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text(
+          'Usuario o contraseña incorrectos',
+        ),
+        elevation: 10,
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        backgroundColor: const Color.fromARGB(200, 0, 0, 0),
+      ));
+    } else {
+      final Map<String, dynamic> map = jsonDecode(res.body);
+      final String jwt = map['jwt'];
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('jwt', jwt);
+
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => ChangeNotifierProvider(
+                  create: (context) => AlumnoProvider()..fetchAlumnos(),
+                  child: (const MaterialApp(
+                      title: 'Material App', home: NavBar())))));
+      /*   Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomePage())); */
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -87,35 +130,13 @@ class FormLogin extends StatelessWidget {
             child: CustomButton(
                 horizontal: 100,
                 vertical: 14,
-                function: () => {
-                      postDataUser(emailController.text,
-                          passwordController.text, context)
-                    }),
+                function: () {
+                  _login(
+                      emailController.text, passwordController.text, context);
+                }),
           )
         ],
       ),
     );
   }
-}
-
-Future postDataUser(String email, String password, BuildContext context) async {
-  final user = UserLoginDto(correo: email, password: password);
-  final response = await http.post(
-    Uri.parse('https://192.168.0.166/api/login/Tutor'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(user),
-  );
-
-  /*  if (response.statusCode == 200) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('User created!')),
-    );
-    Navigator.pop(context);
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: ${response.statusCode}!')),
-    );
-  } */
 }
