@@ -7,7 +7,6 @@ import '../widgets/PurchasedServicesCard.dart';
 
 class BeneficiarioPage extends StatelessWidget {
   const BeneficiarioPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width - 20;
@@ -22,7 +21,7 @@ class BeneficiarioPage extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: const Color(0xFFEDF2F8),
-        title: const CustomAppBar(text: 'Beneficiario'),
+        title: CustomAppBar(text: 'Detalles'),
       ),
       body: Center(
         child: SizedBox(

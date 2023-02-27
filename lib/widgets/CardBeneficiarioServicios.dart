@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/DTOs/alumno_DTO.dart';
+import 'package:hola_mundo/providers/alumno_provider.dart';
+import 'package:provider/provider.dart';
 
 class CardBeneficiarioServicios extends StatelessWidget {
   const CardBeneficiarioServicios({super.key});
@@ -26,10 +28,17 @@ class CardBeneficiarioServicios extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Fransisco Matías Gómez',
-                      style: TextStyle(color: Color(0xFF616161), fontSize: 20),
+                  children: [
+                    Consumer<AlumnoProvider>(
+                      builder: (context, alumnoProv, child) => Text(
+                        (alumnoProv.getAlumnoSeleccionadoNombreCompleto) ??
+                            'No hay nombre',
+                        softWrap: true,
+                        style: TextStyle(
+                            color: Color(0xFF616161),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(height: 10),
                     Text(

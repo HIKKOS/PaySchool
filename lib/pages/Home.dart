@@ -6,12 +6,10 @@ import 'package:hola_mundo/widgets/ServicioHome.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'BeneficiarioPage.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  //final tutoresPovider = context.read<TutoresProvider>();
-  //final tutoresPovider = context.read<TutoresProvider>();
-  //final tutoresPovider = context.read<TutoresProvider>();
-  //final tutoresPovider = context.read<TutoresProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: const Color(0xFFEDF2F8),
-          title: const CustomAppBar(text: 'Hola, Noe Paredes'),
+          title: const CustomAppBar(text: 'Inicio'),
         ),
         body: Center(
           child: SizedBox(
@@ -31,27 +29,48 @@ class HomePage extends StatelessWidget {
                 Consumer<AlumnoProvider>(
                   builder: (context, alumnoProv, child) => alumnoProv.isLoading
                       ? const Center(child: CircularProgressIndicator())
-                      : FlutterCarousel(
-                          options: CarouselOptions(
-                            height: 200.0,
-                            showIndicator: true,
-                            slideIndicator: CircularSlideIndicator(
-                                currentIndicatorColor: AppColors.primary,
-                                indicatorBackgroundColor: AppColors.greyDark),
-                          ),
-                          items: alumnoProv.getAlumnos?.length != 0
-                              ? (alumnoProv.getAlumnos?.map((alumno) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      final nombre =
-                                          '${alumno.nombres} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
-                                      return CardBeneficiario(
+                      : alumnoProv.getAlumnos?.length != 0
+                          ? FlutterCarousel(
+                              options: CarouselOptions(
+                                height: 200.0,
+                                showIndicator: true,
+                                slideIndicator: const CircularSlideIndicator(
+                                    currentIndicatorColor: AppColors.primary,
+                                    indicatorBackgroundColor:
+                                        AppColors.greyDark),
+                              ),
+                              items: (alumnoProv.getAlumnos?.map((alumno) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    final nombre =
+                                        '${alumno.nombres} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
+                                    return CardBeneficiario(
                                         nombre: nombre,
-                                      );
-                                    },
-                                  );
-                                }).toList())
-                              : null),
+                                        onPess: () {
+                                          alumnoProv.setAlumnoSeleccionado(
+                                              AlumnoDTO: alumno);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const BeneficiarioPage()));
+                                        });
+                                  },
+                                );
+                              }).toList()))
+                          : Center(
+                              child: Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 10),
+                                    child: const Text(
+                                      'No hay tienes tutorados registrados',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  )),
+                            ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

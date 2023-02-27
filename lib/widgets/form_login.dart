@@ -17,11 +17,12 @@ var logger = Logger(
 );
 
 class FormLogin extends StatelessWidget {
+  final urlBase = '192.168.0.166';
   const FormLogin({super.key});
   void _login(String email, String password, BuildContext context) async {
     final user = UserLoginDto(correo: email, password: password);
     final res = await http.post(
-        Uri.parse('http://192.168.8.33:8080/api/login/Tutor'),
+        Uri.parse('http://$urlBase:8080/api/login/Tutor'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(user));
     if (res.statusCode != 200) {

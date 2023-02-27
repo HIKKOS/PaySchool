@@ -3,14 +3,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hola_mundo/pages/BeneficiarioPage.dart';
 
 class CardBeneficiario extends StatelessWidget {
-  const CardBeneficiario({super.key, required this.nombre});
+  const CardBeneficiario(
+      {super.key, required this.nombre, required this.onPess});
   final String nombre;
+  final onPess;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const BeneficiarioPage()));
+        onPess();
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
