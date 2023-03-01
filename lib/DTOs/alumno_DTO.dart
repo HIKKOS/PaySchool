@@ -1,13 +1,19 @@
+// To parse this JSON data, do
+//
+//     final alumnoDto = alumnoDtoFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-AlumnoDTO alumnoFromJson(String str) => AlumnoDTO.fromJson(json.decode(str));
+AlumnoDTO alumnoDtoFromJson(String str) => AlumnoDTO.fromJson(json.decode(str));
 
-String alumnoToJson(AlumnoDTO data) => json.encode(data.toJson());
+String alumnoDtoToJson(AlumnoDTO data) => json.encode(data.toJson());
 
 class AlumnoDTO {
   AlumnoDTO({
     required this.id,
-    required this.nombres,
+    required this.primerNombre,
+    required this.segundoNombre,
     required this.apellidoMaterno,
     required this.apellidoPaterno,
     required this.grado,
@@ -16,7 +22,8 @@ class AlumnoDTO {
   });
 
   final String id;
-  final String nombres;
+  final String primerNombre;
+  final String segundoNombre;
   final String apellidoMaterno;
   final String apellidoPaterno;
   final int grado;
@@ -25,7 +32,8 @@ class AlumnoDTO {
 
   factory AlumnoDTO.fromJson(Map<String, dynamic> json) => AlumnoDTO(
         id: json["Id"],
-        nombres: json["Nombres"],
+        primerNombre: json["PrimerNombre"],
+        segundoNombre: json["SegundoNombre"],
         apellidoMaterno: json["ApellidoMaterno"],
         apellidoPaterno: json["ApellidoPaterno"],
         grado: json["Grado"],
@@ -35,7 +43,8 @@ class AlumnoDTO {
 
   Map<String, dynamic> toJson() => {
         "Id": id,
-        "Nombres": nombres,
+        "PrimerNombre": primerNombre,
+        "SegundoNombre": segundoNombre,
         "ApellidoMaterno": apellidoMaterno,
         "ApellidoPaterno": apellidoPaterno,
         "Grado": grado,

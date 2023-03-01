@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/pages/Home.dart';
 import 'package:hola_mundo/widgets/CardBeneficiarioServicios.dart';
+import 'package:hola_mundo/widgets/ServicioHome.dart';
+import 'package:hola_mundo/widgets/form_login.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/alumno_provider.dart';
 import '../widgets/PurchasedServicesCard.dart';
 
 class BeneficiarioPage extends StatelessWidget {
@@ -47,7 +51,34 @@ class BeneficiarioPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const PurchasedServicesCard(),
+              /*
+
+               ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return const CustomCard();
+                    },
+                  ), */
+              Consumer<AlumnoProvider>(
+                builder: (context, alumnoProv, child) => alumnoProv
+                        .isLoadingServices
+                    ? const Center(child: CircularProgressIndicator())
+                    : Expanded(
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount:
+                              alumnoProv.getServiciosContratados?.length ?? 0,
+                          itemBuilder: (context, int index) {
+                            final servicio =
+                                alumnoProv.getServiciosContratados?[index];
+                            logger.d(index);
+                            return CustomCard(
+                                text: servicio?.nombre, costo: servicio?.costo);
+                          },
+                        ),
+                      ),
+              ),
             ],
           ),
         ),

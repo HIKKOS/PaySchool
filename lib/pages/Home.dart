@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hola_mundo/data/repositories/app_colors.dart';
 import 'package:hola_mundo/providers/alumno_provider.dart';
 import 'package:hola_mundo/widgets/Card_Beneficiario.dart';
-import 'package:hola_mundo/widgets/ServicioHome.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -43,12 +42,13 @@ class HomePage extends StatelessWidget {
                                 return Builder(
                                   builder: (BuildContext context) {
                                     final nombre =
-                                        '${alumno.nombres} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
+                                        '${alumno.primerNombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
                                     return CardBeneficiario(
                                         nombre: nombre,
                                         onPess: () {
                                           alumnoProv.setAlumnoSeleccionado(
                                               AlumnoDTO: alumno);
+                                          alumnoProv.fetchServiciosAlumno();
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                                   )),
                             ),
                 ),
-                Row(
+                /*  Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
@@ -91,8 +91,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(
+                ), */
+                /*  SizedBox(
                   height: 400,
                   width: width,
                   child: ListView.builder(
@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
                       return const CustomCard();
                     },
                   ),
-                ),
+                ), */
               ],
             ),
           ),

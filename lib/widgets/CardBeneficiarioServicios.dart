@@ -41,9 +41,16 @@ class CardBeneficiarioServicios extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      '2 Servicios',
-                      style: TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
+                    Consumer<AlumnoProvider>(
+                      builder: (context, alumnoProv, child) => Text(
+                        (alumnoProv.getServiciosContratados?.length == 0
+                                ? 'no tiene'
+                                : '${alumnoProv.getServiciosContratados?.length} servicio(s)')
+                            .toString(),
+                        softWrap: true,
+                        style:
+                            TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
+                      ),
                     ),
                   ],
                 ),

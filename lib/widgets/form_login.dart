@@ -17,12 +17,13 @@ var logger = Logger(
 );
 
 class FormLogin extends StatelessWidget {
-  final urlBase = '192.168.0.166';
+  final urlBase = '192.168.1.18';
   const FormLogin({super.key});
   void _login(String email, String password, BuildContext context) async {
     final user = UserLoginDto(correo: email, password: password);
     final res = await http.post(
-        Uri.parse('http://$urlBase:8080/api/login/Tutor'),
+        Uri.parse(
+            'https://rest-server-node-production-109d.up.railway.app/api/login/Tutor'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(user));
     if (res.statusCode != 200) {
@@ -42,6 +43,7 @@ class FormLogin extends StatelessWidget {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('jwt', jwt);
 
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

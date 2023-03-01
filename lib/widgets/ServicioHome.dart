@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+  const CustomCard({super.key, required this.text, required this.costo});
+  final text;
+  final costo;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +20,7 @@ class CustomCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
-                  'assets/Icons/bus.svg',
+                  'assets/Icons/Icon.svg',
                   height: 60,
                   width: 60,
                 ),
@@ -29,15 +31,15 @@ class CustomCard extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
-                          'Colegiatura',
+                          text,
                           style:
                               TextStyle(color: Color(0xFF616161), fontSize: 20),
                         ),
                         SizedBox(height: 10),
                         Text(
-                          '\$499',
+                          '\$$costo',
                           style:
                               TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
                         ),
