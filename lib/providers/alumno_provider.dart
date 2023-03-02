@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AlumnoProvider extends ChangeNotifier {
-  final urlBase = 'rest-server-node-production-109d.up.railway.app';
+  final urlBase = '192.168.0.166:8080';
   bool isLoading = true;
   bool isLoadingServices = true;
   final logger = Logger();
@@ -27,7 +27,7 @@ class AlumnoProvider extends ChangeNotifier {
   }
 
   Future fetchAlumnos() async {
-    var url = Uri.parse('https://$urlBase/api/tutores/tutorados');
+    var url = Uri.parse('http://$urlBase/api/tutores/tutorados');
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
     final headersList = {'x-token': token.toString()};

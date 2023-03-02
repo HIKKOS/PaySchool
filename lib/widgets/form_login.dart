@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:hola_mundo/pages/Home.dart';
 import 'package:hola_mundo/providers/alumno_provider.dart';
 import 'package:hola_mundo/widgets/BottomNavBar.dart';
+import 'package:hola_mundo/widgets/login-btn.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,17 +17,29 @@ var logger = Logger(
   printer: PrettyPrinter(),
 );
 
-class FormLogin extends StatelessWidget {
-  final urlBase = '192.168.1.18';
+class FormLogin extends StatefulWidget {
   const FormLogin({super.key});
-  void _login(String email, String password, BuildContext context) async {
+
+  @override
+  State<FormLogin> createState() => _FormLoginState();
+}
+
+class _FormLoginState extends State<FormLogin> {
+  final urlBase = '192.168.0.166:8080';
+  String email = "Correo";
+  String password = "Password";
+  bool isLoading = false;
+  Future _login(String email, String password, BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
     final user = UserLoginDto(correo: email, password: password);
-    final res = await http.post(
-        Uri.parse(
-            'https://rest-server-node-production-109d.up.railway.app/api/login/Tutor'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(user));
+    final res = await http.post(Uri.parse('http://$urlBase/api/login/Tutor'),
+        headers: {'Content-Type': 'application/json'}, body: jsonEncode(user));
     if (res.statusCode != 200) {
+      setState(() {
+        isLoading = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text(
           'Usuario o contraseña incorrectos',
@@ -37,12 +50,12 @@ class FormLogin extends StatelessWidget {
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
         backgroundColor: const Color.fromARGB(200, 0, 0, 0),
       ));
+      return false;
     } else {
       final Map<String, dynamic> map = jsonDecode(res.body);
       final String jwt = map['jwt'];
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('jwt', jwt);
-
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
           context,
@@ -51,8 +64,7 @@ class FormLogin extends StatelessWidget {
                   create: (context) => AlumnoProvider()..fetchAlumnos(),
                   child: (const MaterialApp(
                       title: 'Material App', home: NavBar())))));
-      /*   Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => HomePage())); */
+      return true;
     }
   }
 
@@ -113,6 +125,7 @@ class FormLogin extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: TextFormField(
+                // initialValue: password ?? '',
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
@@ -130,13 +143,17 @@ class FormLogin extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: CustomButton(
-                horizontal: 100,
-                vertical: 14,
-                function: () {
-                  _login(
-                      emailController.text, passwordController.text, context);
-                }),
+            child: isLoading
+                ? const CircularProgressIndicator()
+                : CustomButton(
+                    horizontal: 100,
+                    vertical: 14,
+                    function: () {
+                      email = emailController.text;
+                      password = passwordController.text;
+                      _login(emailController.text, passwordController.text,
+                          context);
+                    }),
           )
         ],
       ),

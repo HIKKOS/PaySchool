@@ -5,6 +5,7 @@ import 'package:hola_mundo/widgets/Card_Beneficiario.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/ServicioHome.dart';
 import 'BeneficiarioPage.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,7 +13,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future _refresh() {
+      return Provider.of<AlumnoProvider>(context, listen: false).fetchAlumnos();
+    }
+
     final width = MediaQuery.of(context).size.width - 20;
+    final height = MediaQuery.of(context).size.height - 780;
     return Scaffold(
         backgroundColor: const Color(0xFFEDF2F8),
         appBar: AppBar(
@@ -26,53 +32,51 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 Consumer<AlumnoProvider>(
-                  builder: (context, alumnoProv, child) => alumnoProv.isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : alumnoProv.getAlumnos?.length != 0
-                          ? FlutterCarousel(
-                              options: CarouselOptions(
-                                height: 200.0,
-                                showIndicator: true,
-                                slideIndicator: const CircularSlideIndicator(
-                                    currentIndicatorColor: AppColors.primary,
-                                    indicatorBackgroundColor:
-                                        AppColors.greyDark),
-                              ),
-                              items: (alumnoProv.getAlumnos?.map((alumno) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    final nombre =
-                                        '${alumno.primerNombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
-                                    return CardBeneficiario(
-                                        nombre: nombre,
-                                        onPess: () {
-                                          alumnoProv.setAlumnoSeleccionado(
-                                              AlumnoDTO: alumno);
-                                          alumnoProv.fetchServiciosAlumno();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const BeneficiarioPage()));
-                                        });
-                                  },
-                                );
-                              }).toList()))
-                          : Center(
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
+                    builder: (context, alumnoProv, child) => alumnoProv
+                            .isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : alumnoProv.getAlumnos?.length != 0
+                            ? FlutterCarousel(
+                                options: CarouselOptions(
+                                  height: 200.0,
+                                  showIndicator: true,
+                                  slideIndicator: const CircularSlideIndicator(
+                                      currentIndicatorColor: AppColors.primary,
+                                      indicatorBackgroundColor:
+                                          AppColors.greyDark),
+                                ),
+                                items: (alumnoProv.getAlumnos?.map((alumno) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      final nombre =
+                                          '${alumno.primerNombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
+                                      return CardBeneficiario(
+                                          nombre: nombre,
+                                          onPess: () {
+                                            alumnoProv.setAlumnoSeleccionado(
+                                                AlumnoDTO: alumno);
+                                            alumnoProv.fetchServiciosAlumno();
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const BeneficiarioPage()));
+                                          });
+                                    },
+                                  );
+                                }).toList()))
+                            : Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 25, vertical: 10),
+                                        horizontal: 25, vertical: 25),
                                     child: const Text(
                                       'No hay tienes tutorados registrados',
                                       style: TextStyle(color: Colors.red),
-                                    ),
-                                  )),
-                            ),
-                ),
-                /*  Row(
+                                    )))
+
+                    /*  Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
@@ -92,7 +96,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ), */
-                /*  SizedBox(
+                    /*  SizedBox(
                   height: 400,
                   width: width,
                   child: ListView.builder(
@@ -103,6 +107,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                 ), */
+                    )
               ],
             ),
           ),
