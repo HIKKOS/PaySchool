@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../core/enties/service.dart';
-import '../data/repositories/app_colors.dart';
+import '../pages/global/app_colors.dart';
 
 class SubtitleSection extends StatelessWidget {
   const SubtitleSection({

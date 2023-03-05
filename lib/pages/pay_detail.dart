@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/core/enties/payment_detail.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/domain/enties/payment_detail.dart';
+import 'package:hola_mundo/pages/global/app_colors.dart';
 import 'package:hola_mundo/widgets/card_costo.dart';
 import 'package:hola_mundo/widgets/custom_appbar.dart';
 import 'package:hola_mundo/widgets/custom_card_pay.dart';

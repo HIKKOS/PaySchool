@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/data/providers/services_provider.dart';
+import 'package:hola_mundo/pages/global/app_colors.dart';
 
 class ImageSection extends StatefulWidget {
   const ImageSection({super.key, required this.imageList});
-  final List<String> imageList;
+  final List<dynamic> imageList;
 
   @override
   _ImagenSectionState createState() => _ImagenSectionState();
@@ -14,6 +15,8 @@ class _ImagenSectionState extends State<ImageSection> {
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
 
+  final servicesProvider = ServicesProvider();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,15 +24,23 @@ class _ImagenSectionState extends State<ImageSection> {
         Stack(
           children: [
             CarouselSlider(
-                items: widget.imageList
-                    .map((path) => FadeInImage.assetNetwork(
-                          placeholder: 'assets/images/loading.gif',
-                          image: path,
-                          fit: BoxFit.cover,
-                        ))
-                    .toList(),
-                carouselController: carouselController,
-                options: CarouselOptions(
+              //  FadeInImage.assetNetwork(
+              //             placeholder: 'assets/images/loading.gif',
+              //             image: path,
+              //             fit: BoxFit.cover,
+              //           ))
+              items: widget.imageList
+                  .map((path) => Image.network(
+                        path,
+                        fit: BoxFit.cover,
+                        headers: {
+                          "x-token":
+                              "${servicesProvider.token}"
+                        },
+                      ))
+                  .toList(),
+              carouselController: carouselController,
+              options: CarouselOptions(
                 // scrollPhysics: const BouncingScrollPhysics(),
                 // autoPlay: false,
                 // aspectRatio: 1,
@@ -47,14 +58,13 @@ class _ImagenSectionState extends State<ImageSection> {
                 enlargeCenterPage: true,
                 enlargeFactor: 0.3,
                 scrollDirection: Axis.horizontal,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                ),
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
               ),
-
+            ),
             Positioned(
               bottom: 10,
               left: 0,

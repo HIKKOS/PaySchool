@@ -1,9 +1,9 @@
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:hola_mundo/data/providers/services_provider.dart';
+import 'package:hola_mundo/pages/global/app_colors.dart';
 import 'package:hola_mundo/pages/catalog_service.dart';
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -14,7 +14,6 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int indexScreen = 0;
-
   final screens = [
     const Center(child: Text("Home", style: TextStyle(fontSize: 45))),
     CatalogService(),
@@ -44,12 +43,12 @@ class _NavBarState extends State<NavBar> {
               ),
               GButton(
                 icon: Icons.search,
-                 iconColor: Colors.grey,
+                iconColor: Colors.grey,
                 text: "Search",
               ),
               GButton(
                 icon: Icons.person,
-                 iconColor: Colors.grey,
+                iconColor: Colors.grey,
                 text: "Profile",
               ),
             ],

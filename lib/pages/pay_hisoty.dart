@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:hola_mundo/data/repositories/app_colors.dart';
-import 'package:hola_mundo/data/repositories/payment_detail_repository.dart';
+import 'package:hola_mundo/pages/global/app_colors.dart';
+import 'package:hola_mundo/domain/repositories/payment_detail_repository.dart';
 
 import 'package:hola_mundo/widgets/NavbarAlfa.dart';
 import 'package:hola_mundo/widgets/custom_appbar.dart';

@@ -1,4 +1,4 @@
-import 'package:hola_mundo/core/enties/payment_detail.dart';
+import 'package:hola_mundo/domain/enties/payment_detail.dart';
 
 class PaymentDetailRepository {
   static List<PaymentDetail> getPaymentDetail() {

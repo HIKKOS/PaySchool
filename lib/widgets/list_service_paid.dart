@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hola_mundo/pages/pay_detail.dart';
 
-import '../core/enties/payment_detail.dart';
-import '../data/repositories/app_colors.dart';
+import '../domain/enties/payment_detail.dart';
+import '../pages/global/app_colors.dart';
 
 class ListViewServicesPaid extends StatelessWidget {
   const ListViewServicesPaid({
