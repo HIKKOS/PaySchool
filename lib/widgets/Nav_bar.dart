@@ -16,7 +16,8 @@ class _NavBarState extends State<NavBar> {
   final screens = [
     const Center(child: Text("Home", style: TextStyle(fontSize: 45))),
     const Center(child: Text("Search", style: TextStyle(fontSize: 45))),
-    const PerfilPage()
+    
+     PerfilPage()
   ];
   @override
   Widget build(BuildContext context) {
@@ -41,14 +42,14 @@ class _NavBarState extends State<NavBar> {
                 text: "Home",
               ),
               GButton(
-                icon: Icons.search,
+                icon: Icons.shopping_cart,
                   iconColor: Colors.grey,
-                text: "Search",
+                text: "Compras",
               ),
               GButton(
-                icon: Icons.person,
+                icon: Icons.settings,
                   iconColor: Colors.grey,
-                text: "Profile",
+                text: "Settings",
               ),
             ],
           ),

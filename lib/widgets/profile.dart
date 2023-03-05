@@ -1,19 +1,21 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:hola_mundo/pages/ScreenCamera/screen_camera.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
-
+ 
   @override
-  // ignore: library_private_types_in_public_api
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _UserProfile createState() => _UserProfile();
 }
 
 class _UserProfile extends State<UserProfile> {
+
   @override
   Widget build(BuildContext context) {
     return CircularProfileAvatar(
-      'https://i.pinimg.com/736x/7a/04/b1/7a04b127016dc1ab33ee0d415874314e.jpg',
+      'https://rest-server-node-production-109d.up.railway.app/api/fotos',
       errorWidget: (context, url, error) => Container(
         child: const Icon(Icons.error),
       ),
@@ -22,7 +24,7 @@ class _UserProfile extends State<UserProfile> {
         height: 50,
         child: const CircularProgressIndicator(),
       ),
-      radius: 60,
+      radius: 200,
       backgroundColor: Colors.transparent,
       borderWidth: 2,
       initialsText: const Text(
@@ -34,6 +36,8 @@ class _UserProfile extends State<UserProfile> {
       elevation: 5.0,
       onTap: () {
         print('adil');
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Camera()));
       },
       cacheImage: true,
       showInitialTextAbovePicture: false,
