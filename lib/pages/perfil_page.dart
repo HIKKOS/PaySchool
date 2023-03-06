@@ -52,7 +52,7 @@ class PerfilPage extends StatelessWidget {
                                       headers: {
                                         "Content-Type": "application/json",
                                         "x-token":
-                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjE1MjNmMGZhLTJlMTYtNDM2Zi1iMzg2LWRhNjU4M2U5N2NjNiIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc3Njg4NTYxLCJleHAiOjE2Nzc3NzQ5NjF9.bC18PRjR47mRU_FHy600R9g4fxQxBLqMHjK6spE4EbA"
+                                            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImQzYmYxMzVjLWM5N2UtNDk0YS1hMmFhLTlmNGNlMzc3Zjc3NyIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4MTIwMjczLCJleHAiOjE2NzgyMDY2NzN9.pdZW5ouqygiu3X6Nr2A0enqAk3obTqljZHcYgiMx2E0"
                                       },
                                     ),
                                   ),
