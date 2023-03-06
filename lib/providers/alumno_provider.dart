@@ -22,7 +22,7 @@ class AlumnoProvider extends ChangeNotifier {
   AlumnoDTO? get getAlumnoSeleccionado => _alumnoSeleccionado;
   String? get getAlumnoSeleccionadoNombreCompleto {
     final nombre =
-        '${_alumnoSeleccionado?.primerNombre} ${_alumnoSeleccionado?.apellidoPaterno} ${_alumnoSeleccionado?.apellidoMaterno}';
+        '${_alumnoSeleccionado?.primerNombre} ${_alumnoSeleccionado?.segundoNombre}';
     return nombre;
   }
 
@@ -33,7 +33,6 @@ class AlumnoProvider extends ChangeNotifier {
     final headersList = {'x-token': token.toString()};
     var respose = await http.get(url, headers: headersList);
     if (respose.statusCode == 200) {
-      logger.d(respose.body);
       final json = jsonDecode(respose.body);
       final List<dynamic> data = json['tutorados'];
       _alumnos = data.map((e) => AlumnoDTO.fromJson(e)).toList();
@@ -45,20 +44,20 @@ class AlumnoProvider extends ChangeNotifier {
   }
 
   Future fetchServiciosAlumno() async {
+    isLoadingServices = true;
     final alumnoId = _alumnoSeleccionado?.id ?? '';
-    var url = Uri.parse('https://$urlBase/api/alumnos/servicios/$alumnoId');
-
+    var url = Uri.parse('http://$urlBase/api/alumnos/servicios/$alumnoId');
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-
     final headersList = {'x-token': token.toString()};
     var respose = await http.get(url, headers: headersList);
-    logger.d(respose.statusCode);
     if (respose.statusCode == 200) {
       final json = jsonDecode(respose.body);
       final List<dynamic> data = json['servicios'];
       _serviciosContratados =
           data.map((e) => ServiciosContratadosDTO.fromJson(e)).toList();
+
+      logger.d(_serviciosContratados);
     } else {
       _serviciosContratados = [];
     }
@@ -68,7 +67,7 @@ class AlumnoProvider extends ChangeNotifier {
 
   void setAlumnoSeleccionado({AlumnoDTO}) => {
         _alumnoSeleccionado = AlumnoDTO,
+        fetchServiciosAlumno(),
         notifyListeners(),
-        logger.d(_alumnoSeleccionado?.primerNombre)
       };
 }

@@ -36,7 +36,12 @@ class CardBeneficiarioServicios extends StatelessWidget {
                         softWrap: true,
                         style: TextStyle(
                             color: Color(0xFF616161),
-                            fontSize: 20,
+                            fontSize: alumnoProv
+                                        .getAlumnoSeleccionadoNombreCompleto!
+                                        .length >=
+                                    20
+                                ? 18
+                                : 24,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

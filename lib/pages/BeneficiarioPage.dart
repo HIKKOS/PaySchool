@@ -10,6 +10,14 @@ import '../providers/alumno_provider.dart';
 import '../widgets/PurchasedServicesCard.dart';
 
 class BeneficiarioPage extends StatelessWidget {
+  String _getFechaFormateada(int daysToAdd) {
+    final DateTime today = DateTime.now();
+    final DateTime exphirationDate = today.add(Duration(days: daysToAdd));
+    final dateString =
+        '${exphirationDate.toLocal().day}/${exphirationDate.toLocal().month}';
+    return dateString;
+  }
+
   const BeneficiarioPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -74,7 +82,10 @@ class BeneficiarioPage extends StatelessWidget {
                                 alumnoProv.getServiciosContratados?[index];
                             logger.d(index);
                             return CustomCard(
-                                text: servicio?.nombre, costo: servicio?.costo);
+                                text: servicio?.nombre,
+                                costo: servicio?.costo,
+                                diasRestantes: _getFechaFormateada(
+                                    servicio!.diasRestantes));
                           },
                         ),
                       ),
