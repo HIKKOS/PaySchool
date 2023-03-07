@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:payschool/domain/repositories/response/services_response_dto.dart';
 
-import '../core/enties/service.dart';
 import 'card_item_service.dart';
 
-
 class ListService extends StatelessWidget {
-  const ListService({
-    Key? key,
-    required this.services,
-  }) : super(key: key);
+  final Key? key;
+  final List<dynamic>? services;
 
-  final List<Service> services;
+  const ListService({this.key, required this.services}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: services.length,
+      itemCount: services?.length,
       itemBuilder: (BuildContext context, int index) => Column(
         children: [
           CardItemService(
-            service: services[index], icon: 'assets/icons/backArrow.svg',
+            service: services?[index],
+            icon: 'assets/icons/backArrow.svg',
           ),
           const SizedBox(height: 15),
         ],
@@ -28,7 +26,6 @@ class ListService extends StatelessWidget {
         horizontal: 15,
         vertical: 15,
       ),
-
       physics: const BouncingScrollPhysics(),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/core/enties/payment_detail.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
-import 'package:hola_mundo/widgets/card_costo.dart';
-import 'package:hola_mundo/widgets/custom_appbar.dart';
-import 'package:hola_mundo/widgets/custom_card_pay.dart';
-import 'package:hola_mundo/widgets/subtitle_section.dart';
+import 'package:payschool/domain/enties/payment_detail.dart';
+import 'package:payschool/pages/global/app_colors.dart';
+import 'package:payschool/widgets/card_costo.dart';
+import 'package:payschool/widgets/custom_appbar.dart';
+import 'package:payschool/widgets/custom_card_pay.dart';
+import 'package:payschool/widgets/subtitle_section.dart';
 
 class LayoutPayDetail extends StatelessWidget {
   final PaymentDetail paymentDetail;
@@ -64,4 +64,3 @@ class LayoutPayDetail extends StatelessWidget {
     );
   }
 }
-

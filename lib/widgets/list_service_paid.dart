@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hola_mundo/pages/pay_detail.dart';
+import 'package:payschool/pages/pay_detail.dart';
 
-import '../core/enties/payment_detail.dart';
-import '../data/repositories/app_colors.dart';
+import '../domain/enties/payment_detail.dart';
+import '../pages/global/app_colors.dart';
 
 class ListViewServicesPaid extends StatelessWidget {
   const ListViewServicesPaid({
@@ -39,25 +39,28 @@ class ListViewServicesPaid extends StatelessWidget {
   createListTileItem(BuildContext context, PaymentDetail paymentDetail) =>
       ListTile(
         // createTrailinItem(paymentDetail)
-        leading:SvgPicture.asset(
+        leading: SvgPicture.asset(
           paymentDetail.urlIconService,
           height: 60,
           width: 60,
-        ) ,
+        ),
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: Text(paymentDetail.nameService, style: const TextStyle(color: AppColors.greyDark, fontSize: 20)),
+          child: Text(paymentDetail.nameService,
+              style: const TextStyle(color: AppColors.greyDark, fontSize: 20)),
         ),
-        subtitle: Text('\$${paymentDetail.costService}', style: TextStyle(color: AppColors.greyMedium, fontSize: 18) ),
+        subtitle: Text('\$${paymentDetail.costService}',
+            style: TextStyle(color: AppColors.greyMedium, fontSize: 18)),
         trailing: SvgPicture.asset(
           'assets/icons/backArrow.svg',
           height: 20,
           width: 20,
         ),
-         onTap: () => Navigator.push(
+        onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => LayoutPayDetail(paymentDetail: paymentDetail)),
+              builder: (context) =>
+                  LayoutPayDetail(paymentDetail: paymentDetail)),
         ),
       );
 

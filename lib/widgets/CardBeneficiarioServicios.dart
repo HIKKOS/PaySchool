@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/alumno_provider.dart';
 
 class CardBeneficiarioServicios extends StatelessWidget {
   const CardBeneficiarioServicios({super.key});
@@ -26,15 +28,32 @@ class CardBeneficiarioServicios extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Fransisco Matías Gómez',
-                      style: TextStyle(color: Color(0xFF616161), fontSize: 20),
+                  children: [
+                    Consumer<AlumnoProvider>(
+                      builder: (context, alumnoProv, child) => Text(
+                        (alumnoProv.getAlumnoSeleccionadoNombreCompleto) ??
+                            'No hay nombre',
+                        softWrap: true,
+                        style: TextStyle(
+                            color: Color(0xFF616161),
+                            fontSize: alumnoProv
+                                        .getAlumnoSeleccionadoNombreCompleto!
+                                        .length >=
+                                    20
+                                ? 18
+                                : 24,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      '2 Servicios',
-                      style: TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
+                    Consumer<AlumnoProvider>(
+                      builder: (context, alumnoProv, child) => Text(
+                        ('${alumnoProv.getServiciosContratados?.length == 0 ? 'no tiene' : alumnoProv.getServiciosContratados!.length == 1 ? '1 servicio contratado' : '${alumnoProv.getServiciosContratados!.length} servicios contratados'}')
+                            .toString(),
+                        softWrap: true,
+                        style:
+                            TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
+                      ),
                     ),
                   ],
                 ),

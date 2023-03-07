@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/pages/ScreensCambioNumeroT/cambio_telefono.dart';
-import 'package:hola_mundo/widgets/Buttons/button_alert.dart';
-import 'package:hola_mundo/widgets/Texts/EditableText.dart';
-import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
+import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono.dart';
+import 'package:payschool/widgets/Buttons/button_alert.dart';
+import 'package:payschool/widgets/Texts/EditableText.dart';
+import 'package:payschool/widgets/inputs/Editable_input_TextField.dart';
 
 class CambioTelefonoSecondPage extends StatelessWidget {
   const CambioTelefonoSecondPage({
@@ -21,8 +21,8 @@ class CambioTelefonoSecondPage extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.white,
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const CambioTelefonoPage())),
+            onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
+                builder: (context) => const CambioTelefonoPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -33,7 +33,7 @@ class CambioTelefonoSecondPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:   [
+              children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
@@ -43,7 +43,6 @@ class CambioTelefonoSecondPage extends StatelessWidget {
                 const SizedBox(height: 5),
                 const InputTextField(
                   label: 'Código de verificación',
-
                   hint: '123456',
                 ),
                 const SizedBox(
@@ -56,10 +55,10 @@ class CambioTelefonoSecondPage extends StatelessWidget {
                     vertical: 20,
                     titulo: 'Alerta',
                     contenido: 'El codigo se ha verificado de manera exitosa',
-                     function: (){
+                    function: () {
                       Navigator.pop(context);
-                     },
-                    ),
+                    },
+                  ),
                 ),
               ],
             ),
@@ -67,4 +66,3 @@ class CambioTelefonoSecondPage extends StatelessWidget {
         ));
   }
 }
-

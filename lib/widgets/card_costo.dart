@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:payschool/pages/global/app_colors.dart';
 
-import '../core/enties/payment_detail.dart';
+import '../domain/enties/payment_detail.dart';
 
 class CardCost extends StatelessWidget {
   final PaymentDetail paymentDetail;
@@ -40,13 +40,12 @@ class CardCost extends StatelessWidget {
             ),
             const Divider(color: Color(0xFFC1C7D1), height: 2),
             ItemCard(
-              colum1: 'IVA',
-              color: AppColors.greyDark,
-              colum2: '\$' + iva.toStringAsFixed(2),
-              color2: AppColors.greyMedium,
-              fontsize: 15,
-              fontWeight: FontWeight.normal
-            ),
+                colum1: 'IVA',
+                color: AppColors.greyDark,
+                colum2: '\$' + iva.toStringAsFixed(2),
+                color2: AppColors.greyMedium,
+                fontsize: 15,
+                fontWeight: FontWeight.normal),
             const Divider(color: Color(0xFFC1C7D1), height: 2),
             FooterCard(
               colum1: 'Total',
@@ -76,7 +75,8 @@ class ItemCard extends StatelessWidget {
     required this.colum2,
     required this.color,
     required this.fontsize,
-    required this.fontWeight, required this.color2,
+    required this.fontWeight,
+    required this.color2,
   }) : super(key: key);
 
   @override

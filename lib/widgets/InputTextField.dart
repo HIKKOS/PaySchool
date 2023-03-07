@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
+import 'package:payschool/data/repositories/app_colors.dart';
 
 class InputTextField extends StatelessWidget {
   const InputTextField({

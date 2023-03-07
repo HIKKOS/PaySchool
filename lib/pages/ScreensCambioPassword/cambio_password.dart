@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hola_mundo/pages/ScreensCambioNumeroT/cambio_telefono_secondPage.dart';
-import 'package:hola_mundo/pages/ScreensCambioPassword/cambio_password_secondPage.dart';
-import 'package:hola_mundo/pages/perfil_page.dart';
-import 'package:hola_mundo/widgets/Texts/EditableText.dart';
-import 'package:hola_mundo/widgets/Buttons/customButton.dart';
-import 'package:hola_mundo/widgets/inputs/Editable_input_TextField.dart';
+import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono_secondPage.dart';
+import 'package:payschool/pages/ScreensCambioPassword/cambio_password_secondPage.dart';
+import 'package:payschool/pages/perfil_page.dart';
+import 'package:payschool/widgets/Texts/EditableText.dart';
+import 'package:payschool/widgets/Buttons/customButton.dart';
+import 'package:payschool/widgets/inputs/Editable_input_TextField.dart';
 
 class CambioPasswordPage extends StatelessWidget {
   const CambioPasswordPage({
@@ -23,8 +23,8 @@ class CambioPasswordPage extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.white,
           leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(
-                MaterialPageRoute(builder: (context) => const PerfilPage())),
+            onPressed: () => Navigator.of(context)
+                .pop(MaterialPageRoute(builder: (context) => PerfilPage())),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.grey,
@@ -35,7 +35,7 @@ class CambioPasswordPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-              children:  [
+              children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
@@ -58,7 +58,8 @@ class CambioPasswordPage extends StatelessWidget {
                       label: 'enviar',
                       function: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const  CambioPasswordSecondPage()));
+                            builder: (context) =>
+                                const CambioPasswordSecondPage()));
                       }),
                 ),
               ],

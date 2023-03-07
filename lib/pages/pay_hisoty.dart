@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:hola_mundo/data/repositories/app_colors.dart';
-import 'package:hola_mundo/data/repositories/payment_detail_repository.dart';
-
-import 'package:hola_mundo/widgets/NavbarAlfa.dart';
-import 'package:hola_mundo/widgets/custom_appbar.dart';
-import 'package:hola_mundo/widgets/subtitle_section.dart';
+import 'package:payschool/pages/global/app_colors.dart';
+import 'package:payschool/domain/repositories/payment_detail_repository.dart';
+import 'package:payschool/widgets/custom_appbar.dart';
+import 'package:payschool/widgets/subtitle_section.dart';
 
 import '../widgets/list_service_paid.dart';
 
@@ -54,7 +52,6 @@ class _PayHistory extends State<PayHistory> {
           )
         ],
       ),
-     
     );
   }
 }

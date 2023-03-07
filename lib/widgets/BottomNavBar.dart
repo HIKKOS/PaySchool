@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hola_mundo/data/repositories/app_colors.dart';
-import 'package:hola_mundo/pages/Home.dart';
+import 'package:payschool/providers/tutor_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../data/providers/services_provider.dart';
+import '../data/repositories/app_colors.dart';
+import '../pages/Home.dart';
+import '../pages/catalog_service.dart';
+import '../pages/perfil_page.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -12,11 +18,15 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int indexScreen = 0;
-
   final screens = [
     const HomePage(),
-    const Center(child: Text("Search", style: TextStyle(fontSize: 45))),
-    const Center(child: Text("Profile", style: TextStyle(fontSize: 45))),
+    ChangeNotifierProvider(
+        create: (context) => ServicesProvider(),
+        child:
+            (const MaterialApp(title: 'Material App', home: CatalogService()))),
+    ChangeNotifierProvider(
+        create: (context) => TutorProvider()..fetchTutorInfo(),
+        child: (MaterialApp(title: 'Material App', home: PerfilPage()))),
   ];
   @override
   Widget build(BuildContext context) {
@@ -45,7 +55,7 @@ class _NavBarState extends State<NavBar> {
               ),
               GButton(
                 icon: Icons.person,
-                text: "Prefil",
+                text: "Perfil",
               ),
             ],
           ),
