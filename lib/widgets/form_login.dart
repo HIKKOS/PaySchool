@@ -26,7 +26,6 @@ class FormLogin extends StatefulWidget {
 class _FormLoginState extends State<FormLogin> {
   bool _passwordObscure = true;
   bool _isButtonEnabled = true;
-  String _errorMessage = 'Error';
   final urlBase = UrlValue.baseUrl;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -51,7 +50,6 @@ class _FormLoginState extends State<FormLogin> {
     });
 
     final success = await _performLogin(email, password);
-    logger.d(success);
     if (success) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(

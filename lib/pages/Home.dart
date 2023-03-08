@@ -30,35 +30,57 @@ class HomePage extends StatelessWidget {
                   builder: (context, alumnoProv, child) => alumnoProv.isLoading
                       ? const Center(child: CircularProgressIndicator())
                       : alumnoProv.getAlumnos?.length != 0
-                          ? FlutterCarousel(
-                              options: CarouselOptions(
-                                height: 200.0,
-                                showIndicator: true,
-                                slideIndicator: const CircularSlideIndicator(
-                                    currentIndicatorColor: AppColors.primary,
-                                    indicatorBackgroundColor:
-                                        AppColors.greyDark),
-                              ),
-                              items: (alumnoProv.getAlumnos?.map((alumno) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    final nombre =
-                                        '${alumno.primerNombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
-                                    return CardBeneficiario(
-                                        nombre: nombre,
-                                        onPess: () {
-                                          alumnoProv.setAlumnoSeleccionado(
-                                              AlumnoDTO: alumno);
-                                          alumnoProv.fetchServiciosAlumno();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const BeneficiarioPage()));
-                                        });
-                                  },
-                                );
-                              }).toList()))
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                  FlutterCarousel(
+                                      options: CarouselOptions(
+                                        height: 200.0,
+                                        showIndicator: true,
+                                        slideIndicator:
+                                            const CircularSlideIndicator(
+                                                currentIndicatorColor:
+                                                    AppColors.primary,
+                                                indicatorBackgroundColor:
+                                                    AppColors.greyDark),
+                                      ),
+                                      items:
+                                          (alumnoProv.getAlumnos?.map((alumno) {
+                                        return Builder(
+                                          builder: (BuildContext context) {
+                                            final nombre =
+                                                '${alumno.primerNombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}';
+                                            return CardBeneficiario(
+                                                nombre: nombre,
+                                                onPess: () {
+                                                  alumnoProv
+                                                      .setAlumnoSeleccionado(
+                                                          AlumnoDTO: alumno);
+                                                  alumnoProv
+                                                      .fetchServiciosAlumno();
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const BeneficiarioPage()));
+                                                });
+                                          },
+                                        );
+                                      }).toList())),
+                                  //consumo serv
+
+                                  Consumer<AlumnoProvider>(
+                                      builder: (context, alumnoProv, child) =>
+                                          alumnoProv.isLoadingServices
+                                              ? const Center(
+                                                  child:
+                                                      CircularProgressIndicator())
+                                              : Text(''
+                                                  /* 'lenght  ${alumnoProv.getServiciosContratados?.toList().map((s) => {
+                                                        (s.diasRestantes <= 7)
+                                                      }).toString()}' */
+                                                  ))
+                                ])
                           : Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -101,7 +123,7 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               ), */
-                  )
+                  ),
             ],
           ),
         ));

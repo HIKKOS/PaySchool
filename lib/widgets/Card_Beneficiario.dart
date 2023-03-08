@@ -32,9 +32,10 @@ class CardBeneficiario extends StatelessWidget {
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(nombre,
-                      style: TextStyle(fontSize: 20, color: Color(0xFF616161))),
+                      style: const TextStyle(
+                          fontSize: 20, color: Color(0xFF616161))),
                 )
               ],
             ),
