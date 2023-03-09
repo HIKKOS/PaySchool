@@ -1,3 +1,3 @@
 class UrlValue {
-  static const String baseUrl = "http://192.168.8.50:8080/api";
+  static const String baseUrl = "http://10.1.40.86:8080/api";
 }
