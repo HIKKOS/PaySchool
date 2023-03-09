@@ -6,7 +6,7 @@ class CustomCard extends StatelessWidget {
       {super.key,
       required this.text,
       required this.costo,
-      required this.diasRestantes});
+      this.diasRestantes = null});
   final text;
   final costo;
   final diasRestantes;
@@ -53,7 +53,10 @@ class CustomCard extends StatelessWidget {
                   )),
               Padding(
                   padding: const EdgeInsets.only(right: 15),
-                  child: Text('Vence\n$diasRestantes',
+                  child: Text(
+                      diasRestantes == null
+                          ? ''
+                          : 'Vence\n${diasRestantes ?? ''}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF9A9A9A),

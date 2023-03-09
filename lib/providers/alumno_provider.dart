@@ -38,8 +38,8 @@ class AlumnoProvider extends ChangeNotifier {
       final json = jsonDecode(respose.body);
       final List<dynamic> data = json['tutorados'];
       _alumnos = data.map((e) => AlumnoDTO.fromJson(e)).toList();
-      _alumnoSeleccionado = _alumnos?[0];
-      logger.d(_alumnos?[0].id);
+      _alumnoSeleccionado =
+          data.map((e) => AlumnoDTO.fromJson(e)).toList().first;
     } else {
       _alumnos = [];
     }
@@ -52,6 +52,7 @@ class AlumnoProvider extends ChangeNotifier {
   Future fetchServiciosAlumno() async {
     isLoadingServices = true;
     final id = _alumnoSeleccionado?.id;
+    logger.d(_alumnos?[0].id);
     var url = Uri.parse('$urlBase/alumnos/servicios/$id');
     logger.d(url);
 
