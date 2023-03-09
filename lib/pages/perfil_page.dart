@@ -108,7 +108,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Correo Electrónico',
                             description: tutorProv.tutor!.correo,
-                            urlImage: 'assets/Icons/correo.svg',
+                            urlImage: 'assets/icons/correo.svg',
                             page: const CambioCorreoPage(),
                           ),
                         ),
@@ -120,7 +120,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Numero de telefono ',
                             description: tutorProv.tutor!.telefono,
-                            urlImage: 'assets/Icons/telefono.svg',
+                            urlImage: 'assets/icons/telefono.svg',
                             page: const CambioTelefonoPage(),
                           ),
                         ),
@@ -132,7 +132,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Métodos de Pago ',
                             description: '1 metodo de Pago',
-                            urlImage: 'assets/Icons/PagoM.svg',
+                            urlImage: 'assets/icons/PagoM.svg',
                             page: CambioMetodoPage(),
                           ),
                         ),
@@ -144,7 +144,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Cambio Contraseña ',
                             description: '',
-                            urlImage: 'assets/Icons/Contraseña.svg',
+                            urlImage: 'assets/icons/Contraseña.svg',
                             page: CambioPasswordPage(),
                           ),
                         ),
