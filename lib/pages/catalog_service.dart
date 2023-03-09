@@ -1,24 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/pages/global/app_colors.dart';
+import 'package:payschool/pages/search_page.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
+
 import 'package:provider/provider.dart';
 import '../data/providers/services_provider.dart';
-import '../widgets/list_service.dart';
-import '../widgets/text_field_search.dart';
+import '../widgets/card_item_service.dart';
+import 'global/app_colors.dart';
+
 
 class CatalogService extends StatefulWidget {
-  const CatalogService({super.key});
+  const CatalogService({Key? key}) : super(key: key);
 
   @override
-  State<CatalogService> createState() => _CatalogServiceState();
+  _CatalogServiceState createState() => _CatalogServiceState();
 }
 
 class _CatalogServiceState extends State<CatalogService> {
+  final _scrollController = ScrollController();
+  final _scrollControlle = ScrollController();
+  int pageIndex = 1;
+
+   bool isLoadingMore = false;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<ServicesProvider>(context, listen: false)
-        .fetchServices('5', '1');
+    Provider.of<ServicesProvider>(context, listen: false).fetchServices(5, 1);
+    _scrollController.addListener(() {
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.position.pixels;
+      final delta = MediaQuery.of(context).size.height * 0.1;
+
+      if (!isLoadingMore && maxScroll - currentScroll <= delta ) {
+        setState(() {
+          isLoadingMore = true;
+        });
+        Provider.of<ServicesProvider>(context, listen: false)
+            .fetchServices(5, pageIndex += 1)
+            .then((value) => setState(() {
+              isLoadingMore = false;
+            }));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -29,42 +58,21 @@ class _CatalogServiceState extends State<CatalogService> {
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: AppColors.greyLight,
-        title: Consumer<ServicesProvider>(
-          builder: (context, serviceProvider, child) {
-            return !serviceProvider.isSearching
-                ? const CustomAppBar(text: "Catalogo de servicios")
-                : Container(
-                    height: 50,
-                    width: double.infinity,
-                    alignment: Alignment.centerRight,
-                    child: TextFieldSearch(
-                      title: 'Buscar servicio...',
-                      funcion: (value) =>
-                          serviceProvider.setSearchValue(value.toLowerCase()),
-                    ),
-                  );
-          },
-        ),
+        title: const CustomAppBar(text: "Catalogo de servicios"),
         actions: <Widget>[
           Consumer<ServicesProvider>(
             builder: (context, serviceProvider, child) {
-              return !serviceProvider.isSearching
-                  ? CustomIconButton(
-                      icon: Icons.search, funcion: serviceProvider.setStateTrue)
-                  : CustomIconButton(
-                      icon: Icons.close,
-                      funcion: serviceProvider.setStateFalse);
+              return CustomIconButton(
+                  icon: Icons.filter_list,
+                  funcion: () => serviceProvider.filter(context));
             },
           ),
-          Consumer<ServicesProvider>(
-            builder: (context, serviceProvider, child) {
-              return serviceProvider.isSearching
-                  ? CustomIconButton(
-                      icon: Icons.filter_list,
-                      funcion: () => serviceProvider.filter(context))
-                  : SizedBox.shrink();
-            },
-          ),
+          CustomIconButton(
+              icon: Icons.search,
+              funcion: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchService()));
+              }),
         ],
       ),
       body: GestureDetector(
@@ -73,23 +81,53 @@ class _CatalogServiceState extends State<CatalogService> {
         },
         child: SafeArea(
           child: Consumer<ServicesProvider>(
-            builder: (context, serviceProvider, child) =>
-                serviceProvider.isLoading
-                    ? Center(
-                        child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('Cargando datos')
-                        ],
-                      ))
-                    : ListService(services: serviceProvider.services),
+            builder: (context, serviceProvider, child) {
+              if (serviceProvider.isLoading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Cargando datos')
+                    ],
+                  ),
+                );
+              } else {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                  pageIndex = 1;
+                  await Provider.of<ServicesProvider>(context, listen: false).fetchServices(5, pageIndex);
+                },
+                  child: ListView.builder(
+                    itemCount: serviceProvider.servicios.length,
+                    itemBuilder: (BuildContext context, int index) => Column(
+                      children: [
+                        CardItemService(
+                          service: serviceProvider.servicios[index],
+                          icon: 'assets/icons/backArrow.svg',
+                        ),
+                        const SizedBox(height: 15),
+                      ],
+                    ),
+                    controller: serviceProvider.services.isEmpty
+                        ? _scrollControlle
+                        : _scrollController,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 15,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),
+       bottomNavigationBar: isLoadingMore ? Center(child: CircularProgressIndicator(value: 1.5, backgroundColor: Colors.transparent, color: AppColors.primary),) : null,
     );
   }
 }
@@ -112,76 +150,5 @@ class CustomIconButton extends StatelessWidget {
 }
 
 
-// class ServicesProvider with ChangeNotifier {
-//   String _searchValue = '';
-//   bool _isSearching = false;
-//   List<serviceProvider> _services = ServiceRepository.getServices();
 
-//   List<serviceProvider> get filteredServices {
-//     return _services
-//         .where((serviceProvider) =>
-//             serviceProvider.name.toLowerCase().contains(_searchValue.toLowerCase()))
-//         .toList();
-//   }
 
-//   bool get isSearching => _isSearching;
-
-//   void setSearchValue(String value) {
-//     _searchValue = value;
-//     notifyListeners();
-//   }
-
-//   void setStateFalse() {
-//     _isSearching = false;
-//     _searchValue = '';
-//     _services = ServiceRepository.getServices();
-//     notifyListeners();
-//   }
-
-//   void setStateTrue() {
-//     _isSearching = true;
-//     notifyListeners();
-//   }
-
-//   void filter(BuildContext context) {
-//     showMenu<String>(
-//       context: context,
-//       position: RelativeRect.fromLTRB(
-//         MediaQuery.of(context).size.width - 60,
-//         AppBar().preferredSize.height + 30,
-//         0,
-//         0,
-//       ),
-//       items: [
-//         PopupMenuItem<String>(
-//           value: 'alfabeto',
-//           child: Row(
-//             children: const <Widget>[
-//               Icon(Icons.sort_by_alpha, color: AppColors.greyDark),
-//               SizedBox(width: 10),
-//               Text('Alfabeto'),
-//             ],
-//           ),
-//         ),
-//         const PopupMenuDivider(),
-//         PopupMenuItem<String>(
-//           value: 'precio',
-//           child: Row(
-//             children: const <Widget>[
-//               Icon(Icons.attach_money, color: AppColors.greyDark),
-//               SizedBox(width: 10),
-//               Text('Precio'),
-//             ],
-//           ),
-//         ),
-//       ],
-//     ).then((value) {
-//       if (value == 'alfabeto') {
-//         _services.sort((a, b) => a.name.compareTo(b.name));
-//       } else if (value == 'precio') {
-//         _services.sort((a, b) => a.cost.compareTo(b.cost));
-//       }
-//       notifyListeners();
-//     });
-//   }
-// }

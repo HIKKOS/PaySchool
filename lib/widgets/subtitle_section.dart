@@ -17,7 +17,6 @@ class SubtitleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
       child: Text(
         '$subtitle',
         style:
@@ -26,3 +25,4 @@ class SubtitleSection extends StatelessWidget {
     );
   }
 }
+// todo implement

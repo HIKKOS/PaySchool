@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:payschool/domain/repositories/response/services_response_dto.dart';
 import 'package:payschool/pages/service_section.dart';
-import 'package:payschool/widgets/custom_button.dart';
+import 'package:payschool/widgets/image_section.dart';
 
 import '../data/providers/services_provider.dart';
 import '../pages/global/app_colors.dart';
@@ -17,7 +15,27 @@ class CardItemService extends StatefulWidget {
 }
 
 class _CardItemServiceState extends State<CardItemService> {
+  List<String> imageList = [];
   final servicesProvider = ServicesProvider();
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (var i = 0; i < widget.service?.ImgPaths.length; i++) {
+      String idImage =
+          widget.service?.ImgPaths.isEmpty ? '' : widget.service?.ImgPaths[i];
+
+      servicesProvider
+          .getImagen('${widget.service?.id}', '${idImage}')
+          .then((urlImage) {
+        setState(() {
+          imageList.add(urlImage);
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return createListTileItem(context, widget.service);
@@ -29,7 +47,10 @@ class _CardItemServiceState extends State<CardItemService> {
             context,
             MaterialPageRoute(
                 builder: (context) => LayaoutService(
-                    service: service, idService: '${service?.id}')));
+                      service: service,
+                      idService: '${service?.id}',
+                      imageList: imageList,
+                    )));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -42,20 +63,32 @@ class _CardItemServiceState extends State<CardItemService> {
                 height: 150,
                 width: double.infinity,
                 child: Container(
-                    decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(20),
-                    topRight: const Radius.circular(20),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(service.ImgPaths.isEmpty
-                        ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHOpPfD2XOtLdPU3k61PGUbu-GTxhRXL5vQawcUIUXo092fwAs'
-                        : '${servicesProvider.baseUrl}/uploads/${service?.id}/${service.ImgPaths[0]}'),
-                    fit: service.ImgPaths.isEmpty
-                        ? BoxFit.contain
-                        : BoxFit.cover,
-                  ),
-                ))),
+                  decoration: const BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(20),
+                        topRight: const Radius.circular(20),
+                      )),
+                  //   image: DecorationImage(
+                  //     image: NetworkImage(
+                  //       service.ImgPaths.isEmpty ?
+                  //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUrgu4a7W_OM8LmAuN7Prk8dzWXm7PVB_FmA&usqp=CAU'
+                  //      : '${servicesProvider.baseUrl}/uploads/${service?.id}/${service.ImgPaths[0]}'
+                  //     ),
+                  //     fit: service.ImgPaths.isEmpty ? BoxFit.contain : BoxFit.cover,
+                  //   ),
+                  // )
+                  child: service.ImgPaths.isEmpty
+                      ? Image.asset('assets/images/no-image.jpg')
+                      : ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                          child:
+                              ImageSection(imageList: imageList, height: 150),
+                        ),
+                )),
             Container(
               decoration: const BoxDecoration(
                 color: AppColors.white,
@@ -110,8 +143,10 @@ class _CardItemServiceState extends State<CardItemService> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => LayaoutService(
-                                      service: service,
-                                      idService: '${service?.id}')));
+                                        service: service,
+                                        idService: '${service?.id}',
+                                        imageList: imageList,
+                                      )));
                         },
                         child: Text('Ver más'),
                       ),
@@ -123,66 +158,4 @@ class _CardItemServiceState extends State<CardItemService> {
           ],
         ),
       ));
-
-  // Container createTrailinItem(ServiceResponseDto? service) {
-  //   return Container(
-  //     width: 80,
-  //     height: 80,
-  //     // decoration: const BoxDecoration(
-  //     //   color: AppColors.primary,
-  //     //   shape: BoxShape.circle,
-  //     // ),
-  //     child: imageIcon(service),
-  //   );
-  // }
-
-  // FadeInImage imageIcon(ServiceResponseDto? service) {
-  //   return FadeInImage.assetNetwork(
-  //     placeholder: 'assets/images/loading.gif',
-  //     image:
-  //         'http://192.168.137.61:8080/api/uploads/${service?.nombre}/${service?.ImgPaths[0]}',
-  //     fit: BoxFit.contain,
-  //   );
-  // }
-
-// getUrlicon(service?.nombre, '${service?.id}')
 }
-
-// SvgPicture.asset(
-        //   service.urlIcon,
-        //   height: 60,
-        //   width: 60,
-        // )
-
-        // 'assets/images/no-image.jpg'
-
-
-      // ListTile(
-        
-      //   leading: Image.asset(
-      //     'assets/images/no-image.jpg',
-      //     height: 60,
-      //     width: 60,
-      //   ),
-      //   title: Text("${service?.nombre}",
-      //       style: const TextStyle(color: AppColors.greyDark, fontSize: 20)),
-      //   subtitle: Padding(
-      //     padding: const EdgeInsets.symmetric(vertical: 5),
-      //     child: Text(
-      //       "\$${service?.costo}",
-      //       style: TextStyle(color: AppColors.greyMedium, fontSize: 18),
-      //     ),
-      //   ),
-      //   trailing: SvgPicture.asset(
-      //     widget.icon,
-      //     height: 20,
-      //     width: 20,
-      //   ),
-      //   onTap: () {
-      //     Navigator.push(
-      //         context,
-      //         MaterialPageRoute(
-      //             builder: (context) => LayaoutService(service: service)));
-      //   },
-      //   //
-      // );

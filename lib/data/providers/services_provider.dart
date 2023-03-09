@@ -3,11 +3,13 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:payschool/domain/repositories/response/contrato.dart';
 import 'package:payschool/domain/repositories/response/service_response.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../domain/repositories/response/services_response_dto.dart';
 import '../../../pages/global/app_colors.dart';
 import '../Config.dart';
@@ -19,13 +21,18 @@ class ServicesProvider extends ChangeNotifier {
   String _searchValue = '';
   bool _isSearching = false;
   bool isLoading = true;
-  List<dynamic>? _services;
+
+  var _services;
+
+  var _servicios = [];
 
   bool get isSearching => _isSearching;
 
   String? _urlImage;
 
   ServiceResponseDto? _service;
+
+  List<HorarioServicio> _horarios = [];
 
   void setSearchValue(String value) {
     _searchValue = value;
@@ -35,8 +42,6 @@ class ServicesProvider extends ChangeNotifier {
 
   void setStateFalse() {
     _isSearching = false;
-    _searchValue = '';
-    fetchServices('5', '1');
     notifyListeners();
   }
 
@@ -78,19 +83,67 @@ class ServicesProvider extends ChangeNotifier {
         ),
       ],
     ).then((value) {
+      var filteredServices = [];
       if (value == 'alfabeto') {
-        _services?.sort((a, b) => a.nombre.compareTo(b.nombre));
+        filteredServices = List.from(_servicios)
+          ..sort((a, b) => a.nombre.compareTo(b.nombre));
+        _servicios = filteredServices;
       } else if (value == 'precio') {
-        _services?.sort((a, b) => a.costo.compareTo(b.costo));
+        filteredServices = List.from(_servicios)
+          ..sort((a, b) => a.costo.compareTo(b.costo));
+        _servicios = filteredServices;
       }
       notifyListeners();
     });
   }
 
-  List<dynamic>? get services => _services;
+  get services => _services;
   ServiceResponseDto? get service => _service;
+  get servicios => _servicios;
+  List<dynamic> get horarios => _horarios;
 
-  Future fetchServices(String limit, String page) async {
+  Future contratarServicio(String idServicio, String? idAlumno,
+      int vecesContrato, var horarios) async {
+    var horariosDto = horarios
+        .map((h) => HorarioDto(
+              dia: h.dia,
+              inicio: h.horaInicio,
+              fin: h.horaFin,
+            ))
+        .toList();
+
+    var contrato = ContratoDto(
+      vecesContratado: vecesContrato,
+      horario: horariosDto,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final url = Uri.parse('$baseUrl/contratar/$idServicio/$idAlumno');
+
+    final res =
+        await http.post(url,
+            headers: {'x-token': token.toString()},
+            body: jsonEncode(contrato));
+
+    if (res.statusCode == 200) {
+      // Parsear la respuesta JSON
+      Map<String, dynamic> data = json.decode(res.body);
+
+      // Obtener el enlace de pago
+      String linkDePago = data['aprove'];
+      logger.d('Servicios recibidos: $linkDePago');
+      // Abrir el enlace en el navegador web predeterminado
+      launchUrl(Uri.parse(linkDePago));
+      logger.d(res.body);
+      isLoading = false;
+      notifyListeners();
+    } else {
+      throw Exception('No se pudo contratar el servicio');
+    }
+  }
+
+  Future fetchServices(int limit, int  page) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
     final url = Uri.parse('${baseUrl}/servicios?&limit=${limit}&page=${page}');
@@ -99,10 +152,17 @@ class ServicesProvider extends ChangeNotifier {
       url,
       headers: {'x-token': token.toString()},
     );
+    if (page == 1) {
+      _servicios = [];
+    }
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final List<dynamic> data = json['Servicios'];
+
       _services = data.map((e) => ServicesResponseDto.fromJson(e)).toList();
+      _servicios.addAll(_services);
+
       isLoading = false;
       logger.d('Servicios recibidos: $data');
       notifyListeners();
