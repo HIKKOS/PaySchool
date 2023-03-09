@@ -52,24 +52,6 @@ class LoginPage extends StatelessWidget {
                   height: 40,
                 ),
                 const FormLogin(),
-                /* const InputTextField(
-                    label: 'Correo Electrónico', hint: 'Correo electrónico'),
-                const InputTextPassword(
-                    label: 'Contraseña', hint: 'Contraseña'),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 30),
-                  child: Text('¿Olvidó su contraseña?',
-                      style: TextStyle(fontSize: 18, color: AppColors.primary)),
-                ), */
-                /* CustomButton(
-                    horizontal: 100,
-                    vertical: 14,
-                    function: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NavBar()));
-                    }), */
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50),
                   child: Row(

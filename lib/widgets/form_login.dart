@@ -19,44 +19,64 @@ var logger = Logger(
 
 class FormLogin extends StatefulWidget {
   const FormLogin({super.key});
-
   @override
   State<FormLogin> createState() => _FormLoginState();
 }
 
 class _FormLoginState extends State<FormLogin> {
+  bool _passwordObscure = true;
+  bool _isButtonEnabled = true;
   final urlBase = UrlValue.baseUrl;
-  String email = "Correo";
-  String password = "Password";
-  bool isLoading = false;
-  Future _login(String email, String password, BuildContext context) async {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  Future _login(BuildContext context) async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    if (email.isEmpty || password.isEmpty) {
+      return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          'Ambos campos son obligatorios',
+          textAlign: TextAlign.center,
+        ),
+        elevation: 10,
+        duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        backgroundColor: Color.fromARGB(200, 0, 0, 0),
+      ));
+    }
     setState(() {
-      isLoading = true;
+      _isButtonEnabled = false;
     });
-    final user = UserLoginDto(correo: email, password: password);
+
+    final success = await _performLogin(email, password);
+    if (success) {
+      // ignore: use_build_context_synchronously
+      _pushPage(context);
+    } else {
+      setState(() {
+        _isButtonEnabled = true;
+      });
+    }
+  }
+
+  Future _pushPage(BuildContext context) async {
+    await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+                create: (BuildContext context) => AlumnoProvider(),
+                child: (const MaterialApp(
+                    title: 'Material App', home: NavBar())))));
+  }
+
+  Future<dynamic> _performLogin(var email, var password) async {
     try {
+      final user = UserLoginDto(correo: email, password: password);
       final res = await http.post(Uri.parse('$urlBase/login/Tutor'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(user));
-          logger.i(urlBase);
-
-      if (res.statusCode != 200) {
-        setState(() {
-          isLoading = false;
-        });
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            'Usuario o contraseña incorrectos',
-          ),
-          elevation: 10,
-          duration: Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-          backgroundColor: Color.fromARGB(200, 0, 0, 0),
-        ));
-        return false;
-      } else {
+      if (res.statusCode == 200) {
         final Map<String, dynamic> map = jsonDecode(res.body);
         final String jwt = map['jwt'];
         final prefs = await SharedPreferences.getInstance();
@@ -76,19 +96,23 @@ class _FormLoginState extends State<FormLogin> {
           ],
           child: const CatalogService(),
         );
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => ChangeNotifierProvider(
-                    create: (context) => AlumnoProvider()..fetchAlumnos(),
-                    child: (const MaterialApp(
-                        title: 'Material App', home: NavBar())))));
         return true;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            'Usuario o contraseña incorrectos',
+          ),
+          elevation: 10,
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+          backgroundColor: Color.fromARGB(200, 0, 0, 0),
+        ));
       }
+      return false;
     } on Exception catch (e) {
-      logger.e(e);
       setState(() {
-        isLoading = false;
+        _isButtonEnabled = true;
       });
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -101,15 +125,12 @@ class _FormLoginState extends State<FormLogin> {
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
         backgroundColor: Color.fromARGB(200, 0, 0, 0),
       ));
-      return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
     return Form(
       key: formKey,
       child: Column(
@@ -131,7 +152,7 @@ class _FormLoginState extends State<FormLogin> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: TextFormField(
-                controller: emailController,
+                controller: _emailController,
                 decoration: const InputDecoration(
                   hintText: 'Ingrese su correo',
                   border: InputBorder.none,
@@ -162,36 +183,35 @@ class _FormLoginState extends State<FormLogin> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: TextFormField(
-                // initialValue: password ?? '',
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
+                controller: _passwordController,
+                obscureText: _passwordObscure,
+                decoration: InputDecoration(
                   hintText: 'Contraseña',
                   border: InputBorder.none,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _passwordObscure = !_passwordObscure;
+                      });
+                    },
+                    icon: _passwordObscure
+                        ? const Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off),
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Este campo es obligatorio';
-                  }
-                  return null;
-                },
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: isLoading
-                ? const CircularProgressIndicator()
-                : CustomButton(
-                    horizontal: 100,
-                    vertical: 14,
-                    function: () {
-                      email = emailController.text;
-                      password = passwordController.text;
-                      _login(emailController.text, passwordController.text,
-                          context);
-                    }),
-          )
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: _isButtonEnabled
+                  ? CustomButton(
+                      horizontal: 100,
+                      vertical: 14,
+                      function: () {
+                        _login(context);
+                      })
+                  : const CircularProgressIndicator())
         ],
       ),
     );
