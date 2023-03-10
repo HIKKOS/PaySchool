@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:payschool/domain/repositories/response/contrato.dart';
 import 'package:payschool/domain/repositories/response/service_response.dart';
@@ -103,7 +102,8 @@ class ServicesProvider extends ChangeNotifier {
   List<dynamic> get horarios => _horarios;
 
   Future contratarServicio(String idServicio, String? idAlumno,
-      int vecesContrato, var horarios) async {
+   
+    int vecesContrato, var horarios, BuildContext context) async {
     var horariosDto = horarios
         .map((h) => HorarioDto(
               dia: h.dia,
@@ -139,7 +139,21 @@ class ServicesProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     } else {
-      throw Exception('No se pudo contratar el servicio');
+      if(res.statusCode == 400){
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              height: 100,
+              child: Center(
+                child: Text('Ya ha contratado una vez este servicio'),
+              ),
+            );
+          },
+        );
+      }else{
+        throw Exception('No se pudo contratar el servicio');
+      }
     }
   }
 
