@@ -206,9 +206,9 @@ class ServicesProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final data = json;
-
+       final List<dynamic> dataHorario = json['HorarioServicio'];
       _service = ServiceResponseDto.fromJson(json);
-
+      _horarios = dataHorario.map((e) => HorarioServicio.fromJson(e)).toList();
       isLoading = false;
       logger.d('Servicio recibido: $data');
       notifyListeners();
