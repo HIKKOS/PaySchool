@@ -84,15 +84,15 @@ class _LayaoutServiceState extends State<LayaoutService> {
                                 ),
                           Row(
                             children: [
-                              // Padding(
-                              //   padding: EdgeInsets.only(
-                              //       bottom: 10, top: 10, left: 23),
-                              //   child: SvgPicture.asset(
-                              //     'assets/icons/service.svg', // ruta del archivo SVG
-                              //     height: 40,
-                              //     width: 40,
-                              //   ),
-                              // ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: 10, top: 10, left: 23),
+                                child: SvgPicture.asset(
+                                  'assets/icons/service.svg', // ruta del archivo SVG
+                                  height: 40,
+                                  width: 40,
+                                ),
+                              ),
                               Expanded(
                                 flex: 3,
                                 child: Padding(
