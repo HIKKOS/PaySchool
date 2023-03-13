@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/domain/enties/payment_detail.dart';
 import 'package:payschool/pages/global/app_colors.dart';
 import 'package:payschool/widgets/card_costo.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
@@ -7,7 +6,7 @@ import 'package:payschool/widgets/custom_card_pay.dart';
 import 'package:payschool/widgets/subtitle_section.dart';
 
 class LayoutPayDetail extends StatelessWidget {
-  final PaymentDetail paymentDetail;
+  final dynamic paymentDetail;
   const LayoutPayDetail({super.key, required this.paymentDetail});
 
   @override
@@ -27,35 +26,47 @@ class LayoutPayDetail extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              const SubtitleSection(
-                  subtitle: 'Servicio',
-                  color: AppColors.greyDark,
-                  fontsize: 24,
-                  fontWeight: FontWeight.bold),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: SubtitleSection(
+                    subtitle: 'Servicio',
+                    color: AppColors.greyDark,
+                    fontsize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               customCardPay(
-                  icon: paymentDetail.urlIconService,
-                  title: paymentDetail.nameService),
-              const SubtitleSection(
-                  subtitle: 'Beneficiario',
-                  color: AppColors.greyDark,
-                  fontsize: 24,
-                  fontWeight: FontWeight.bold),
+                  icon: 'assets/icons/service.svg' ,
+                  title: paymentDetail.servicio),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: SubtitleSection(
+                    subtitle: 'Beneficiario',
+                    color: AppColors.greyDark,
+                    fontsize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               customCardPay(
-                  icon: paymentDetail.urlIconStudent,
-                  title: paymentDetail.nameStudent),
-              const SubtitleSection(
-                  subtitle: 'Paga con',
-                  color: AppColors.greyDark,
-                  fontsize: 24,
-                  fontWeight: FontWeight.bold),
+                  icon: 'assets/icons/IconPerson.svg',
+                  title: paymentDetail.alumno),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: SubtitleSection(
+                    subtitle: 'Paga con',
+                    color: AppColors.greyDark,
+                    fontsize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               customCardPay(
-                  icon: paymentDetail.urlIconPayment,
-                  title: paymentDetail.paymentMethod),
-              const SubtitleSection(
-                  subtitle: 'Costo',
-                  color: AppColors.greyDark,
-                  fontsize: 24,
-                  fontWeight: FontWeight.bold),
+                  icon: 'assets/icons/IconPayMethod.svg' ,
+                  title: 'Metodo de pago'),
+              const Padding(
+                padding: EdgeInsets.only(left: 20, bottom: 5),
+                child: SubtitleSection(
+                    subtitle: 'Costo',
+                    color: AppColors.greyDark,
+                    fontsize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               CardCost(
                 paymentDetail: paymentDetail,
               )

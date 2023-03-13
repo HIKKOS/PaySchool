@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:payschool/pages/search_page.dart';
+import 'package:payschool/providers/alumno_provider.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
 
 import 'package:provider/provider.dart';
 import '../data/providers/services_provider.dart';
 import '../widgets/card_item_service.dart';
 import 'global/app_colors.dart';
-
 
 class CatalogService extends StatefulWidget {
   const CatalogService({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _CatalogServiceState extends State<CatalogService> {
   final _scrollControlle = ScrollController();
   int pageIndex = 1;
 
-   bool isLoadingMore = false;
+  bool isLoadingMore = false;
 
   @override
   void initState() {
@@ -31,15 +31,15 @@ class _CatalogServiceState extends State<CatalogService> {
       final currentScroll = _scrollController.position.pixels;
       final delta = MediaQuery.of(context).size.height * 0.1;
 
-      if (!isLoadingMore && maxScroll - currentScroll <= delta ) {
+      if (!isLoadingMore && maxScroll - currentScroll <= delta) {
         setState(() {
           isLoadingMore = true;
         });
         Provider.of<ServicesProvider>(context, listen: false)
             .fetchServices(5, pageIndex += 1)
             .then((value) => setState(() {
-              isLoadingMore = false;
-            }));
+                  isLoadingMore = false;
+                }));
       }
     });
   }
@@ -98,9 +98,10 @@ class _CatalogServiceState extends State<CatalogService> {
               } else {
                 return RefreshIndicator(
                   onRefresh: () async {
-                  pageIndex = 1;
-                  await Provider.of<ServicesProvider>(context, listen: false).fetchServices(5, pageIndex);
-                },
+                    pageIndex = 1;
+                    await Provider.of<ServicesProvider>(context, listen: false)
+                        .fetchServices(5, pageIndex);
+                  },
                   child: ListView.builder(
                     itemCount: serviceProvider.servicios.length,
                     itemBuilder: (BuildContext context, int index) => Column(
@@ -127,7 +128,14 @@ class _CatalogServiceState extends State<CatalogService> {
           ),
         ),
       ),
-       bottomNavigationBar: isLoadingMore ? Center(child: CircularProgressIndicator(value: 1.5, backgroundColor: Colors.transparent, color: AppColors.primary),) : null,
+      bottomNavigationBar: isLoadingMore
+          ? Center(
+              child: CircularProgressIndicator(
+                  value: 1.5,
+                  backgroundColor: Colors.transparent,
+                  color: AppColors.primary),
+            )
+          : null,
     );
   }
 }
@@ -148,7 +156,3 @@ class CustomIconButton extends StatelessWidget {
     );
   }
 }
-
-
-
-

@@ -8,11 +8,12 @@ import 'package:provider/provider.dart';
 import '../global/app_colors.dart';
 import '../../widgets/custom_button.dart';
 
-final alumnoProvicer = AlumnoProvider();
+
+final serviceProvider = ServicesProvider();
 
 class Dialogs {
   void displayDialog(
-      BuildContext context, dynamic service, List<dynamic> horarios) {
+      BuildContext context, dynamic service, List<dynamic> horarios,dynamic alumno) {
     var selectedHorarios = [];
     bool canAsignar = false;
     int cantidad = 1;
@@ -128,7 +129,7 @@ class Dialogs {
                               ? () {
                                   Navigator.pop(context);
                                   alertConfirm(context, service, cantidad,
-                                      selectedHorarios);
+                                      selectedHorarios, alumno);
                                   print(selectedHorarios);
                                 }
                               : null,
@@ -159,13 +160,14 @@ class Dialogs {
   }
 
   alertConfirm(BuildContext context, dynamic service, int vecesContratado,
-      var horarios) {
+      var horarios, dynamic alumno) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("¿Está seguro?"),
-          content: Text("Se asignará el servicio ${service.nombre} a alumo"),
+          content: Text(
+              "Se asignará el servicio ${service.nombre} a alumo ${alumno.primerNombre}"),
           actions: [
             Center(
               child: ButtonBar(
@@ -181,14 +183,11 @@ class Dialogs {
                     function: () {
                       // Aquí se realiza la asignación del servicio a los dias seleccionados
                       Navigator.pop(context);
-                      Navigator.pop(context);
-                      Provider.of<ServicesProvider>(context, listen: false)
-                          .contratarServicio(
+                      serviceProvider.contratarServicio(
                               service.id,
-                              alumnoProvicer.getAlumnoSeleccionado?.id,
+                              alumno.id,
                               vecesContratado,
-                              horarios);
-                      // Confirm(context);
+                              horarios, context);
                     },
                     text: "Asignar",
                     fontsize: 15,
