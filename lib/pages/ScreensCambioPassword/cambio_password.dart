@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono_secondPage.dart';
-import 'package:payschool/pages/ScreensCambioPassword/cambio_password_secondPage.dart';
 import 'package:payschool/pages/perfil_page.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
-import 'package:payschool/widgets/Buttons/customButton.dart';
-import 'package:payschool/widgets/inputs/Editable_input_TextField.dart';
+import 'package:payschool/widgets/form_cambioPassword.dart';
+
 
 class CambioPasswordPage extends StatelessWidget {
   const CambioPasswordPage({
@@ -34,37 +32,21 @@ class CambioPasswordPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Column(
+            child: const Column(
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
                           'Ingresa tu correo electronico, en el recibiras un enlace para poder cambiar tu contraseña'),
                 ),
-                const SizedBox(height: 5),
-                const InputTextField(
-                  label: 'Correo electronico',
-                  hint: 'example@gmail.com',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: CustomButton(
-                      horizontal: 80,
-                      vertical: 20,
-                      label: 'enviar',
-                      function: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                const CambioPasswordSecondPage()));
-                      }),
-                ),
+                SizedBox(height: 5),
+                form_cambioPassword(),
               ],
             ),
           ),
         ));
   }
 }
+
+

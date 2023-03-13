@@ -5,6 +5,7 @@ import 'package:payschool/DTOs/TutorDto.dart';
 import 'package:logger/logger.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:payschool/DTOs/user_passwordDTO.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/Config.dart';
@@ -15,8 +16,11 @@ class TutorProvider extends ChangeNotifier {
   bool isLoading = true;
   String urlPhoto = '';
   Tutor? _tutor;
+  UserPasswordDto? _userPassword;
 
   Tutor? get tutor => _tutor;
+
+  UserPasswordDto? get password => _userPassword;
 
   Future fetchTutorInfo() async {
     final prefs = await SharedPreferences.getInstance();
@@ -67,8 +71,8 @@ class TutorProvider extends ChangeNotifier {
       print(200);
       /*  final json = jsonDecode(response.body);
       Tutor t = Tutor.fromJson(json);
-      _tutor = t;
-      logger.d(_tutor); */
+      _tutor = t;*/
+      logger.d(_tutor);
       isLoading = false;
       notifyListeners();
     } else {
@@ -112,6 +116,50 @@ class TutorProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       print('No se pudo actualizar el numero de telefono');
+    }
+  }
+
+  Future ActualizarPassword(
+      String actualP, String nuevoP, BuildContext context) async {
+    final userP =
+        UserPasswordDto(passwordActual: actualP, nuevaPassword: nuevoP);
+    print(userP.passwordActual + ' ' + userP.nuevaPassword);
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final response = await http.post(
+      Uri.parse('$url/tutores/actualizar-password'),
+      headers: {
+        "Content-Type": "application/json",
+        "x-token": token.toString()
+      },
+      body: jsonEncode(userP),
+    );
+    logger.d(response.body);
+
+    if (response.statusCode == 200) {
+      print('200');
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          elevation: 10,
+             duration: Duration(seconds: 5),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        backgroundColor: Color.fromARGB(200, 0, 0, 0),
+          content: Text('Se ha actualizado la contraseña')),
+      );
+      Navigator.of(context).pop();
+      notifyListeners();
+    } else {
+      print('400');
+       ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          elevation: 10,
+             duration: Duration(seconds: 5),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        backgroundColor: Color.fromARGB(200, 0, 0, 0),
+          content: Text('verifique su contraseña actual')),
+      );
     }
   }
 }

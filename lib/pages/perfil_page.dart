@@ -30,7 +30,7 @@ class PerfilPage extends StatelessWidget {
     request.headers.addAll({
       'Content-Type': 'multipart/form-data',
       'x-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImQzYmYxMzVjLWM5N2UtNDk0YS1hMmFhLTlmNGNlMzc3Zjc3OCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4Mzc0MDY4fQ.AcOWJS8yV0IcOEQT7yMGkj5_aGnxhQML7jyg7lYpPVY'
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijk1ZWY4NTIwLTI2NjUtNDFiNC04OThlLTc0YjJkMjc1NTgxMCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4NDk3NTE3fQ.o1-LemGQA4zFqZhxEp9rofpJgtz-r6r-PuN8Nj_Jrk0'
     });
 
     final stream = http.ByteStream(file.openRead());
@@ -51,7 +51,7 @@ class PerfilPage extends StatelessWidget {
     return NetworkImage('$url/fotos', headers: {
       "Content-Type": "application/json",
       "x-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImQzYmYxMzVjLWM5N2UtNDk0YS1hMmFhLTlmNGNlMzc3Zjc3OCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4Mzc0MDY4fQ.AcOWJS8yV0IcOEQT7yMGkj5_aGnxhQML7jyg7lYpPVY"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijk1ZWY4NTIwLTI2NjUtNDFiNC04OThlLTc0YjJkMjc1NTgxMCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4NDk3NTE3fQ.o1-LemGQA4zFqZhxEp9rofpJgtz-r6r-PuN8Nj_Jrk0"
     });
   }
 
@@ -208,10 +208,7 @@ class PerfilPage extends StatelessWidget {
                                       actions: <Widget>[
                                         TextButton(
                                             onPressed: () {
-                                              /*Navigator.of(context)
-                                                  .pushReplacement(
-                                                      MaterialPageRoute(
-                                                          builder: context => LoginPage()));*/
+                                              Navigator.of(context).pop();
                                             },
                                             child: const Text('No')),
                                         TextButton(
