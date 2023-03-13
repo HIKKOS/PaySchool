@@ -13,6 +13,7 @@ import 'package:payschool/widgets/Card/card_options.dart';
 import 'package:payschool/widgets/form_login.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/tutor_provider.dart';
 
@@ -27,10 +28,11 @@ class PerfilPage extends StatelessWidget {
 
     final url = Uri.parse('${baseurl}/fotos');
     final request = http.MultipartRequest('POST', url);
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
     request.headers.addAll({
       'Content-Type': 'multipart/form-data',
-      'x-token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImQzYmYxMzVjLWM5N2UtNDk0YS1hMmFhLTlmNGNlMzc3Zjc3OCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4Mzc0MDY4fQ.AcOWJS8yV0IcOEQT7yMGkj5_aGnxhQML7jyg7lYpPVY'
+      'x-token': token!,
     });
 
     final stream = http.ByteStream(file.openRead());
@@ -44,15 +46,6 @@ class PerfilPage extends StatelessWidget {
     request.files.add(multipartFile);
 
     await request.send();
-    _getFoto();
-  }
-
-  _getFoto() {
-    return NetworkImage('$url/fotos', headers: {
-      "Content-Type": "application/json",
-      "x-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImQzYmYxMzVjLWM5N2UtNDk0YS1hMmFhLTlmNGNlMzc3Zjc3OCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4Mzc0MDY4fQ.AcOWJS8yV0IcOEQT7yMGkj5_aGnxhQML7jyg7lYpPVY"
-    });
   }
 
   final url = UrlValue.baseUrl;
@@ -63,7 +56,6 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fotoTutor = _getFoto();
     return Scaffold(
         /* appBar: AppBar(
           backgroundColor: Colors.white,
@@ -98,7 +90,8 @@ class PerfilPage extends StatelessWidget {
                                     child: CircleAvatar(
                                         radius: 45,
                                         backgroundColor: Colors.transparent,
-                                        backgroundImage: fotoTutor),
+                                        backgroundImage:
+                                            NetworkImage(url + '/fotos')),
                                   ),
                                 ),
                               ),
