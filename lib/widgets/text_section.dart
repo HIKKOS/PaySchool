@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/pages/global/app_colors.dart';
+
 
 class TextSection extends StatelessWidget {
   final String text;
   final double fontSize;
   final Color color;
-  const TextSection(
-      {super.key,
-      required this.text,
-      required this.fontSize,
-      required this.color});
+  const TextSection({super.key, required this.text, required this.fontSize, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-        child: Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            text,
-            softWrap: true,
-            style: TextStyle(color: color, fontSize: fontSize),
-          ),
-        ));
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text,
+        softWrap: true,
+        style: TextStyle(color: color, fontSize: fontSize),
+      ),
+    );
   }
 }

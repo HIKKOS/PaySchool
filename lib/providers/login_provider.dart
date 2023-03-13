@@ -9,7 +9,7 @@ class LoginProvider extends ChangeNotifier {
     final user = UserLoginDto(correo: email, password: password);
     print(user);
     final response = await http.post(
-      Uri.parse('https://192.168.0.166/api/login/Tutor'),
+      Uri.parse('http:// 192.168.137.1/api/login/Tutor'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

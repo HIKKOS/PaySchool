@@ -45,7 +45,7 @@ class CardOptions extends StatelessWidget {
                   width: 60,
                 ),
                 trailing: SvgPicture.asset(
-                  'assets/Icons/backArrow.svg',
+                  'assets/icons/backArrow.svg',
                   height: 20,
                   width: 20,
                 ),

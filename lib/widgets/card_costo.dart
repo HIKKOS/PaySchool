@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:payschool/pages/global/app_colors.dart';
 
-import '../domain/enties/payment_detail.dart';
 
 class CardCost extends StatelessWidget {
-  final PaymentDetail paymentDetail;
+  final dynamic paymentDetail;
   const CardCost({
     Key? key,
     required this.paymentDetail,
@@ -12,10 +11,10 @@ class CardCost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var iva = (paymentDetail.costService * .16);
-    var costo = paymentDetail.costService - iva;
+    var iva = (paymentDetail.monto * .16);
+    var costo = paymentDetail.monto - iva;
     return Card(
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -49,7 +48,7 @@ class CardCost extends StatelessWidget {
             const Divider(color: Color(0xFFC1C7D1), height: 2),
             FooterCard(
               colum1: 'Total',
-              colum2: '\$' + paymentDetail.costService.toString(),
+              colum2: '\$' + paymentDetail.monto.toString(),
               color: AppColors.greyDark,
               fontsize: 18,
               fontWeight: FontWeight.normal,

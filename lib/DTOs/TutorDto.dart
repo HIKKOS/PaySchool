@@ -27,7 +27,7 @@ class Tutor {
   final String segundoNombre;
   final String apellidoMaterno;
   final String apellidoPaterno;
-  final String foto;
+  late final String foto;
   late final String correo;
   final String telefono;
   final String rfc;
