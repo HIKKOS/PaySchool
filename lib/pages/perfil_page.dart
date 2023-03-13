@@ -14,42 +14,12 @@ import 'package:payschool/widgets/avatarProfile.dart';
 import 'package:payschool/widgets/form_login.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/tutor_provider.dart';
 
 // ignore: must_be_immutable
 class PerfilPage extends StatelessWidget {
-  Future _getIMG() async {
-    final baseurl = UrlValue.baseUrl;
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile?.path == null) return;
-    var file = XFile(pickedFile!.path);
-
-    final url = Uri.parse('${baseurl}/fotos');
-    final request = http.MultipartRequest('POST', url);
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('jwt');
-    request.headers.addAll({
-      'Content-Type': 'multipart/form-data',
-      'x-token': token!,
-    });
-
-    final stream = http.ByteStream(file.openRead());
-    final length = await file.length();
-    final multipartFile = http.MultipartFile(
-      'archivo',
-      stream,
-      length,
-      filename: file.path.split('/').last,
-    );
-    request.files.add(multipartFile);
-
-    await request.send();
-  }
-
-  final url = UrlValue.baseUrl;
+  
   PerfilPage({super.key});
 
   UpdatePhotoController updatePhotoController =
@@ -57,6 +27,7 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         /* appBar: AppBar(
           backgroundColor: Colors.white,
@@ -80,21 +51,7 @@ class PerfilPage extends StatelessWidget {
                             children: [
                               Consumer<TutorProvider>(
                                 builder: (context, tutorProv, child) =>
-                                    Container(
-                                  width: 80,
-                                  height: 80,
-                                  color: Colors.transparent,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _getIMG();
-                                    },
-                                    child: CircleAvatar(
-                                        radius: 45,
-                                        backgroundColor: Colors.transparent,
-                                        backgroundImage:
-                                            NetworkImage(url + '/fotos')),
-                                  ),
-                                ),
+                                     avatarProfile(),
                               ),
                               Consumer<TutorProvider>(
                                   builder: (context, tutorProv, child) =>
@@ -232,3 +189,4 @@ class PerfilPage extends StatelessWidget {
                   )));
   }
 }
+
