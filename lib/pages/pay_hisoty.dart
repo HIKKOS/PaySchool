@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:payschool/data/providers/pay_provider.dart';
-import 'package:payschool/domain/repositories/response/pago.dart';
-import 'package:payschool/pages/search_page.dart';
 import 'package:payschool/pages/search_pay.dart';
-import 'package:payschool/providers/alumno_provider.dart';
 import 'package:payschool/widgets/card_item_pago.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
 import 'package:payschool/widgets/subtitle_section.dart';
-
 import 'package:provider/provider.dart';
-import '../data/providers/services_provider.dart';
-import '../widgets/card_item_service.dart';
 import 'global/app_colors.dart';
 
 class PayHistory extends StatefulWidget {
@@ -28,7 +22,6 @@ class _PayHistoryState extends State<PayHistory> {
 
   bool isLoadingMore = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -38,8 +31,9 @@ class _PayHistoryState extends State<PayHistory> {
       final currentScroll = _scrollController.position.pixels;
       final delta = MediaQuery.of(context).size.height * 0.1;
 
-
-      if (!isLoadingMore && maxScroll - currentScroll <= delta && !Provider.of<PagoProvider>(context, listen: false).pays.isEmpty) {
+      if (!isLoadingMore &&
+          maxScroll - currentScroll <= delta &&
+          !Provider.of<PagoProvider>(context, listen: false).pays.isEmpty) {
         setState(() {
           isLoadingMore = true;
         });
@@ -90,12 +84,19 @@ class _PayHistoryState extends State<PayHistory> {
                   funcion: () => pagoProvider.filter(context));
             },
           ),
-          CustomIconButton(
-              icon: Icons.search,
-              funcion: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchPay()));
-              }),
+           Consumer<PagoProvider>(
+            builder: (context, serviceProvider, child) {
+              return CustomIconButton(
+                  icon: Icons.search,
+                  funcion: () {
+                    serviceProvider.setStateFalse();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchPay()));
+                  });
+            },
+          ),
         ],
       ),
       body: GestureDetector(
@@ -129,7 +130,7 @@ class _PayHistoryState extends State<PayHistory> {
                     controller: pagoProvider.pays.isEmpty
                         ? _scrollControlle
                         : _scrollController,
-                    elements: pagoProvider.pagos,
+                    elements: pagoProvider.pagos ,
                     groupBy: (element) =>
                         '${element.fechaPago.year}-${meses[element.fechaPago.month - 1]}-${element.fechaPago.day}',
                     groupSeparatorBuilder: (String value) => Padding(
@@ -165,7 +166,7 @@ class _PayHistoryState extends State<PayHistory> {
         ),
       ),
       bottomNavigationBar: isLoadingMore
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(
                   value: 2,
                   backgroundColor: Colors.transparent,
@@ -193,30 +194,3 @@ class CustomIconButton extends StatelessWidget {
   }
 }
 
-// RefreshIndicator(
-//                   onRefresh: () async {
-//                     pageIndex = 1;
-//                     await Provider.of<PagoProvider>(context, listen: false)
-//                         .fetchPagos(5, pageIndex);
-//                   },
-//                   child: ListView.builder(
-//                     itemCount: pagoProvider.pagos.length,
-//                     itemBuilder: (BuildContext context, int index) => Column(
-//                       children: [
-//                         CardItemService(
-//                           service: serviceProvider.servicios[index],
-//                           icon: 'assets/icons/backArrow.svg',
-//                         ),
-//                         const SizedBox(height: 15),
-//                       ],
-//                     ),
-//                     controller: pagoProvider.pagos.isEmpty
-//                         ? _scrollControlle
-//                         : _scrollController,
-//                     padding: const EdgeInsets.symmetric(
-//                       horizontal: 15,
-//                       vertical: 15,
-//                     ),
-//                     physics: const BouncingScrollPhysics(),
-//                   ),
-//                 );

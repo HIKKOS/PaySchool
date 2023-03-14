@@ -12,7 +12,7 @@ class SearchPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       final List<String> meses = [
+    final List<String> meses = [
       'Enero',
       'Febrero',
       'Marzo',
@@ -26,7 +26,6 @@ class SearchPay extends StatelessWidget {
       'Noviembre',
       'Diciembre',
     ];
-    Provider.of<PagoProvider>(context, listen: false).searchServices('ksdnasjs');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.greyLight,
@@ -42,8 +41,8 @@ class SearchPay extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextFieldSearch(
                 title: 'Buscar servicio...',
-                funcion: (value) => 
-                  pagoProvider.setSearchValue(value.toLowerCase()),
+                funcion: (value) =>
+                    pagoProvider.setSearchValue(value.toLowerCase()),
               ),
             );
           },
@@ -62,21 +61,20 @@ class SearchPay extends StatelessWidget {
         },
         child: SafeArea(
           child: Consumer<PagoProvider>(
-            builder: (context, pagoProvider, child) =>
-                pagoProvider.pays.isEmpty 
-                    ? Center(
-                        child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('Servicios No encontrados')
-                        ],
-                      ))
-                    :  GroupedListView<dynamic, String>(
-                    elements: pagoProvider.pays,
+            builder: (context, pagoProvider, child) => pagoProvider.pays.isEmpty
+                ? Center(
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Servicios No encontrados')
+                    ],
+                  ))
+                : GroupedListView<dynamic, String>(
+                    elements: pagoProvider.isSearching ? pagoProvider.pays : pagoProvider.pagos,
                     groupBy: (element) =>
                         '${element.fechaPago.day}-${meses[element.fechaPago.month - 1]}-${element.fechaPago.year}',
                     groupSeparatorBuilder: (String value) => Padding(
@@ -104,7 +102,7 @@ class SearchPay extends StatelessWidget {
                       vertical: 15,
                     ),
                     physics: const BouncingScrollPhysics(),
-                  ) ,
+                  ),
           ),
         ),
       ),

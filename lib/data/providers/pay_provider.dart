@@ -25,6 +25,8 @@ class PagoProvider extends ChangeNotifier {
 
   var _pagos = [];
 
+  bool get isSearching => _isSearching;
+
   get pays => _pays;
   get pagos => _pagos;
 
