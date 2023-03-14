@@ -10,7 +10,6 @@ class SearchService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ServicesProvider>(context, listen: false).searchServices('ksdnasjs');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.greyLight,
