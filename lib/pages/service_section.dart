@@ -11,7 +11,7 @@ import '../widgets/subtitle_section.dart';
 
 class LayaoutService extends StatefulWidget {
   final String idService;
-  final dynamic service;
+  final dynamic? service;
   final List<String> imageList;
 
   const LayaoutService(
@@ -30,8 +30,9 @@ class _LayaoutServiceState extends State<LayaoutService> {
   @override
   void initState() {
     super.initState();
+    final serviceProvider = ServicesProvider();
     Provider.of<ServicesProvider>(context, listen: false)
-        .getServicesById(widget.idService);
+        .getServicesById('${widget.idService}');
   }
 
   String selectedPaymentMethod = "Paypal";
@@ -56,13 +57,19 @@ class _LayaoutServiceState extends State<LayaoutService> {
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.greyLight,
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor:
-              appBarColor ? const Color.fromRGBO(0, 0, 0, 0.5) : Colors.transparent,
-          elevation: 0,
-          title: Consumer<ServicesProvider>(builder: (context, value, child) {
-            return Text(appBarColor ? "${value.service?.nombre}" : "");
-          }),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(245.0),
+          child: AppBar(
+            backgroundColor: widget.service?.ImgPaths.isEmpty
+                ? (appBarColor
+                    ? Color.fromRGBO(0, 0, 0, 0.1)
+                    : Colors.transparent)
+                :  Colors.transparent,
+            elevation: 0,
+            title: Consumer<ServicesProvider>(builder: (context, value, child) {
+              return Text(appBarColor ? "${value.service?.nombre}" : "");
+            }),
+          ),
         ),
         body: Stack(
           children: [
@@ -80,7 +87,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
                                   imageList: widget.imageList,
                                   height: 400,
                                 ),
-                      
+
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
                           Section(
                             title: "Costo",
@@ -89,10 +96,14 @@ class _LayaoutServiceState extends State<LayaoutService> {
                           ),
 
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
-                         Padding(
-                           padding: const EdgeInsets.only(left: 70, top: 15, bottom: 15),
-                           child: TextSection(text: "${serviceProvider.service?.descripcion}", fontSize: 15, color: AppColors.greyDark)
-                         ),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 70, top: 15, bottom: 15),
+                              child: TextSection(
+                                  text:
+                                      "${serviceProvider.service?.descripcion}",
+                                  fontSize: 15,
+                                  color: AppColors.greyDark)),
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
                           // serviceProvider.service?.cancelable == true ? "Cancelable" : "No cancelable"
 
@@ -159,7 +170,7 @@ class Section extends StatelessWidget {
       children: [
         Flexible(
           child: Padding(
-              padding: const EdgeInsets.only(bottom: 10, top: 10, left: 23),
+              padding: EdgeInsets.only(bottom: 10, top: 10, left: 23),
               child: Icon(
                 icon,
                 color: AppColors.primary,
@@ -169,7 +180,7 @@ class Section extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Padding(
-            padding: const EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 8),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -179,7 +190,7 @@ class Section extends StatelessWidget {
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: 5),
                 TextSection(
                   text: subtitle,
                   fontSize: 15,
@@ -193,4 +204,3 @@ class Section extends StatelessWidget {
     );
   }
 }
-

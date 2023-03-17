@@ -26,6 +26,7 @@ class SearchPay extends StatelessWidget {
       'Noviembre',
       'Diciembre',
     ];
+    Provider.of<PagoProvider>(context, listen: false).searchServices('');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.greyLight,
