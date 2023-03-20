@@ -29,34 +29,53 @@ class _form_cambioPasswordState extends State<form_cambioPassword> {
       key: form_key,
       child: Column(
         children: [
-          TextFormField(
-            controller: actualPcontroller,
-            decoration: const InputDecoration(hintText: 'Contraseña actual'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Campo Requerido';
-              } else {
-                if (value.length < 8) {
-                  return 'contraseña no valida';
-                }
-              }
-              return null;
-            },
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+            child: Padding(
+              padding:  const EdgeInsets.symmetric(horizontal: 15, vertical : 10),
+              child: TextFormField(
+                controller: actualPcontroller,
+                decoration: const InputDecoration(hintText: 'Contraseña actual',
+                border: InputBorder.none
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Campo Requerido';
+                  } else {
+                    if (value.length < 8) {
+                      return 'contraseña no valida';
+                    }
+                  }
+                  return null;
+                },
+              ),
+            ),
           ),
-          TextFormField(
-            obscureText: true,
-            controller: nuevoPController,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Campo Requerido';
-              } else {
-                if (value.length < 8) {
-                  return 'contraseña no valida';
-                }
-                return null;
-              }
-            },
-            decoration: const InputDecoration(hintText: 'Contraseña'),
+          const SizedBox(
+            height: 20
+            ),
+          Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 10),
+              child: TextFormField(
+                obscureText: true,
+                controller: nuevoPController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Campo Requerido';
+                  } else {
+                    if (value.length < 8) {
+                      return 'contraseña no valida';
+                    }
+                    return null;
+                  }
+                },
+                decoration: const InputDecoration(hintText: 'Contraseña',
+                border: InputBorder.none
+                ),
+              ),
+            ),
           ),
           const SizedBox(
             height: 25,

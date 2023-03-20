@@ -37,7 +37,7 @@ class CambioTelefonoPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Escribe el numero de teléfono ahí recibirás un código de verificación'),
+                          'Ingresa tu nuevo numero telefonico'),
                 ),
                 SizedBox(height: 5),
                 form_cambioTelefono(),

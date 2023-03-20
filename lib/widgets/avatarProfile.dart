@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:payschool/Controllers/update_photo_controller.dart';
-import 'package:payschool/DTOs/TutorDto.dart';
 import 'package:payschool/data/Config.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 class avatarProfile extends StatelessWidget {
 
   Future _getIMG() async {
@@ -42,16 +39,16 @@ class avatarProfile extends StatelessWidget {
     request.files.add(multipartFile);
 
     await request.send();
-    //_getFoto();
+    _getFoto();
   }
 
-  /*_getFoto() {
+  _getFoto() {
     return NetworkImage('$url/fotos', headers: {
       "Content-Type": "application/json",
       "x-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijk1ZWY4NTIwLTI2NjUtNDFiNC04OThlLTc0YjJkMjc1NTgxMCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc4NjgwNzM2fQ.AkOct9Ydnj5RgUMRT9WZ_zKJqK98qmvBSE9_IApV1pI"
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijk1ZWY4NTIwLTI2NjUtNDFiNC04OThlLTc0YjJkMjc1NTgxMCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc5MjYyMzU0fQ.bPmELsSn-HH1qnQ5oPc09wt3yaVlbHOQNcidxROfNcI"
     });
-  }*/
+  }
 
   final url = UrlValue.baseUrl;
   avatarProfile({
@@ -73,10 +70,14 @@ class avatarProfile extends StatelessWidget {
               () => CircleAvatar(
                 radius: 45,
                 backgroundColor: Colors.transparent,
-                backgroundImage: updatePhotoController.isProficPicPathSet.value == true?
+                backgroundImage: 
+                updatePhotoController.isProficPicPathSet.value == true?
                        FileImage(File(updatePhotoController.profilePicPath.value))as ImageProvider:
-               const AssetImage(
-              "assets/images/no-image.jpg")),
-            )));
+               NetworkImage('$url/fotos', headers: {
+      "Content-Type": "application/json",
+      "x-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijk1ZWY4NTIwLTI2NjUtNDFiNC04OThlLTc0YjJkMjc1NTgxMCIsInJvbCI6IlR1dG9yIiwiaWF0IjoxNjc5MjYyMzU0fQ.bPmELsSn-HH1qnQ5oPc09wt3yaVlbHOQNcidxROfNcI"
+    }))),
+            ));
   }
 }

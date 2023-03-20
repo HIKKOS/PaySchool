@@ -31,13 +31,13 @@ class CambioPasswordPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Column(
-              children: [
+            child: ListView(
+              children: const [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Ingresa tu correo electronico, en el recibiras un enlace para poder cambiar tu contraseña'),
+                          'Bienvenido al cambio de contraseña. Es importante que tengas a mano tu contraseña actual para hacer el cambio'),
                 ),
                 SizedBox(height: 5),
                 form_cambioPassword(),
