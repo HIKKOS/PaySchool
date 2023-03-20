@@ -146,7 +146,7 @@ class ServicesProvider extends ChangeNotifier {
           builder: (BuildContext context) {
             return Container(
               height: 100,
-              child: Center(
+              child: const Center(
                 child: Text('Ya ha contratado una vez este servicio'),
               ),
             );
@@ -161,7 +161,7 @@ class ServicesProvider extends ChangeNotifier {
   Future fetchServices(int limit, int  page) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final url = Uri.parse('${baseUrl}/servicios?&limit=${limit}&page=${page}');
+    final url = Uri.parse('${baseUrl}/servicios?dataForm=mobil&limit=${limit}&page=${page}');
 
     final response = await http.get(
       url,
