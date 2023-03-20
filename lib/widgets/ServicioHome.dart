@@ -30,7 +30,7 @@ class CustomCard extends StatelessWidget {
                   width: 60,
                 ),
               ),
-              Container(
+              SizedBox(
                   width: 230,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -39,25 +39,25 @@ class CustomCard extends StatelessWidget {
                       children: [
                         Text(
                           text,
-                          style:
-                              TextStyle(color: Color(0xFF616161), fontSize: 20),
+                          style: const TextStyle(
+                              color: Color(0xFF616161), fontSize: 20),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           '\$$costo',
-                          style:
-                              TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
+                          style: const TextStyle(
+                              color: Color(0xFF9A9A9A), fontSize: 18),
                         ),
                       ],
                     ),
                   )),
               Padding(
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 20),
                   child: Text(
                       diasRestantes == null
                           ? ''
                           : 'Vence\n${diasRestantes ?? ''}',
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Color(0xFF9A9A9A),
                         fontSize: 16,

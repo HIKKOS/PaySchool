@@ -3,7 +3,6 @@ import 'package:payschool/pages/perfil_page.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
 import 'package:payschool/widgets/form_cambioCorreo.dart';
 
-
 class CambioCorreoPage extends StatelessWidget {
   const CambioCorreoPage({
     super.key,
@@ -11,7 +10,6 @@ class CambioCorreoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -35,21 +33,19 @@ class CambioCorreoPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child:  const Column(
+            child: Column(
               children: [
-                 Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
                           'Escribe el nuevo correo, en el recibiras un codigo de verificacion'),
                 ),
-                 SizedBox(height: 5),
-                 form_CambioCorreo(),
+                SizedBox(height: 5),
+                form_CambioCorreo(),
               ],
             ),
           ),
         ));
   }
 }
-
-

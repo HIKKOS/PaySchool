@@ -3,7 +3,6 @@ import 'package:payschool/pages/perfil_page.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
 import 'package:payschool/widgets/form_cambioPassword.dart';
 
-
 class CambioPasswordPage extends StatelessWidget {
   const CambioPasswordPage({
     super.key,
@@ -32,7 +31,7 @@ class CambioPasswordPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: const Column(
+            child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
@@ -48,5 +47,3 @@ class CambioPasswordPage extends StatelessWidget {
         ));
   }
 }
-
-
