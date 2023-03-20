@@ -35,17 +35,18 @@ class CambioCorreoPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child:  const Column(
-              children: [
+            child:   ListView(
+              children: const [
                  Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Escribe el nuevo correo, en el recibiras un codigo de verificacion'),
+                          'Ingresa un nuevo correo. Al final recibirás una notificacion al mismo confirmando el cambio.'),
                 ),
                  SizedBox(height: 5),
                  form_CambioCorreo(),
               ],
+              
             ),
           ),
         ));

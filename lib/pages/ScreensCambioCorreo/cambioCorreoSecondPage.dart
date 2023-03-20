@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:payschool/pages/ScreensCambioCorreo/cambio_correo_page.dart';
 import 'package:payschool/widgets/Buttons/button_alert.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
@@ -64,3 +64,4 @@ class CambioCorreoSecondPage extends StatelessWidget {
         ));
   }
 }
+ */

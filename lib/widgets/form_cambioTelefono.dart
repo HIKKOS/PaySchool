@@ -25,20 +25,27 @@ class _form_cambioTelefonoState extends State<form_cambioTelefono> {
       key: form_key,
       child: Column(
         children: [
-          TextFormField(
-            controller: numberController,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Campo Requerido';
-              } else {
-                if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
-                  return 'El numero no es valido';
-                }
-                return null;
-              }
-            },
-            decoration: const InputDecoration(
-              hintText: '99 92 86 32 84',
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: TextFormField(
+                controller: numberController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Campo Requerido';
+                  } else {
+                    if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
+                      return 'El numero no es valido';
+                    }
+                    return null;
+                  }
+                },
+                decoration: const InputDecoration(
+                  hintText: '99 92 86 32 84',
+                     border: InputBorder.none
+                ),
+              ),
             ),
           ),
           const SizedBox(

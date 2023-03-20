@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:payschool/Controllers/update_photo_controller.dart';
-import 'package:payschool/data/Config.dart';
 import 'package:payschool/pages/Login.dart';
 import 'package:payschool/pages/ScreensCambioCorreo/cambio_correo_page.dart';
 import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono.dart';
@@ -11,10 +8,7 @@ import 'package:payschool/pages/ScreensCambioPassword/cambio_password.dart';
 import 'package:payschool/pages/ScreensMetodoPago/cambio_metodo_pago.dart';
 import 'package:payschool/widgets/Card/card_options.dart';
 import 'package:payschool/widgets/avatarProfile.dart';
-import 'package:payschool/widgets/form_login.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-
 import '../providers/tutor_provider.dart';
 
 // ignore: must_be_immutable
@@ -30,10 +24,10 @@ class PerfilPage extends StatelessWidget {
     
     return Scaffold(
       
-        /* appBar: AppBar(
+         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-        ), */
+        ), 
         backgroundColor: Colors.transparent,
         body: Consumer<TutorProvider>(
             builder: (context, tutorProv, child) => tutorProv.isLoading
@@ -41,6 +35,7 @@ class PerfilPage extends StatelessWidget {
                 : Container(
                     padding: const EdgeInsets.only(left: 16, right: 16),
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         Container(
                           width: 100,
@@ -140,7 +135,7 @@ class PerfilPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 40,
                         ),
                         TextButton(
                           onPressed: () {

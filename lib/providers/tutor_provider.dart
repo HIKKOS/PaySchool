@@ -64,6 +64,7 @@ class TutorProvider extends ChangeNotifier {
           "x-token": token.toString()
         },
         body: jsonEncode(t));
+    logger.d(response.body);
     logger.d(response.statusCode);
     if (response.statusCode == 200) {
       _tutor = t;
@@ -103,6 +104,7 @@ class TutorProvider extends ChangeNotifier {
           "x-token": token.toString()
         },
         body: jsonEncode(t));
+    logger.d(response.body);
     logger.d(response.statusCode);
     if (response.statusCode == 200) {
       _tutor = t;
@@ -138,27 +140,27 @@ class TutorProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       print('200');
-       ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          elevation: 10,
-             duration: Duration(seconds: 5),
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-        backgroundColor: Color.fromARGB(200, 0, 0, 0),
-          content: Text('Se ha actualizado la contraseña')),
+            elevation: 10,
+            duration: Duration(seconds: 5),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+            backgroundColor: Color.fromARGB(200, 0, 0, 0),
+            content: Text('Se ha actualizado la contraseña')),
       );
       Navigator.of(context).pop();
       notifyListeners();
     } else {
       print('400');
-       ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          elevation: 10,
-             duration: Duration(seconds: 5),
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-        backgroundColor: Color.fromARGB(200, 0, 0, 0),
-          content: Text('verifique su contraseña actual')),
+            elevation: 10,
+            duration: Duration(seconds: 5),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+            backgroundColor: Color.fromARGB(200, 0, 0, 0),
+            content: Text('verifique su contraseña actual')),
       );
     }
   }

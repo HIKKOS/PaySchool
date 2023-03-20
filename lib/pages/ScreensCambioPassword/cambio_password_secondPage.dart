@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:payschool/pages/perfil_page.dart';
 import 'package:payschool/widgets/Buttons/button_alert.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
@@ -64,3 +64,4 @@ class CambioPasswordSecondPage extends StatelessWidget {
         ));
   }
 }
+ */
