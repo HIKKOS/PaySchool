@@ -31,6 +31,7 @@ class PagoProvider extends ChangeNotifier {
   get pagos => _pagos;
 
   void setSearchValue(String value) {
+    _isSearching = true;
     _searchValue = value;
     searchServices(value);
     notifyListeners();

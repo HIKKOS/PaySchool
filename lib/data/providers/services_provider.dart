@@ -34,6 +34,7 @@ class ServicesProvider extends ChangeNotifier {
   List<HorarioServicio> _horarios = [];
 
   void setSearchValue(String value) {
+    _isSearching = true;
     _searchValue = value;
     searchServices(value);
     notifyListeners();
