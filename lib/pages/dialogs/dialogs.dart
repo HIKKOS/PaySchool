@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payschool/data/providers/services_provider.dart';
-import 'package:payschool/providers/alumno_provider.dart';
 import 'package:payschool/widgets/text_section.dart';
-
-import 'package:provider/provider.dart';
-
 import '../global/app_colors.dart';
 import '../../widgets/custom_button.dart';
 
@@ -60,14 +56,14 @@ class Dialogs {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               IconButton(
-                                icon: Icon(Icons.remove),
+                                icon: const Icon(Icons.remove),
                                 onPressed: () {
                                   setState(() {
                                     cantidad--;
                                     if (cantidad < 1) {
                                       cantidad = 1;
                                     }
-                                    print(cantidad);
+                                    
                                   });
                                 },
                               ),
@@ -76,15 +72,14 @@ class Dialogs {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   cantidad.toString(),
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                               ),
                               IconButton(
-                                icon: Icon(Icons.add),
+                                icon: const Icon(Icons.add),
                                 onPressed: () {
                                   setState(() {
                                     cantidad++;
-                                    print(cantidad);
                                   });
                                 },
                               ),
@@ -103,10 +98,10 @@ class Dialogs {
                         itemCount: service.horarioServicio.length,
                         itemBuilder: (BuildContext context, int index) {
                           return CheckboxListTile(
-                            secondary: Icon(Icons.calendar_today),
+                            secondary: const Icon(Icons.calendar_today),
                             title: Text(horarios[index].dia),
                             subtitle: Text(
-                                'Hora inicio: ${horarios[index].horaInicio} - Hora fin: ${horarios[index].horaFin} '),
+                                'Hora inicio: ${horarios[index].inicio} - Hora fin: ${horarios[index].fin} '),
                             value: selectedHorarios.contains(horarios[index]),
                             onChanged: (bool? value) {
                               setState(() {
@@ -130,7 +125,6 @@ class Dialogs {
                                   Navigator.pop(context);
                                   alertConfirm(context, service, cantidad,
                                       selectedHorarios, alumno);
-                                  print(selectedHorarios);
                                 }
                               : null,
                           child: const Text(
