@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:payschool/domain/repositories/response/contrato.dart';
 import 'package:payschool/domain/repositories/response/service_response.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../domain/repositories/response/services_response_dto.dart';
 import '../../../pages/global/app_colors.dart';
 import '../Config.dart';
@@ -19,7 +19,10 @@ class ServicesProvider extends ChangeNotifier {
   String _searchValue = '';
   bool _isSearching = false;
   bool isLoading = true;
-  List<dynamic>? _services;
+
+  var _services;
+
+  var _servicios = [];
 
   bool get isSearching => _isSearching;
 
@@ -27,7 +30,10 @@ class ServicesProvider extends ChangeNotifier {
 
   ServiceResponseDto? _service;
 
+  List<HorarioServicio> _horarios = [];
+
   void setSearchValue(String value) {
+    _isSearching = true;
     _searchValue = value;
     searchServices(value);
     notifyListeners();
@@ -35,8 +41,6 @@ class ServicesProvider extends ChangeNotifier {
 
   void setStateFalse() {
     _isSearching = false;
-    _searchValue = '';
-    fetchServices('5', '1');
     notifyListeners();
   }
 
@@ -78,31 +82,108 @@ class ServicesProvider extends ChangeNotifier {
         ),
       ],
     ).then((value) {
+      var filteredServices = [];
       if (value == 'alfabeto') {
-        _services?.sort((a, b) => a.nombre.compareTo(b.nombre));
+        filteredServices = List.from(_servicios)
+          ..sort((a, b) => a.nombre.compareTo(b.nombre));
+        _servicios = filteredServices;
       } else if (value == 'precio') {
-        _services?.sort((a, b) => a.costo.compareTo(b.costo));
+        filteredServices = List.from(_servicios)
+          ..sort((a, b) => a.costo.compareTo(b.costo));
+        _servicios = filteredServices;
       }
       notifyListeners();
     });
   }
 
-  List<dynamic>? get services => _services;
+  get services => _services;
   ServiceResponseDto? get service => _service;
+  get servicios => _servicios;
+  List<dynamic> get horarios => _horarios;
 
-  Future fetchServices(String limit, String page) async {
+  Future contratarServicio(String idServicio, String idAlumno,
+      int vecesContrato, var horarios, BuildContext context) async {
+    var horariosDto = horarios
+        .map((h) => Horario(
+              dia: h.dia,
+              inicio: h.inicio,
+              fin: h.fin,
+            ))
+        .toList();
+
+    var contrato = ContratoDto(
+      vecesContratado: vecesContrato,
+      horario: horariosDto,
+    );
+
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final url = Uri.parse('${baseUrl}/servicios?&limit=${limit}&page=${page}');
+    final url = Uri.parse('$baseUrl/contratar/$idServicio/$idAlumno');
+    
+  
+    try {
+      final res = await http.post(url,
+          body: jsonEncode(contrato), headers: {"Content-Type": "application/json",'x-token':token.toString()});
+
+
+      if (res.statusCode == 200) {
+        // Parsear la respuesta JSON
+        Map<String, dynamic> data = json.decode(res.body);
+
+        // Obtener el enlace de pago
+        String linkDePago = data['aprove'];
+        logger.d('Servicios recibidos: $linkDePago');
+        // Abrir el enlace en el navegador web predeterminado
+        await launchUrl(
+      Uri.parse(linkDePago),
+      mode: LaunchMode.externalApplication,
+    );
+        logger.d(res.body);
+        isLoading = false;
+        notifyListeners();
+      } else {
+        if (res.statusCode == 400) {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return const SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text('Ya ha contratado una vez este servicio'),
+                ),
+              );
+            },
+          );
+        } else {
+          throw Exception('No se pudo contratar el servicio');
+        }
+      }
+    } catch (e) {
+      throw Exception('Ha ocurrido un error al realizar la petición HTTP: $e');
+    }
+  }
+
+  Future fetchServices(int limit, int page) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final url = Uri.parse(
+        '$baseUrl/servicios?dataForm=mobil&limit=$limit&page=$page');
 
     final response = await http.get(
       url,
       headers: {'x-token': token.toString()},
     );
+    if (page == 1) {
+      _servicios = [];
+    }
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final List<dynamic> data = json['Servicios'];
+
       _services = data.map((e) => ServicesResponseDto.fromJson(e)).toList();
+      _servicios.addAll(_services);
+
       isLoading = false;
       logger.d('Servicios recibidos: $data');
       notifyListeners();
@@ -146,9 +227,9 @@ class ServicesProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final data = json;
-
+      final List<dynamic> dataHorario = json['HorarioServicio'];
       _service = ServiceResponseDto.fromJson(json);
-
+      _horarios = dataHorario.map((e) => HorarioServicio.fromJson(e)).toList();
       isLoading = false;
       logger.d('Servicio recibido: $data');
       notifyListeners();

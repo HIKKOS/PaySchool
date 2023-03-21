@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/pages/service_section.dart';
+import 'package:payschool/data/providers/pay_provider.dart';
+import 'package:payschool/pages/pay_detail.dart';
 import 'package:payschool/widgets/image_section.dart';
-
-import '../data/providers/services_provider.dart';
 import '../pages/global/app_colors.dart';
 
-class CardItemService extends StatefulWidget {
-  final dynamic? service;
+class CardItemPago extends StatefulWidget {
+  final dynamic? pago;
   final String icon;
-  const CardItemService({super.key, required this.service, required this.icon});
+  const CardItemPago({super.key, required this.pago, required this.icon});
 
   @override
-  State<CardItemService> createState() => _CardItemServiceState();
+  State<CardItemPago> createState() => _CardItemPagoState();
 }
 
-class _CardItemServiceState extends State<CardItemService> {
+class _CardItemPagoState extends State<CardItemPago> {
   List<String> imageList = [];
-  final servicesProvider = ServicesProvider();
+  final pagosProvider =   PagoProvider();
 
   @override
   void initState() {
     super.initState();
 
-    for (var i = 0; i < widget.service?.ImgPaths.length; i++) {
+    for (var i = 0; i < widget.pago?.imgPaths.length; i++) {
       String idImage =
-          widget.service?.ImgPaths.isEmpty ? '' : widget.service?.ImgPaths[i];
-
-      servicesProvider
-          .getImagen('${widget.service?.id}', '${idImage}')
+          widget.pago?.imgPaths.isEmpty ? '' : widget.pago?.imgPaths[i];
+      pagosProvider
+          .getImagen('${widget.pago?.servicioId}', '${idImage}')
           .then((urlImage) {
         setState(() {
           imageList.add(urlImage);
@@ -38,19 +36,15 @@ class _CardItemServiceState extends State<CardItemService> {
 
   @override
   Widget build(BuildContext context) {
-    return createListTileItem(context, widget.service);
+    return createListTileItem(context, widget.pago);
   }
 
-  createListTileItem(BuildContext context, dynamic service) => InkWell(
+  createListTileItem(BuildContext context, dynamic pago) => InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => LayaoutService(
-                      service: service,
-                      idService: '${service?.id}',
-                      imageList: imageList,
-                    )));
+                builder: (context) => LayoutPayDetail(paymentDetail: pago)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -69,7 +63,7 @@ class _CardItemServiceState extends State<CardItemService> {
                         topLeft: const Radius.circular(20),
                         topRight: const Radius.circular(20),
                       )),
-                  child: service.ImgPaths.isEmpty
+                  child: pago.imgPaths.isEmpty
                       ? Image.asset('assets/images/no-image.jpg')
                       : ClipRRect(
                           borderRadius: const BorderRadius.only(
@@ -96,7 +90,7 @@ class _CardItemServiceState extends State<CardItemService> {
                     height: 8,
                   ),
                   Text(
-                    '${service?.nombre}',
+                    '${pago?.servicio}',
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -106,7 +100,7 @@ class _CardItemServiceState extends State<CardItemService> {
                     height: 8,
                   ),
                   Text(
-                    '\$${service?.costo}',
+                    '\$${pago?.monto}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -133,11 +127,7 @@ class _CardItemServiceState extends State<CardItemService> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LayaoutService(
-                                        service: service,
-                                        idService: '${service?.id}',
-                                        imageList: imageList,
-                                      )));
+                                  builder: (context) => LayoutPayDetail(paymentDetail: pago)));
                         },
                         child: Text('Ver más'),
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:payschool/widgets/form_login.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/alumno_provider.dart';
@@ -45,16 +46,7 @@ class CardBeneficiarioServicios extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Consumer<AlumnoProvider>(
-                      builder: (context, alumnoProv, child) => Text(
-                        ('${alumnoProv.getServiciosContratados?.length == 0 ? 'no tiene' : alumnoProv.getServiciosContratados!.length == 1 ? '1 servicio contratado' : '${alumnoProv.getServiciosContratados!.length} servicios contratados'}')
-                            .toString(),
-                        softWrap: true,
-                        style:
-                            TextStyle(color: Color(0xFF9A9A9A), fontSize: 18),
-                      ),
-                    ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               )),

@@ -26,7 +26,6 @@ class FormLogin extends StatefulWidget {
 class _FormLoginState extends State<FormLogin> {
   bool _passwordObscure = true;
   bool _isButtonEnabled = true;
-  String _errorMessage = 'Error';
   final urlBase = UrlValue.baseUrl;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -51,22 +50,24 @@ class _FormLoginState extends State<FormLogin> {
     });
 
     final success = await _performLogin(email, password);
-    logger.d(success);
     if (success) {
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                  create: (BuildContext context) =>
-                      AlumnoProvider()..fetchAlumnos(),
-                  child: (const MaterialApp(
-                      title: 'Material App', home: NavBar())))));
+      _pushPage(context);
     } else {
       setState(() {
         _isButtonEnabled = true;
       });
     }
+  }
+
+  Future _pushPage(BuildContext context) async {
+    await Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+                create: (BuildContext context) => AlumnoProvider(),
+                child: (const MaterialApp(
+                    title: 'Material App', home: NavBar())))));
   }
 
   Future<dynamic> _performLogin(var email, var password) async {
@@ -130,8 +131,6 @@ class _FormLoginState extends State<FormLogin> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
     return Form(
       key: formKey,
       child: Column(
@@ -194,7 +193,6 @@ class _FormLoginState extends State<FormLogin> {
                       setState(() {
                         _passwordObscure = !_passwordObscure;
                       });
-                      logger.d('pushed', _passwordObscure);
                     },
                     icon: _passwordObscure
                         ? const Icon(Icons.visibility)

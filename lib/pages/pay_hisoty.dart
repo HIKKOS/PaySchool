@@ -1,57 +1,196 @@
 import 'package:flutter/material.dart';
-
-import 'package:payschool/pages/global/app_colors.dart';
-import 'package:payschool/domain/repositories/payment_detail_repository.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:payschool/data/providers/pay_provider.dart';
+import 'package:payschool/pages/search_pay.dart';
+import 'package:payschool/widgets/card_item_pago.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
 import 'package:payschool/widgets/subtitle_section.dart';
-
-import '../widgets/list_service_paid.dart';
+import 'package:provider/provider.dart';
+import 'global/app_colors.dart';
 
 class PayHistory extends StatefulWidget {
-  const PayHistory({super.key});
+  const PayHistory({Key? key}) : super(key: key);
 
   @override
-  State<PayHistory> createState() => _PayHistory();
+  _PayHistoryState createState() => _PayHistoryState();
 }
 
-class _PayHistory extends State<PayHistory> {
+class _PayHistoryState extends State<PayHistory> {
+  final _scrollController = ScrollController();
+  final _scrollControlle = ScrollController();
+  int pageIndex = 1;
+
+  bool isLoadingMore = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<PagoProvider>(context, listen: false).fetchPagos(5, 1);
+    _scrollController.addListener(() {
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final currentScroll = _scrollController.position.pixels;
+      final delta = MediaQuery.of(context).size.height * 0.1;
+
+      if (!isLoadingMore &&
+          maxScroll - currentScroll <= delta &&
+          !Provider.of<PagoProvider>(context, listen: false).pays.isEmpty) {
+        setState(() {
+          isLoadingMore = true;
+        });
+
+        Provider.of<PagoProvider>(context, listen: false)
+            .fetchPagos(5, pageIndex += 1)
+            .then((value) => setState(() {
+                  isLoadingMore = false;
+                }));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<String> meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ];
     return Scaffold(
       backgroundColor: AppColors.greyLight,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: AppColors.greyLight,
-        title: CustomAppBar(
-          text: 'Historial de pagos',
-        ),
-      ),
-      body: ListView(
-        children: [
-          const SubtitleSection(
-            subtitle: 'Este mes',
-            color: AppColors.greyDark,
-            fontsize: 24,
-            fontWeight: FontWeight.bold,
+        title: const CustomAppBar(text: "Historial de pagos"),
+        actions: <Widget>[
+          Consumer<PagoProvider>(
+            builder: (context, pagoProvider, child) {
+              return CustomIconButton(
+                  icon: Icons.filter_list,
+                  funcion: () => pagoProvider.filter(context));
+            },
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ListViewServicesPaid(
-                paymentDetails: PaymentDetailRepository.getPaymentDetail()),
+           Consumer<PagoProvider>(
+            builder: (context, serviceProvider, child) {
+              return CustomIconButton(
+                  icon: Icons.search,
+                  funcion: () {
+                    serviceProvider.setStateFalse();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchPay()));
+                  });
+            },
           ),
-          const SubtitleSection(
-              subtitle: 'Enero',
-              color: AppColors.greyDark,
-              fontsize: 24,
-              fontWeight: FontWeight.bold),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: ListViewServicesPaid(
-                paymentDetails: PaymentDetailRepository.getPaymentDetail()),
-          )
         ],
       ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SafeArea(
+          child: Consumer<PagoProvider>(
+            builder: (context, pagoProvider, child) {
+              if (pagoProvider.isLoading) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircularProgressIndicator(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Cargando datos')
+                    ],
+                  ),
+                );
+              } else {
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    pageIndex = 1;
+                    await Provider.of<PagoProvider>(context, listen: false)
+                        .fetchPagos(5, pageIndex);
+                  },
+                  child: GroupedListView<dynamic, String>(
+                    controller: pagoProvider.pays.isEmpty
+                        ? _scrollControlle
+                        : _scrollController,
+                    elements: pagoProvider.pagos ,
+                    groupBy: (element) =>
+                        '${element.fechaPago.year}-${meses[element.fechaPago.month - 1]}-${element.fechaPago.day}',
+                    groupSeparatorBuilder: (String value) => Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: SubtitleSection(
+                          subtitle: value,
+                          color: AppColors.greyDark,
+                          fontsize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    itemBuilder: (context, element) => Column(
+                      children: [
+                        CardItemPago(
+                          pago: element,
+                          icon: 'assets/icons/backArrow.svg',
+                        ),
+                        const SizedBox(height: 15),
+                      ],
+                    ),
+                    order: pagoProvider.invertir == false
+                        ? GroupedListOrder.DESC
+                        : GroupedListOrder.ASC,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 15,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                  ),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+      bottomNavigationBar: isLoadingMore
+          ? const Center(
+              child: CircularProgressIndicator(
+                  value: 2,
+                  backgroundColor: Colors.transparent,
+                  color: AppColors.primary),
+            )
+          : null,
     );
   }
 }
+
+class CustomIconButton extends StatelessWidget {
+  const CustomIconButton(
+      {super.key, required this.icon, required this.funcion});
+  final IconData icon;
+  final Function funcion;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(icon, color: AppColors.greyDark),
+      onPressed: () {
+        funcion();
+      },
+    );
+  }
+}
+

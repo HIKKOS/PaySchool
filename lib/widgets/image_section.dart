@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:payschool/data/providers/services_provider.dart';
-import 'package:payschool/pages/global/app_colors.dart';
+import 'package:payschool/data/repositories/app_colors.dart';
 
 class ImageSection extends StatefulWidget {
-  const ImageSection({super.key, required this.imageList});
+  const ImageSection({super.key, required this.imageList, required this.height});
   final List<dynamic> imageList;
+  final double height;
+
   @override
   _ImagenSectionState createState() => _ImagenSectionState();
 }
@@ -32,6 +34,8 @@ class _ImagenSectionState extends State<ImageSection> {
                   .map((path) => Image.network(
                         path,
                         fit: BoxFit.cover,
+                        width: double.infinity,
+                        // headers: {"x-token": "${servicesProvider.token}"},
                       ))
                   .toList(),
               carouselController: carouselController,
@@ -40,13 +44,13 @@ class _ImagenSectionState extends State<ImageSection> {
                 // autoPlay: false,
                 // aspectRatio: 1,
                 // viewportFraction: 1,
-                height: 400,
+                height: widget.height,
                 aspectRatio: 1,
                 viewportFraction: 1,
                 initialPage: 0,
-                enableInfiniteScroll: true,
+                enableInfiniteScroll: false,
                 reverse: false,
-                autoPlay: true,
+                autoPlay: widget.imageList.length  == 1 ? false : true,
                 autoPlayInterval: Duration(seconds: 6),
                 autoPlayAnimationDuration: Duration(milliseconds: 800),
                 autoPlayCurve: Curves.fastOutSlowIn,
@@ -61,7 +65,7 @@ class _ImagenSectionState extends State<ImageSection> {
               ),
             ),
             Positioned(
-              bottom: 10,
+              bottom: 30,
               left: 0,
               right: 0,
               child: Row(
@@ -69,7 +73,7 @@ class _ImagenSectionState extends State<ImageSection> {
                 children: widget.imageList.asMap().entries.map((entry) {
                   return GestureDetector(
                     onTap: () => carouselController.animateToPage(entry.key),
-                    child: Container(
+                    child:  Container(
                       width: 10.0,
                       height: 10.0,
                       margin: EdgeInsets.symmetric(horizontal: 3.0),

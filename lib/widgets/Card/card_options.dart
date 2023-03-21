@@ -19,7 +19,7 @@ class CardOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      
+      elevation: 5,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Padding(
@@ -45,7 +45,7 @@ class CardOptions extends StatelessWidget {
                   width: 60,
                 ),
                 trailing: SvgPicture.asset(
-                  'assets/Icons/backArrow.svg',
+                  'assets/icons/backArrow.svg',
                   height: 20,
                   width: 20,
                 ),

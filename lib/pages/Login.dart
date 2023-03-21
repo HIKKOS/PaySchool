@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:payschool/providers/tutor_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../data/providers/services_provider.dart';
 import '../data/repositories/app_colors.dart';
 import '../providers/alumno_provider.dart';
 import '../widgets/BottomNavBar.dart';
 import '../widgets/form_login.dart';
-import 'catalog_service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -70,17 +68,6 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                /*  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    /* Text('¿Nuevo usuario?',
-                        style:
-                            TextStyle(fontSize: 18, color: AppColors.greyDark)), */
-                    /* Text('obtenga ayuda',
-                        style:
-                            TextStyle(fontSize: 18, color: AppColors.primary)), */
-                  ],
-                ) */
               ]),
         ),
       ),
