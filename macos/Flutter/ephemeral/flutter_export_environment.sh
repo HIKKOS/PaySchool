@@ -1,7 +1,12 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
 export "FLUTTER_ROOT=C:\src\flutter"
 export "FLUTTER_APPLICATION_PATH=C:\Users\noepa\OneDrive\Escritorio\PaySchool\PaySchool"
+=======
+export "FLUTTER_ROOT=C:\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\ProyectoUTM\PaySchool"
+>>>>>>> ad0c32910fd4450acefeb96d6f75fc798355a9ca
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"

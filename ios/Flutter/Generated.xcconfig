@@ -12,6 +12,7 @@ DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
 PACKAGE_CONFIG=.dart_tool/package_config.json
+<<<<<<< HEAD
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=C:\src\flutter
 FLUTTER_APPLICATION_PATH=C:\Users\noepa\OneDrive\Escritorio\PaySchool\PaySchool
@@ -26,3 +27,5 @@ DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
 PACKAGE_CONFIG=.dart_tool/package_config.json
+=======
+>>>>>>> ad0c32910fd4450acefeb96d6f75fc798355a9ca

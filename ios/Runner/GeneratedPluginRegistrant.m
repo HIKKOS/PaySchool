@@ -47,6 +47,7 @@
 }
 
 @end
+<<<<<<< HEAD
 //
 //  Generated file. Do not edit.
 //
@@ -89,3 +90,5 @@
 }
 
 @end
+=======
+>>>>>>> ad0c32910fd4450acefeb96d6f75fc798355a9ca
