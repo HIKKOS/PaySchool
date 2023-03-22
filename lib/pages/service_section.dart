@@ -31,7 +31,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
   void initState() {
     super.initState();
     Provider.of<ServicesProvider>(context, listen: false)
-        .getServicesById('$widget.idService');
+        .getServicesById(widget.idService);
   }
 
   String selectedPaymentMethod = "Paypal";
@@ -57,7 +57,9 @@ class _LayaoutServiceState extends State<LayaoutService> {
         backgroundColor: AppColors.greyLight,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-           backgroundColor: appBarColor ? const Color.fromRGBO(0, 0, 0, 0.1) : Colors.transparent,
+          backgroundColor: appBarColor
+              ? const Color.fromRGBO(0, 0, 0, 0.1)
+              : Colors.transparent,
           // widget.service?.ImgPaths.isEmpty
           //     ? (appBarColor
           //         ? Color.fromRGBO(0, 0, 0, 0.1)
