@@ -4,7 +4,6 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:payschool/domain/repositories/response/contrato.dart';
 import 'package:payschool/domain/repositories/response/service_response.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,14 +101,13 @@ class ServicesProvider extends ChangeNotifier {
   get servicios => _servicios;
   List<dynamic> get horarios => _horarios;
 
-  Future contratarServicio(String idServicio, String? idAlumno,
-   
-    int vecesContrato, var horarios, BuildContext context) async {
+  Future contratarServicio(String idServicio, String idAlumno,
+      int vecesContrato, var horarios, BuildContext context) async {
     var horariosDto = horarios
-        .map((h) => HorarioDto(
+        .map((h) => Horario(
               dia: h.dia,
-              inicio: h.horaInicio,
-              fin: h.horaFin,
+              inicio: h.inicio,
+              fin: h.fin,
             ))
         .toList();
 
@@ -121,47 +119,55 @@ class ServicesProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
     final url = Uri.parse('$baseUrl/contratar/$idServicio/$idAlumno');
+    
+  
+    try {
+      final res = await http.post(url,
+          body: jsonEncode(contrato), headers: {"Content-Type": "application/json",'x-token':token.toString()});
 
-    final res =
-        await http.post(url,
-            headers: {'x-token': token.toString()},
-            body: jsonEncode(contrato));
 
-    if (res.statusCode == 200) {
-      // Parsear la respuesta JSON
-      Map<String, dynamic> data = json.decode(res.body);
+      if (res.statusCode == 200) {
+        // Parsear la respuesta JSON
+        Map<String, dynamic> data = json.decode(res.body);
 
-      // Obtener el enlace de pago
-      String linkDePago = data['aprove'];
-      logger.d('Servicios recibidos: $linkDePago');
-      // Abrir el enlace en el navegador web predeterminado
-      launchUrl(Uri.parse(linkDePago));
-      logger.d(res.body);
-      isLoading = false;
-      notifyListeners();
-    } else {
-      if(res.statusCode == 400){
-      showModalBottomSheet(
-          context: context,
-          builder: (BuildContext context) {
-            return Container(
-              height: 100,
-              child: Center(
-                child: Text('Ya ha contratado una vez este servicio'),
-              ),
-            );
-          },
-        );
-      }else{
-        throw Exception('No se pudo contratar el servicio');
+        // Obtener el enlace de pago
+        String linkDePago = data['aprove'];
+        logger.d('Servicios recibidos: $linkDePago');
+        // Abrir el enlace en el navegador web predeterminado
+        await launchUrl(
+      Uri.parse(linkDePago),
+      mode: LaunchMode.externalApplication,
+    );
+        logger.d(res.body);
+        isLoading = false;
+        notifyListeners();
+      } else {
+        if (res.statusCode == 400) {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return const SizedBox(
+                height: 100,
+                child: Center(
+                  child: Text('Ya ha contratado una vez este servicio'),
+                ),
+              );
+            },
+          );
+        } else {
+          throw Exception('No se pudo contratar el servicio');
+        }
       }
+    } catch (e) {
+      throw Exception('Ha ocurrido un error al realizar la petición HTTP: $e');
     }
   }
 
-  Future fetchServices(int limit, int  page) async {
+  Future fetchServices(int limit, int page) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final url = Uri.parse('${baseUrl}/servicios?&limit=${limit}&page=${page}');
+    final url = Uri.parse(
+        '$baseUrl/servicios?dataForm=mobil&limit=$limit&page=$page');
 
     final response = await http.get(
       url,
@@ -221,7 +227,7 @@ class ServicesProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final data = json;
-       final List<dynamic> dataHorario = json['HorarioServicio'];
+      final List<dynamic> dataHorario = json['HorarioServicio'];
       _service = ServiceResponseDto.fromJson(json);
       _horarios = dataHorario.map((e) => HorarioServicio.fromJson(e)).toList();
       isLoading = false;

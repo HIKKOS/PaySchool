@@ -21,14 +21,14 @@ class ServicesResponseDto {
     factory ServicesResponseDto.fromMap(Map<String, dynamic> json) => ServicesResponseDto(
         id: json["Id"],
         nombre: json["Nombre"],
-        costo: json["Costo"],
+        costo: json["Costo"].toDouble(),
         ImgPaths: List<dynamic>.from(json["ImgPaths"].map((x) => x)),
       );
 
     factory ServicesResponseDto.fromJson(Map<String, dynamic> json) => ServicesResponseDto(
         id: json["Id"],
         nombre: json["Nombre"],
-        costo: json["Costo"],
+        costo: json["Costo"].toDouble(),
         ImgPaths: List<dynamic>.from(json["ImgPaths"].map((x) => x)),
     );
 
