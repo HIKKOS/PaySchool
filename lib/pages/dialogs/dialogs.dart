@@ -4,15 +4,15 @@ import 'package:payschool/widgets/text_section.dart';
 import '../global/app_colors.dart';
 import '../../widgets/custom_button.dart';
 
-
 final serviceProvider = ServicesProvider();
 
 class Dialogs {
-  void displayDialog(
-      BuildContext context, dynamic service, List<dynamic> horarios,dynamic alumno) {
+  void displayDialog(BuildContext context, dynamic service,
+      List<dynamic> horarios, dynamic alumno) {
     var selectedHorarios = [];
     bool canAsignar = false;
     int cantidad = 1;
+    double elements = service.horarioServicio.length * 100.toDouble();
     showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
@@ -21,7 +21,8 @@ class Dialogs {
           return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Container(
-                height: MediaQuery.of(context).size.height - 300,
+                height:
+                    service.horarioServicio.isNotEmpty ? (250 + elements) : 250,
                 decoration: const BoxDecoration(
                   color: AppColors.greyLight,
                   borderRadius: BorderRadius.only(
@@ -63,7 +64,6 @@ class Dialogs {
                                     if (cantidad < 1) {
                                       cantidad = 1;
                                     }
-                                    
                                   });
                                 },
                               ),
@@ -88,10 +88,12 @@ class Dialogs {
                         ),
                       ],
                     ),
-                    const ListTile(
-                      leading: Icon(Icons.access_time),
-                      title: Text("Elija un horario de servicio"),
-                    ),
+                    service.horarioServicio.isNotEmpty
+                        ? const ListTile(
+                            leading: Icon(Icons.access_time),
+                            title: Text("Elija un horario de servicio"),
+                          )
+                        : const Center(),
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (_, __) => const Divider(),
@@ -120,13 +122,24 @@ class Dialogs {
                     ButtonBar(
                       children: [
                         TextButton(
-                          onPressed: canAsignar
-                              ? () {
-                                  Navigator.pop(context);
-                                  alertConfirm(context, service, cantidad,
-                                      selectedHorarios, alumno);
-                                }
-                              : null,
+                          onPressed:
+                              service.horarioServicio.isNotEmpty && canAsignar
+                                  ? () {
+                                      Navigator.pop(context);
+                                      alertConfirm(context, service, cantidad,
+                                          selectedHorarios, alumno);
+                                    }
+                                  : service.horarioServicio.isEmpty
+                                      ? () {
+                                          Navigator.pop(context);
+                                          alertConfirm(
+                                              context,
+                                              service,
+                                              cantidad,
+                                              selectedHorarios,
+                                              alumno);
+                                        }
+                                      : null,
                           child: const Text(
                             'Solicitar',
                             style: TextStyle(
@@ -177,11 +190,14 @@ class Dialogs {
                     function: () {
                       // Aquí se realiza la asignación del servicio a los dias seleccionados
                       Navigator.pop(context);
-                      serviceProvider.contratarServicio(
-                              service.id,
-                              alumno.id,
-                              vecesContratado,
-                              horarios, context);
+                       
+                        serviceProvider.contratarServicio(
+                        service.id,
+                        alumno.id,
+                        vecesContratado,
+                        horarios,
+                      );
+                      
                     },
                     text: "Asignar",
                     fontsize: 15,

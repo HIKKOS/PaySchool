@@ -76,28 +76,26 @@ class _PayHistoryState extends State<PayHistory> {
         elevation: 0,
         backgroundColor: AppColors.greyLight,
         title: const CustomAppBar(text: "Historial de pagos"),
-        actions: <Widget>[
-          Consumer<PagoProvider>(
-            builder: (context, pagoProvider, child) {
-              return CustomIconButton(
-                  icon: Icons.filter_list,
-                  funcion: () => pagoProvider.filter(context));
-            },
-          ),
-           Consumer<PagoProvider>(
-            builder: (context, serviceProvider, child) {
-              return CustomIconButton(
-                  icon: Icons.search,
-                  funcion: () {
-                    serviceProvider.setStateFalse();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SearchPay()));
-                  });
-            },
-          ),
-        ],
+        // actions: <Widget>[
+        //   Consumer<PagoProvider>(
+        //     builder: (context, pagoProvider, child) {
+        //       return CustomIconButton(
+        //           icon: Icons.filter_list,
+        //           funcion: () => pagoProvider.filter(context));
+        //     },
+        //   ),
+        //   Consumer<PagoProvider>(
+        //     builder: (context, serviceProvider, child) {
+        //       return CustomIconButton(
+        //           icon: Icons.search,
+        //           funcion: () {
+        //             serviceProvider.setStateFalse();
+        //             Navigator.push(context,
+        //                 MaterialPageRoute(builder: (context) => SearchPay()));
+        //           });
+        //     },
+        //   ),
+        // ],
       ),
       body: GestureDetector(
         onTap: () {
@@ -130,11 +128,11 @@ class _PayHistoryState extends State<PayHistory> {
                     controller: pagoProvider.pays.isEmpty
                         ? _scrollControlle
                         : _scrollController,
-                    elements: pagoProvider.pagos ,
+                    elements: pagoProvider.pagos,
                     groupBy: (element) =>
                         '${element.fechaPago.year}-${meses[element.fechaPago.month - 1]}-${element.fechaPago.day}',
                     groupSeparatorBuilder: (String value) => Padding(
-                      padding: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.only(bottom: 15, left: 10),
                       child: SubtitleSection(
                           subtitle: value,
                           color: AppColors.greyDark,
@@ -145,7 +143,7 @@ class _PayHistoryState extends State<PayHistory> {
                       children: [
                         CardItemPago(
                           pago: element,
-                          icon: 'assets/icons/backArrow.svg',
+                          icon: 'assets/Icons/pay.svg',
                         ),
                         const SizedBox(height: 15),
                       ],
@@ -193,4 +191,3 @@ class CustomIconButton extends StatelessWidget {
     );
   }
 }
-

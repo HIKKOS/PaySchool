@@ -35,7 +35,7 @@ class LayoutPayDetail extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               customCardPay(
-                  icon: 'assets/icons/service.svg' ,
+                  icon: 'assets/Icons/service.svg',
                   title: paymentDetail.servicio),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -46,19 +46,19 @@ class LayoutPayDetail extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               customCardPay(
-                  icon: 'assets/icons/IconPerson.svg',
+                  icon: 'assets/Icons/IconPerson.svg',
                   title: paymentDetail.alumno),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: SubtitleSection(
-                    subtitle: 'Paga con',
+                    subtitle: 'Pago con',
                     color: AppColors.greyDark,
                     fontsize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              customCardPay(
-                  icon: 'assets/icons/IconPayMethod.svg' ,
-                  title: 'Metodo de pago'),
+              const customCardPay(
+                  icon: 'assets/Icons/IconPayMethod.svg',
+                  title: 'Paypal'),
               const Padding(
                 padding: EdgeInsets.only(left: 20, bottom: 5),
                 child: SubtitleSection(

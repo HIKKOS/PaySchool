@@ -6,6 +6,7 @@ import 'package:payschool/domain/repositories/response/contrato.dart';
 import 'package:payschool/domain/repositories/response/service_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:payschool/pages/service_section.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../domain/repositories/response/services_response_dto.dart';
@@ -102,7 +103,7 @@ class ServicesProvider extends ChangeNotifier {
   List<dynamic> get horarios => _horarios;
 
   Future contratarServicio(String idServicio, String idAlumno,
-      int vecesContrato, var horarios, BuildContext context) async {
+      int vecesContrato, var horarios) async {
     var horariosDto = horarios
         .map((h) => Horario(
               dia: h.dia,
@@ -143,17 +144,14 @@ class ServicesProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         if (res.statusCode == 400) {
-          showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return const SizedBox(
-                height: 100,
-                child: Center(
-                  child: Text('Ya ha contratado una vez este servicio'),
-                ),
-              );
-            },
-          );
+        ScaffoldMessenger.of(myGlobals.scaffoldKey.currentContext!).showSnackBar(
+        const SnackBar(content: Text('Ya ha contratado este servicio'),
+         elevation: 10,
+          duration: Duration(seconds: 2),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+          backgroundColor: Color.fromARGB(200, 0, 0, 0),),
+      );
         } else {
           throw Exception('No se pudo contratar el servicio');
         }
@@ -221,7 +219,7 @@ class ServicesProvider extends ChangeNotifier {
 
     final response = await http.get(
       url,
-      headers: {'x-token': token.toString()},
+      headers: {"Content-Type": "application/json",'x-token': token.toString()},
     );
 
     if (response.statusCode == 200) {

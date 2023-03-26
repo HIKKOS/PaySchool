@@ -105,7 +105,7 @@ class PagoProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      final List<dynamic> data = json['pagos'];
+      final List<dynamic> data = json;
 
       _pays = data.map((e) => PayResponseDto.fromJson(e)).toList();
       _pagos.addAll(_pays);

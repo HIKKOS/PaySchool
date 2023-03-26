@@ -115,7 +115,7 @@ class _CatalogServiceState extends State<CatalogService> {
                       children: [
                         CardItemService(
                           service: serviceProvider.servicios[index],
-                          icon: 'assets/icons/backArrow.svg',
+                          icon: 'assets/Icons/backArrow.svg',
                         ),
                         const SizedBox(height: 15),
                       ],

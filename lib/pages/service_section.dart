@@ -9,6 +9,8 @@ import '../widgets/custom_button.dart';
 import '../widgets/image_section.dart';
 import '../widgets/subtitle_section.dart';
 
+MyGlobals myGlobals = MyGlobals();
+
 class LayaoutService extends StatefulWidget {
   final String idService;
   final dynamic service;
@@ -53,6 +55,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
         }
       },
       child: Scaffold(
+        key: myGlobals.scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.greyLight,
         extendBodyBehindAppBar: true,
@@ -120,32 +123,32 @@ class _LayaoutServiceState extends State<LayaoutService> {
               ),
             ),
             Consumer<ServicesProvider>(
-                builder: (context, serviceProvider, child) =>
-                    serviceProvider.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: CustomButton(
-                                horizontal: 150,
-                                vertical: 14,
-                                text: "Solicitar",
-                                function: () {
-                                  final alumno = Provider.of<AlumnoProvider>(
-                                          context,
-                                          listen: false)
-                                      .getAlumnoSeleccionado;
-                                  Dialogs().displayDialog(
+                builder: (context, serviceProvider, child) => serviceProvider
+                        .isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CustomButton(
+                            horizontal: 150,
+                            vertical: 14,
+                            text: "Solicitar",
+                            function: () {
+                              final alumno = Provider.of<AlumnoProvider>(
                                       context,
-                                      serviceProvider.service,
-                                      serviceProvider.horarios,
-                                      alumno);
-                                },
-                                fontsize: 20,
-                              ),
-                            ),
-                          )),
+                                      listen: false)
+                                  .getAlumnoSeleccionado;
+                              Dialogs().displayDialog(
+                                  context,
+                                  serviceProvider.service,
+                                  serviceProvider.horarios,
+                                  alumno);
+                            },
+                            fontsize: 20,
+                          ),
+                        ),
+                      )),
           ],
         ),
       ),
@@ -202,4 +205,13 @@ class Section extends StatelessWidget {
       ],
     );
   }
+}
+
+
+class MyGlobals {
+  GlobalKey _scaffoldKey = GlobalKey();
+  MyGlobals() {
+    _scaffoldKey = GlobalKey();
+  }
+  GlobalKey get scaffoldKey => _scaffoldKey;
 }
