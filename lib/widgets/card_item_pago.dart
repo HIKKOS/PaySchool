@@ -58,7 +58,7 @@ class _CardItemPagoState extends State<CardItemPago> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
-                  'assets/Icons/PagoM.svg',
+                  'assets/Icons/check.svg',
                   height: 60,
                   width: 60,
                 ),

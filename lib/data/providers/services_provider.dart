@@ -102,6 +102,42 @@ class ServicesProvider extends ChangeNotifier {
   get servicios => _servicios;
   List<dynamic> get horarios => _horarios;
 
+  Future renovarServicio(String idServicio, String? idAlumno) async {
+    var contrato = {
+      'VecesContratado': 1,
+    };
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final url = Uri.parse('$baseUrl/renovar/$idServicio/$idAlumno');
+
+    try {
+      final res = await http.post(url, body: jsonEncode(contrato), headers: {
+        "Content-Type": "application/json",
+        'x-token': token.toString()
+      });
+
+      if (res.statusCode == 200) {
+        // Parsear la respuesta JSON
+        Map<String, dynamic> data = json.decode(res.body);
+        // Obtener el enlace de pago
+        String linkDePago = data['aprove'];
+        logger.d('Servicio recibido: $linkDePago');
+        // Abrir el enlace en el navegador web predeterminado
+        await launchUrl(
+          Uri.parse(linkDePago),
+          mode: LaunchMode.externalApplication,
+        );
+        logger.d(res.body);
+        isLoading = false;
+        notifyListeners();
+      } else {
+          throw Exception('No se pudo renovar el servicio');
+        }
+    } catch (e) {
+      throw Exception('Ha ocurrido un error al realizar la petición HTTP: $e');
+    }
+  }
+
   Future contratarServicio(String idServicio, String idAlumno,
       int vecesContrato, var horarios) async {
     var horariosDto = horarios
@@ -120,12 +156,12 @@ class ServicesProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
     final url = Uri.parse('$baseUrl/contratar/$idServicio/$idAlumno');
-    
-  
-    try {
-      final res = await http.post(url,
-          body: jsonEncode(contrato), headers: {"Content-Type": "application/json",'x-token':token.toString()});
 
+    try {
+      final res = await http.post(url, body: jsonEncode(contrato), headers: {
+        "Content-Type": "application/json",
+        'x-token': token.toString()
+      });
 
       if (res.statusCode == 200) {
         // Parsear la respuesta JSON
@@ -136,22 +172,25 @@ class ServicesProvider extends ChangeNotifier {
         logger.d('Servicios recibidos: $linkDePago');
         // Abrir el enlace en el navegador web predeterminado
         await launchUrl(
-      Uri.parse(linkDePago),
-      mode: LaunchMode.externalApplication,
-    );
+          Uri.parse(linkDePago),
+          mode: LaunchMode.externalApplication,
+        );
         logger.d(res.body);
         isLoading = false;
         notifyListeners();
       } else {
         if (res.statusCode == 400) {
-        ScaffoldMessenger.of(myGlobals.scaffoldKey.currentContext!).showSnackBar(
-        const SnackBar(content: Text('Ya ha contratado este servicio'),
-         elevation: 10,
-          duration: Duration(seconds: 2),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-          backgroundColor: Color.fromARGB(200, 0, 0, 0),),
-      );
+          ScaffoldMessenger.of(myGlobals.scaffoldKey.currentContext!)
+              .showSnackBar(
+            const SnackBar(
+              content: Text('Ya ha contratado este servicio'),
+              elevation: 10,
+              duration: Duration(seconds: 2),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+              backgroundColor: Color.fromARGB(200, 0, 0, 0),
+            ),
+          );
         } else {
           throw Exception('No se pudo contratar el servicio');
         }
@@ -164,8 +203,8 @@ class ServicesProvider extends ChangeNotifier {
   Future fetchServices(int limit, int page) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final url = Uri.parse(
-        '$baseUrl/servicios?dataForm=mobil&limit=$limit&page=$page');
+    final url =
+        Uri.parse('$baseUrl/servicios?dataForm=mobil&limit=$limit&page=$page');
 
     final response = await http.get(
       url,
@@ -219,7 +258,10 @@ class ServicesProvider extends ChangeNotifier {
 
     final response = await http.get(
       url,
-      headers: {"Content-Type": "application/json",'x-token': token.toString()},
+      headers: {
+        "Content-Type": "application/json",
+        'x-token': token.toString()
+      },
     );
 
     if (response.statusCode == 200) {

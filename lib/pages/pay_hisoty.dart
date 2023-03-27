@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:payschool/data/providers/pay_provider.dart';
-import 'package:payschool/pages/search_pay.dart';
 import 'package:payschool/widgets/card_item_pago.dart';
 import 'package:payschool/widgets/custom_appbar.dart';
 import 'package:payschool/widgets/subtitle_section.dart';
