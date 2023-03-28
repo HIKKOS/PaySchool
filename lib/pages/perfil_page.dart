@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:payschool/Controllers/update_photo_controller.dart';
+import 'package:payschool/data/tokenService.dart';
 import 'package:payschool/pages/Login.dart';
 import 'package:payschool/pages/ScreensCambioCorreo/cambio_correo_page.dart';
 import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono.dart';
@@ -13,7 +14,6 @@ import '../providers/tutor_provider.dart';
 
 // ignore: must_be_immutable
 class PerfilPage extends StatelessWidget {
-  
   PerfilPage({super.key});
 
   UpdatePhotoController updatePhotoController =
@@ -21,13 +21,12 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      
-         appBar: AppBar(
-          backgroundColor: Colors.white,
+      /*   appBar: AppBar(
+       
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
           elevation: 0,
-        ), 
+        ), */
         backgroundColor: Colors.transparent,
         body: Consumer<TutorProvider>(
             builder: (context, tutorProv, child) => tutorProv.isLoading
@@ -47,7 +46,7 @@ class PerfilPage extends StatelessWidget {
                             children: [
                               Consumer<TutorProvider>(
                                 builder: (context, tutorProv, child) =>
-                                     avatarProfile(),
+                                    avatarProfile(id:tutorProv.tutor!.id), 
                               ),
                               Consumer<TutorProvider>(
                                   builder: (context, tutorProv, child) =>
@@ -95,7 +94,7 @@ class PerfilPage extends StatelessWidget {
                             title: 'Correo Electrónico',
                             description: tutorProv.tutor!.correo,
                             urlImage: 'assets/icons/correo.svg',
-                            page: const CambioCorreoPage(),
+                            page:  CambioCorreoPage(),
                           ),
                         ),
                         const SizedBox(
@@ -185,4 +184,3 @@ class PerfilPage extends StatelessWidget {
                   )));
   }
 }
-

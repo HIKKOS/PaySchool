@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:payschool/data/tokenService.dart';
 import 'package:payschool/pages/perfil_page.dart';
 import 'package:payschool/widgets/Texts/EditableText.dart';
 import 'package:payschool/widgets/form_cambioCorreo.dart';
 
 
 class CambioCorreoPage extends StatelessWidget {
-  const CambioCorreoPage({
+
+   CambioCorreoPage({
     super.key,
+    
   });
 
+ 
   @override
   Widget build(BuildContext context) {
+    
 
     return Scaffold(
         appBar: AppBar(
@@ -34,6 +39,7 @@ class CambioCorreoPage extends StatelessWidget {
         ),
         body: Center(
           child: Container(
+            
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child:   ListView(
               children: const [
@@ -41,9 +47,9 @@ class CambioCorreoPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: TextoEditable(
                       label:
-                          'Ingresa un nuevo correo. Al final recibirás una notificacion al mismo confirmando el cambio.'),
+                          'Ingresa un nuevo correo.Al final se le enviará un mensaje al mismo confirmando el cambio.'),
                 ),
-                 SizedBox(height: 5),
+                 SizedBox(height: 5),  
                  form_CambioCorreo(),
               ],
               

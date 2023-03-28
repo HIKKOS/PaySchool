@@ -17,11 +17,10 @@ class TutorProvider extends ChangeNotifier {
   String urlPhoto = '';
   Tutor? _tutor;
   UserPasswordDto? _userPassword;
-
   Tutor? get tutor => _tutor;
-
   UserPasswordDto? get password => _userPassword;
-
+  var _idtutor;
+  
   Future fetchTutorInfo() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
@@ -35,10 +34,12 @@ class TutorProvider extends ChangeNotifier {
       final json = jsonDecode(response.body);
       Tutor t = Tutor.fromJson(json);
       _tutor = t;
-      logger.d(_tutor);
+      logger.d(t.id);
       isLoading = false;
+      _idtutor = t.id;
+      print(_idtutor);
       notifyListeners();
-    } else {}
+    }
   }
 
   Future ActualizarCorreo(String correo) async {
@@ -58,7 +59,7 @@ class TutorProvider extends ChangeNotifier {
     logger.d(json);
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final response = await http.put(Uri.parse('$url/tutores/mobile/'),
+    final response = await http.put(Uri.parse('$url/tutores/mobile'),
         headers: {
           "Content-Type": "application/json",
           "x-token": token.toString()
@@ -68,7 +69,6 @@ class TutorProvider extends ChangeNotifier {
     logger.d(response.statusCode);
     if (response.statusCode == 200) {
       _tutor = t;
-      logger.d(response.body);
       print(200);
       /*  final json = jsonDecode(response.body);
       Tutor t = Tutor.fromJson(json);
@@ -78,6 +78,39 @@ class TutorProvider extends ChangeNotifier {
       notifyListeners();
     } else {
       print('No se pudo actualizar el correo');
+    }
+  }
+
+  Future ActualizarEmail(String c) async {
+    Tutor t = Tutor(
+        id: _tutor!.id,
+        primerNombre: _tutor!.primerNombre,
+        segundoNombre: _tutor!.segundoNombre,
+        apellidoMaterno: tutor!.apellidoMaterno,
+        apellidoPaterno: tutor!.apellidoPaterno,
+        foto: _tutor!.foto,
+        correo: c,
+        telefono: _tutor!.telefono,
+        rfc: _tutor!.rfc,
+        direccion: _tutor!.direccion);
+    logger.d(t.correo);
+    logger.d(json);
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('jwt');
+    final response = await http.put(Uri.parse('$url/tutores/cambio-correo'),
+        headers: {
+          "Content-Type": "application/json",
+          "x-token": token.toString()
+        },
+        body: jsonEncode(t));
+    logger.d(response.body);
+    if (response.statusCode == 200) {
+      _tutor = t;
+      print(200);
+      print(' El correo electronico se actualizo de manera exitosa');
+      notifyListeners();
+    } else {
+      print('No se pudo actualizar el correo electronico');
     }
   }
 
@@ -98,7 +131,7 @@ class TutorProvider extends ChangeNotifier {
     logger.d(json);
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
-    final response = await http.put(Uri.parse('$url/tutores/mobile/'),
+    final response = await http.put(Uri.parse('$url/tutores/mobile'),
         headers: {
           "Content-Type": "application/json",
           "x-token": token.toString()

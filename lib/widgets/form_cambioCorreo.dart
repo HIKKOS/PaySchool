@@ -78,7 +78,7 @@ class _form_CambioCorreoState extends State<form_CambioCorreo> {
                   function: () {
                     final form = form_key.currentState;
                     if(form!.validate()){
-                        tutorProv.ActualizarCorreo(emailController.text);
+                        tutorProv.ActualizarEmail(emailController.text);
                     Navigator.pop(context);
                     print('push');
                     }

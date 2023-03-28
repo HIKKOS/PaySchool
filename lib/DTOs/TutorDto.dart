@@ -22,7 +22,7 @@ class Tutor {
     required this.direccion,
   });
 
-  final String id;
+  late final String id;
   final String primerNombre;
   final String segundoNombre;
   final String apellidoMaterno;
