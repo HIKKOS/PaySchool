@@ -115,7 +115,7 @@ class PerfilPage extends StatelessWidget {
                         Align(
                           alignment: Alignment.center,
                           child: CardOptions(
-                            title: 'Métodos de Pago ',
+                            title: 'Movimientos ',
                             description: '1 metodo de Pago',
                             urlImage: 'assets/Icons/PagoM.svg',
                             page: ChangeNotifierProvider(

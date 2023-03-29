@@ -37,8 +37,12 @@ class _form_cambioTelefonoState extends State<form_cambioTelefono> {
                   } else {
                     if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
                       return 'El numero no es valido';
+                    }else{
+                      if(value.length<10  || value.length >10){
+                          return 'El numero no es valido';
+                      }
+                      return null;
                     }
-                    return null;
                   }
                 },
                 decoration: const InputDecoration(
