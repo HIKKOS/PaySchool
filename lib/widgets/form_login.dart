@@ -66,7 +66,7 @@ class _FormLoginState extends State<FormLogin> {
         MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                 create: (BuildContext context) => AlumnoProvider(),
-                child: (const MaterialApp(
+                child: (const MaterialApp( debugShowCheckedModeBanner: false,
                     title: 'Material App', home: NavBar())))));
   }
 

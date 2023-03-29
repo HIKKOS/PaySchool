@@ -23,10 +23,10 @@ class _NavBarState extends State<NavBar> {
     ChangeNotifierProvider(
         create: (context) => ServicesProvider(),
         child:
-            (const MaterialApp(title: 'Material App', home: CatalogService()))),
+            (const MaterialApp( debugShowCheckedModeBanner: false, title: 'Material App', home: CatalogService()))),
     ChangeNotifierProvider(
         create: (context) => TutorProvider()..fetchTutorInfo(),
-        child: (MaterialApp(title: 'Material App', home: PerfilPage()))),
+        child: (MaterialApp(debugShowCheckedModeBanner: false,title: 'Material App', home: PerfilPage()))),
   ];
   @override
   Widget build(BuildContext context) {

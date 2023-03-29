@@ -208,7 +208,9 @@ class ServicesProvider extends ChangeNotifier {
 
     final response = await http.get(
       url,
-      headers: {'x-token': token.toString()},
+      headers: { 
+        "Content-Type": "application/json",
+        'x-token': token.toString()},
     );
     if (page == 1) {
       _servicios = [];
