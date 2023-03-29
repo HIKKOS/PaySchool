@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../widgets/custom_button.dart';
 
 final scaffoldRenew = ScaffoldRenew();
+
 class LayoutPayDetail extends StatelessWidget {
   final dynamic paymentDetail;
   final isRenew;
@@ -18,10 +19,9 @@ class LayoutPayDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final alumnoid = Provider.of<AlumnoProvider>(
-                                      context,
-                                      listen: false)
-                                  .getAlumnoSeleccionado?.id;
+    final alumnoid = Provider.of<AlumnoProvider>(context, listen: false)
+        .getAlumnoSeleccionado
+        ?.id;
     return Scaffold(
       key: scaffoldRenew.scaffoldKey,
       backgroundColor: AppColors.greyLight,
@@ -87,12 +87,16 @@ class LayoutPayDetail extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: CustomButton(
-                          horizontal: 150,
+                          horizontal: 50,
                           vertical: 14,
                           text: 'Renovar',
                           function: () {
-                            DialogRenew().alertConfirm(context,
-                                paymentDetail.servicio, paymentDetail.alumno, paymentDetail.idService, alumnoid);
+                            DialogRenew().alertConfirm(
+                                context,
+                                paymentDetail.servicio,
+                                paymentDetail.alumno,
+                                paymentDetail.idService,
+                                alumnoid);
                           },
                           fontsize: 20,
                         ),

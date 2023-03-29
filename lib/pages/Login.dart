@@ -50,7 +50,7 @@ class LoginPage extends StatelessWidget {
                   height: 40,
                 ),
                 const FormLogin(),
-                Padding(
+                /* Padding(
                   padding: const EdgeInsets.symmetric(vertical: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
                       )
                     ],
                   ),
-                ),
+                ), */
               ]),
         ),
       ),

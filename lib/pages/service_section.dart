@@ -123,32 +123,32 @@ class _LayaoutServiceState extends State<LayaoutService> {
               ),
             ),
             Consumer<ServicesProvider>(
-                builder: (context, serviceProvider, child) => serviceProvider
-                        .isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: CustomButton(
-                            horizontal: 150,
-                            vertical: 14,
-                            text: "Solicitar",
-                            function: () {
-                              final alumno = Provider.of<AlumnoProvider>(
+                builder: (context, serviceProvider, child) =>
+                    serviceProvider.isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: CustomButton(
+                                horizontal: 50,
+                                vertical: 14,
+                                text: "Solicitar",
+                                function: () {
+                                  final alumno = Provider.of<AlumnoProvider>(
+                                          context,
+                                          listen: false)
+                                      .getAlumnoSeleccionado;
+                                  Dialogs().displayDialog(
                                       context,
-                                      listen: false)
-                                  .getAlumnoSeleccionado;
-                              Dialogs().displayDialog(
-                                  context,
-                                  serviceProvider.service,
-                                  serviceProvider.horarios,
-                                  alumno);
-                            },
-                            fontsize: 20,
-                          ),
-                        ),
-                      )),
+                                      serviceProvider.service,
+                                      serviceProvider.horarios,
+                                      alumno);
+                                },
+                                fontsize: 20,
+                              ),
+                            ),
+                          )),
           ],
         ),
       ),
@@ -206,7 +206,6 @@ class Section extends StatelessWidget {
     );
   }
 }
-
 
 class MyGlobals {
   GlobalKey _scaffoldKey = GlobalKey();
