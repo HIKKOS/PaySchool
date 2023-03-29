@@ -67,12 +67,19 @@ class _CatalogServiceState extends State<CatalogService> {
                   funcion: () => serviceProvider.filter(context));
             },
           ),
-          CustomIconButton(
-              icon: Icons.search,
-              funcion: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchService()));
-              }),
+          Consumer<ServicesProvider>(
+            builder: (context, serviceProvider, child) {
+              return CustomIconButton(
+                  icon: Icons.search,
+                  funcion: () {
+                    serviceProvider.setStateFalse();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchService()));
+                  });
+            },
+          ),
         ],
       ),
       body: GestureDetector(
@@ -108,7 +115,7 @@ class _CatalogServiceState extends State<CatalogService> {
                       children: [
                         CardItemService(
                           service: serviceProvider.servicios[index],
-                          icon: 'assets/icons/backArrow.svg',
+                          icon: 'assets/Icons/backArrow.svg',
                         ),
                         const SizedBox(height: 15),
                       ],
@@ -129,7 +136,7 @@ class _CatalogServiceState extends State<CatalogService> {
         ),
       ),
       bottomNavigationBar: isLoadingMore
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(
                   value: 1.5,
                   backgroundColor: Colors.transparent,

@@ -33,7 +33,7 @@ class BeneficiarioPage extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: const Color(0xFFEDF2F8),
-        title: CustomAppBar(text: 'Detalles'),
+        title: const CustomAppBar(text: 'Detalles'),
       ),
       body: Center(
         child: SizedBox(
@@ -50,7 +50,7 @@ class BeneficiarioPage extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 12, top: 12, left: 10),
                     child: Text(
                       textAlign: TextAlign.left,
-                      'Servicios contratados',
+                      'Servicios contratados:',
                       style: TextStyle(
                           color: Color(0xFF616161),
                           fontSize: 24,

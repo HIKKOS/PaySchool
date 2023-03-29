@@ -66,7 +66,7 @@ class _FormLoginState extends State<FormLogin> {
         MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                 create: (BuildContext context) => AlumnoProvider(),
-                child: (const MaterialApp(
+                child: (const MaterialApp( debugShowCheckedModeBanner: false,
                     title: 'Material App', home: NavBar())))));
   }
 
@@ -76,6 +76,7 @@ class _FormLoginState extends State<FormLogin> {
       final res = await http.post(Uri.parse('$urlBase/login/Tutor'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(user));
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         final Map<String, dynamic> map = jsonDecode(res.body);
         final String jwt = map['jwt'];

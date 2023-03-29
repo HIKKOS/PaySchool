@@ -207,7 +207,8 @@ class HomePage extends StatelessWidget {
                                                                     text: servicio
                                                                         ?.nombre,
                                                                     costo: servicio
-                                                                        ?.costo,
+                                                                        ?.costo, 
+                                                                    idService: servicio?.id,
                                                                   );
                                                                 },
                                                               )),

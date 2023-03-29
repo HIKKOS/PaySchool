@@ -10,7 +10,6 @@ class CambioTelefonoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -32,7 +31,7 @@ class CambioTelefonoPage extends StatelessWidget {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: const Column(
+            child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
@@ -48,5 +47,3 @@ class CambioTelefonoPage extends StatelessWidget {
         ));
   }
 }
-
-

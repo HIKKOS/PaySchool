@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:payschool/data/providers/services_provider.dart';
 import 'package:payschool/data/repositories/app_colors.dart';
 import 'package:payschool/pages/dialogs/dialogs.dart';
@@ -10,9 +9,11 @@ import '../widgets/custom_button.dart';
 import '../widgets/image_section.dart';
 import '../widgets/subtitle_section.dart';
 
+MyGlobals myGlobals = MyGlobals();
+
 class LayaoutService extends StatefulWidget {
   final String idService;
-  final dynamic? service;
+  final dynamic service;
   final List<String> imageList;
 
   const LayaoutService(
@@ -31,9 +32,8 @@ class _LayaoutServiceState extends State<LayaoutService> {
   @override
   void initState() {
     super.initState();
-    final serviceProvider = ServicesProvider();
     Provider.of<ServicesProvider>(context, listen: false)
-        .getServicesById('${widget.idService}');
+        .getServicesById(widget.idService);
   }
 
   String selectedPaymentMethod = "Paypal";
@@ -55,12 +55,19 @@ class _LayaoutServiceState extends State<LayaoutService> {
         }
       },
       child: Scaffold(
+        key: myGlobals.scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.greyLight,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor:
-              appBarColor ? Color.fromRGBO(0, 0, 0, 0.5) : Colors.transparent,
+          backgroundColor: appBarColor
+              ? const Color.fromRGBO(0, 0, 0, 0.1)
+              : Colors.transparent,
+          // widget.service?.ImgPaths.isEmpty
+          //     ? (appBarColor
+          //         ? Color.fromRGBO(0, 0, 0, 0.1)
+          //         : Colors.transparent)
+          //     :  Colors.transparent,
           elevation: 0,
           title: Consumer<ServicesProvider>(builder: (context, value, child) {
             return Text(appBarColor ? "${value.service?.nombre}" : "");
@@ -82,33 +89,7 @@ class _LayaoutServiceState extends State<LayaoutService> {
                                   imageList: widget.imageList,
                                   height: 400,
                                 ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: 10, top: 10, left: 23),
-                                child: SvgPicture.asset(
-                                  'assets/icons/service.svg', // ruta del archivo SVG
-                                  height: 40,
-                                  width: 40,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: 2, top: 10, left: 8),
-                                  child: SubtitleSection(
-                                    subtitle:
-                                        "Servicio - ${serviceProvider.service?.nombre}",
-                                    fontsize: 20,
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
                           Section(
                             title: "Costo",
@@ -117,21 +98,14 @@ class _LayaoutServiceState extends State<LayaoutService> {
                           ),
 
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
-                          Section(
-                            title: "Descripción",
-                            subtitle: "${serviceProvider.service?.descripcion}",
-                            icon: Icons.edit,
-                          ),
-
-                          const Divider(color: Color(0xFFC1C7D1), height: 2),
-                          Section(
-                            title: "Tipo de servicio",
-                            subtitle:
-                                serviceProvider.service?.cancelable == true
-                                    ? "Cancelable"
-                                    : "No cancelable",
-                            icon: Icons.business,
-                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 70, top: 15, bottom: 15),
+                              child: TextSection(
+                                  text:
+                                      "${serviceProvider.service?.descripcion}",
+                                  fontSize: 15,
+                                  color: AppColors.greyDark)),
                           const Divider(color: Color(0xFFC1C7D1), height: 2),
                           // serviceProvider.service?.cancelable == true ? "Cancelable" : "No cancelable"
 
@@ -141,7 +115,6 @@ class _LayaoutServiceState extends State<LayaoutService> {
                                 "${serviceProvider.service?.frecuenciaDePago}",
                             icon: Icons.calendar_today,
                           ),
-
                           const SizedBox(
                             height: 80,
                           ),
@@ -150,29 +123,32 @@ class _LayaoutServiceState extends State<LayaoutService> {
               ),
             ),
             Consumer<ServicesProvider>(
-                builder: (context, serviceProvider, child) =>
-                    serviceProvider.isLoading
-                        ? const Center(child: CircularProgressIndicator())
-                        : Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: CustomButton(
-                                horizontal: 150,
-                                vertical: 14,
-                                text: "Solicitar",
-                                function: () {
-                                  final alumno = Provider.of<AlumnoProvider>(context, listen: false).getAlumnoSeleccionado;
-                                  Dialogs().displayDialog(
+                builder: (context, serviceProvider, child) => serviceProvider
+                        .isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: CustomButton(
+                            horizontal: 150,
+                            vertical: 14,
+                            text: "Solicitar",
+                            function: () {
+                              final alumno = Provider.of<AlumnoProvider>(
                                       context,
-                                      serviceProvider.service,
-                                      serviceProvider.horarios,
-                                      alumno);
-                                },
-                                fontsize: 20,
-                              ),
-                            ),
-                          )),
+                                      listen: false)
+                                  .getAlumnoSeleccionado;
+                              Dialogs().displayDialog(
+                                  context,
+                                  serviceProvider.service,
+                                  serviceProvider.horarios,
+                                  alumno);
+                            },
+                            fontsize: 20,
+                          ),
+                        ),
+                      )),
           ],
         ),
       ),
@@ -196,7 +172,7 @@ class Section extends StatelessWidget {
       children: [
         Flexible(
           child: Padding(
-              padding: EdgeInsets.only(bottom: 10, top: 10, left: 23),
+              padding: const EdgeInsets.only(bottom: 10, top: 10, left: 23),
               child: Icon(
                 icon,
                 color: AppColors.primary,
@@ -206,7 +182,7 @@ class Section extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Padding(
-            padding: EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.only(left: 8),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -216,7 +192,7 @@ class Section extends StatelessWidget {
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 TextSection(
                   text: subtitle,
                   fontSize: 15,
@@ -229,4 +205,13 @@ class Section extends StatelessWidget {
       ],
     );
   }
+}
+
+
+class MyGlobals {
+  GlobalKey _scaffoldKey = GlobalKey();
+  MyGlobals() {
+    _scaffoldKey = GlobalKey();
+  }
+  GlobalKey get scaffoldKey => _scaffoldKey;
 }

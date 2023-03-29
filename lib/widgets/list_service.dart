@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:payschool/domain/repositories/response/services_response_dto.dart';
-
 import 'card_item_service.dart';
 
 class ListService extends StatelessWidget {
@@ -17,7 +15,7 @@ class ListService extends StatelessWidget {
         children: [
           CardItemService(
             service: services?[index],
-            icon: 'assets/icons/backArrow.svg',
+            icon: 'assets/Icons/backArrow.svg',
           ),
           const SizedBox(height: 15),
         ],

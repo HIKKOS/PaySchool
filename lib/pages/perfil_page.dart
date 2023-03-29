@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:payschool/Controllers/update_photo_controller.dart';
-import 'package:payschool/data/tokenService.dart';
+import 'package:payschool/data/providers/pay_provider.dart';
 import 'package:payschool/pages/Login.dart';
 import 'package:payschool/pages/ScreensCambioCorreo/cambio_correo_page.dart';
 import 'package:payschool/pages/ScreensCambioNumeroT/cambio_telefono.dart';
 import 'package:payschool/pages/ScreensCambioPassword/cambio_password.dart';
-import 'package:payschool/pages/ScreensMetodoPago/cambio_metodo_pago.dart';
+import 'package:payschool/pages/pay_hisoty.dart';
 import 'package:payschool/widgets/Card/card_options.dart';
 import 'package:payschool/widgets/avatarProfile.dart';
 import 'package:provider/provider.dart';
@@ -22,11 +22,11 @@ class PerfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*   appBar: AppBar(
-       
-          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+      
+      /*    appBar: AppBar(
+          backgroundColor: Colors.white,
           elevation: 0,
-        ), */
+        ), */ 
         backgroundColor: Colors.transparent,
         body: Consumer<TutorProvider>(
             builder: (context, tutorProv, child) => tutorProv.isLoading
@@ -44,7 +44,7 @@ class PerfilPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Consumer<TutorProvider>(
+                               Consumer<TutorProvider>(
                                 builder: (context, tutorProv, child) =>
                                     avatarProfile(id:tutorProv.tutor!.id), 
                               ),
@@ -93,7 +93,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Correo Electrónico',
                             description: tutorProv.tutor!.correo,
-                            urlImage: 'assets/icons/correo.svg',
+                            urlImage:'assets/Icons/correo.svg',
                             page:  CambioCorreoPage(),
                           ),
                         ),
@@ -105,20 +105,26 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Numero de telefono ',
                             description: tutorProv.tutor!.telefono,
-                            urlImage: 'assets/icons/telefono.svg',
+                            urlImage: 'assets/Icons/telefono.svg',
                             page: const CambioTelefonoPage(),
                           ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.center,
                           child: CardOptions(
                             title: 'Métodos de Pago ',
                             description: '1 metodo de Pago',
-                            urlImage: 'assets/icons/PagoM.svg',
-                            page: CambioMetodoPage(),
+                            urlImage: 'assets/Icons/PagoM.svg',
+                            page: ChangeNotifierProvider(
+                                create: (BuildContext context) =>
+                                    PagoProvider(),
+                                child: (const MaterialApp(
+                                    debugShowCheckedModeBanner: false,
+                                    title: 'Material App',
+                                    home: PayHistory()))),
                           ),
                         ),
                         const SizedBox(
@@ -129,7 +135,7 @@ class PerfilPage extends StatelessWidget {
                           child: CardOptions(
                             title: 'Cambio Contraseña ',
                             description: '',
-                            urlImage: 'assets/icons/Contraseña.svg',
+                            urlImage:'assets/Icons/Contraseña.svg',
                             page: CambioPasswordPage(),
                           ),
                         ),

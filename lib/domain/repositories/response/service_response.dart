@@ -1,8 +1,6 @@
 // To parse this JSON data, do
 //
 //     final serviceResponseDto = serviceResponseDtoFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ServiceResponseDto serviceResponseDtoFromJson(String str) =>
@@ -38,7 +36,7 @@ class ServiceResponseDto {
         nombre: json["Nombre"],
         cancelable: json["Cancelable"],
         descripcion: json["Descripcion"],
-        costo: json["Costo"]?.toDouble(),
+        costo: json["Costo"].toDouble(),
         frecuenciaDePago: json["FrecuenciaDePago"],
         horarioServicio: List<HorarioServicio>.from(
             json["HorarioServicio"].map((x) => HorarioServicio.fromJson(x))),
@@ -51,7 +49,7 @@ class ServiceResponseDto {
         nombre: json["Nombre"],
         cancelable: json["Cancelable"],
         descripcion: json["Descripcion"],
-        costo: json["Costo"]?.toDouble(),
+        costo: json["Costo"].toDouble(),
         frecuenciaDePago: json["FrecuenciaDePago"],
         horarioServicio: List<HorarioServicio>.from(
             json["HorarioServicio"].map((x) => HorarioServicio.fromJson(x))),
@@ -76,22 +74,22 @@ class HorarioServicio {
     required this.id,
     required this.servicioId,
     required this.dia,
-    required this.horaInicio,
-    required this.horaFin,
+    required this.inicio,
+    required this.fin,
   });
 
   final String id;
   final String servicioId;
   final String dia;
-  final int horaInicio;
-  final int horaFin;
+  final int inicio;
+  final int fin;
 
   factory HorarioServicio.fromMap(Map<String, dynamic> json) => HorarioServicio(
         id: json["Id"],
         servicioId: json["ServicioId"],
         dia: json["Dia"],
-        horaInicio: json["HoraInicio"],
-        horaFin: json["HoraFin"],
+        inicio: json["Inicio"],
+        fin: json["Fin"],
       );
 
   factory HorarioServicio.fromJson(Map<String, dynamic> json) =>
@@ -99,23 +97,23 @@ class HorarioServicio {
         id: json["Id"],
         servicioId: json["ServicioId"],
         dia: json["Dia"],
-        horaInicio: json["HoraInicio"],
-        horaFin: json["HoraFin"],
+        inicio: json["Inicio"],
+        fin: json["Fin"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
         "ServicioId": servicioId,
         "Dia": dia,
-        "HoraInicio": horaInicio,
-        "HoraFin": horaFin,
+        "Inicio":inicio,
+        "Fin": fin,
       };
 
   Map<String, dynamic> toMap() {
     return {
       "Dia": dia,
-      "Inicio": horaInicio,
-      "Fin": horaFin,
+      "Inicio": inicio,
+      "Fin": fin,
     };
   }
 

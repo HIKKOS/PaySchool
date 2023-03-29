@@ -25,10 +25,13 @@ class PagoProvider extends ChangeNotifier {
 
   var _pagos = [];
 
+  bool get isSearching => _isSearching;
+
   get pays => _pays;
   get pagos => _pagos;
 
   void setSearchValue(String value) {
+    _isSearching = true;
     _searchValue = value;
     searchServices(value);
     notifyListeners();
@@ -102,7 +105,7 @@ class PagoProvider extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      final List<dynamic> data = json['pagos'];
+      final List<dynamic> data = json;
 
       _pays = data.map((e) => PayResponseDto.fromJson(e)).toList();
       _pagos.addAll(_pays);

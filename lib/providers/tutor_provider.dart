@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:payschool/DTOs/TutorDto.dart';
@@ -19,8 +20,7 @@ class TutorProvider extends ChangeNotifier {
   UserPasswordDto? _userPassword;
   Tutor? get tutor => _tutor;
   UserPasswordDto? get password => _userPassword;
-  var _idtutor;
-  
+
   Future fetchTutorInfo() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt');
@@ -36,8 +36,6 @@ class TutorProvider extends ChangeNotifier {
       _tutor = t;
       logger.d(t.id);
       isLoading = false;
-      _idtutor = t.id;
-      print(_idtutor);
       notifyListeners();
     }
   }

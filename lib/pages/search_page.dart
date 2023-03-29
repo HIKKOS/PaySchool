@@ -10,7 +10,7 @@ class SearchService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ServicesProvider>(context, listen: false).searchServices('ksdnasjs');
+    Provider.of<ServicesProvider>(context, listen: false).searchServices('');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.greyLight,
@@ -26,18 +26,22 @@ class SearchService extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextFieldSearch(
                 title: 'Buscar servicio...',
-                funcion: (value) => 
-                  serviceProvider.setSearchValue(value.toLowerCase()),
+                funcion: (value) =>
+                    serviceProvider.setSearchValue(value.toLowerCase()),
               ),
             );
           },
         ),
         actions: <Widget>[
-          CustomIconButton(
-              icon: Icons.close,
-              funcion: () {
-                Navigator.pop(context);
-              }),
+          Consumer<ServicesProvider>(
+              builder: (context, serviceProvider, child) {
+            return CustomIconButton(
+                icon: Icons.close,
+                funcion: () {
+                  serviceProvider.setStateFalse();
+                  Navigator.pop(context);
+                });
+          })
         ],
       ),
       body: GestureDetector(
@@ -47,7 +51,7 @@ class SearchService extends StatelessWidget {
         child: SafeArea(
           child: Consumer<ServicesProvider>(
             builder: (context, serviceProvider, child) =>
-                serviceProvider.services.isEmpty 
+                serviceProvider.services.isEmpty
                     ? Center(
                         child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +63,10 @@ class SearchService extends StatelessWidget {
                           Text('Servicios No encontrados')
                         ],
                       ))
-                    : ListService(services: serviceProvider.services),
+                    : ListService(
+                        services: serviceProvider.isSearching
+                            ? serviceProvider.services
+                            : serviceProvider.servicios),
           ),
         ),
       ),
