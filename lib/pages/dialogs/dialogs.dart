@@ -44,10 +44,10 @@ class Dialogs {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        const Padding(
+                         Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: TextSection(
-                            text: 'Veces de contrato',
+                            text:  service.frecuenciaDePago == 'MENSUAL' ? 'Cantidad de meses a contratar' : 'Cantidad de semanas a contratar' ,
                             fontSize: 15,
                             color: Colors.black,
                           ),
@@ -78,8 +78,18 @@ class Dialogs {
                               IconButton(
                                 icon: const Icon(Icons.add),
                                 onPressed: () {
+                                  service.frecuenciaDePago == 'MENSUAL' ?
                                   setState(() {
-                                    cantidad++;
+                                    
+                                    if (cantidad <= 11) {
+                                      cantidad++;
+                                    }
+                                  })
+                                  :
+                                    setState(() {
+                                    if (cantidad <= 3) {
+                                      cantidad++;
+                                    }
                                   });
                                 },
                               ),
