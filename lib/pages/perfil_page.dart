@@ -68,9 +68,6 @@ class PerfilPage extends StatelessWidget {
                                                             .primerNombre +
                                                         ' ' +
                                                         tutorProv.tutor!
-                                                            .segundoNombre +
-                                                        ' ' +
-                                                        tutorProv.tutor!
                                                             .apellidoPaterno +
                                                         ' ' +
                                                         tutorProv.tutor!
